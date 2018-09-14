@@ -1,12 +1,9 @@
 package com.linkedin.backend.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,11 +18,11 @@ public class User {
 
     private String phone;
 
-    public User() {
+    public AppUser() {
 
     }
 
-    public User(String email, String password, String firstName, String lastName, String phone) {
+    public AppUser(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;

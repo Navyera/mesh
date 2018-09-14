@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-public class UserController {
-    final private UserService userService;
+public class AppUserController {
+    final private AppUserService appUserService;
 
     final private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userService = userService;
+    public AppUserController(AppUserService appUserService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.appUserService = appUserService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -25,7 +25,7 @@ public class UserController {
         model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
 
         try {
-            userService.addUser(model.toUser());
+            appUserService.addUser(model.toUser());
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
             throw new DuplicateUserException();
         }
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{id}")
-    public User getUser(@Valid @PathVariable int id) throws UserNotFoundException {
-        return userService.findUserById(id);
+    public AppUser getUser(@Valid @PathVariable int id) throws UserNotFoundException {
+        return appUserService.findUserById(id);
     }
 }

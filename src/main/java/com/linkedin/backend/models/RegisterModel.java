@@ -1,6 +1,6 @@
 package com.linkedin.backend.models;
 
-import com.linkedin.backend.user.User;
+import com.linkedin.backend.user.AppUser;
 
 import javax.validation.constraints.NotNull;
 
@@ -81,7 +81,7 @@ public class RegisterModel {
         this.confirmPassword = confirmPassword;
     }
 
-    public User toUser() {
-        return new User(email, password, firstName, lastName, phone);
+    public AppUser toUser() {
+        return new AppUser(email, password, firstName, lastName, phone);
     }
 }
