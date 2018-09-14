@@ -1,0 +1,125 @@
+<div class="container">
+  <h1>Register</h1>
+  {{ this.model | json }}
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" required
+                placeholder="John" 
+                pattern="[a-zA-Z]*"
+                [(ngModel)]="model.firstName" name="firstName"
+                #firstName="ngModel">
+
+          <div *ngIf="firstName.dirty && firstName.errors?.required"
+          class="alert alert-danger">
+          First name is required
+          </div> 
+
+    </div>
+
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" required
+                placeholder="Doe"
+                pattern="[a-zA-Z]*"
+                [(ngModel)]="model.lastName" name="lastName"
+                #lastName="ngModel">
+       
+        <div *ngIf="lastName.dirty && lastName.errors?.required"
+        class="alert alert-danger">
+        Last name is required
+        </div>   
+              
+    </div>
+
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" class="form-control" id="phone" required
+                placeholder="123456789" 
+                pattern="[0-9]+"
+                [(ngModel)]="model.phone" name="phone"
+                #phone="ngModel">
+        
+          <div *ngIf="phone.dirty && phone.errors?.required"
+          class="alert alert-danger">
+          Phone is required
+          </div> 
+        
+    </div>
+    
+
+    
+
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="email" class="form-control" id="email" required email
+             placeholder="example@provider.com" 
+             [(ngModel)]="model.email" name="email"
+             #email="ngModel">
+
+      <div *ngIf="email.dirty && email.errors?.required"
+      class="alert alert-danger">
+      Email is required
+      </div> 
+    
+    </div>
+
+    <div ngModelGroup="passwords" id="passwords" 
+         #passwords="ngModelGroup" appCheckPassword>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" required
+              placeholder="**********" 
+              [(ngModel)]="model.password" name="password"
+              #password="ngModel">
+
+
+        <div *ngIf="password.dirty && password.errors?.required"
+        class="alert alert-danger">
+        Password is required
+        </div> 
+      </div>
+
+      <div class="form-group">
+          <label for="confirmPassword">Retype Password</label>
+          <input type="password" class="form-control" id="confirmPassword" required
+                placeholder="**********"
+                [(ngModel)]="model.confirmPassword" name="confirmPassword"
+                #confirmPassword="ngModel">
+
+          <div *ngIf="confirmPassword.dirty && confirmPassword.errors?.required 
+                    &&(password.dirty || password.touched)"
+          class="alert alert-danger">
+          Please confirm your password
+          </div> 
+
+          <div *ngIf="passwords.errors?.passwordCheck && 
+                      (confirmPassword.dirty || confirmPassword.touched)"
+                      class="alert alert-danger" >
+          Passwords do not match
+          </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="picture">Profile Picture</label>
+      <input type="file" class="form-control-file" id="picture"
+              placeholder="" 
+              [(ngModel)]="model.picture" name="picture"
+              #picture="ngModel">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"
+        [disabled]="!registerForm.valid">Submit</button>
+  
+        <a routerLink="/" class="btn btn-link">Cancel</a>
+        
+    </div>
+
+    
+  </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+  <h1>Login</h1>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="form-group">
+      <label for="email">E-mail</label>
+      <input type="text" class="form-control" id="email" required
+             placeholder="example@provider.com" 
+             [(ngModel)]="model.email" name="email"
+             #email="ngModel">
+      
+
+
+            <div *ngIf="email.dirty && email.errors?.required"
+                  class="alert alert-danger">
+            E-mail is required
+            </div>
+
+            <div *ngIf="this.submitted && email.touched && email.errors?.email"
+                  class="alert alert-danger">
+            E-mail must be a valid address.
+            </div>
+           <!-- <div [hidden]="email.valid || email.pristine"
+                  class="alert alert-danger">
+            E-mail is required
+            </div> -->
+
+           <!-- <div *ngIf="this.submitted && email.errors && email.errors.email" 
+                  class="alert alert-danger">
+            E-mail must be a valid address
+            </div>  -->
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" required
+             placeholder="Your password" 
+             [(ngModel)]="model.password" name="password"
+             #password="ngModel">
+
+            <div [hidden]="password.valid || password.pristine"
+                  class="alert alert-danger">
+            Password is required
+            </div>   
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary"
+      [disabled]="!loginForm.valid">Login</button>
+
+      <a routerLink="/register" class="btn btn-link">Register</a>
+      
+    </div>
+
+  </form>
+</div>
