@@ -15,9 +15,9 @@ public class User {
 
     private String password;
 
-    private String firstname;
+    private String firstName;
 
-    private String lastname;
+    private String lastName;
 
     private String phone;
 
@@ -25,11 +25,11 @@ public class User {
 
     }
 
-    public User(String email, String password, String firstname, String lastname, String phone) {
+    public User(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phone = phone;
     }
 
@@ -58,19 +58,19 @@ public class User {
     }
 
     public String getFirstname() {
-        return firstname;
+        return firstName;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+        this.firstName = firstname;
     }
 
     public String getLastname() {
-        return lastname;
+        return lastName;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+        this.lastName = lastname;
     }
 
     public String getPhone() {
