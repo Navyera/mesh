@@ -3,10 +3,13 @@ package com.linkedin.backend.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.linkedin.backend.models.LoginModel;
 import com.linkedin.backend.user.AppUser;
+import com.linkedin.backend.user.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,10 +28,12 @@ import static com.linkedin.backend.security.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     final private AuthenticationManager authenticationManager;
+    final private AppUserService appUserService;
 
     @Autowired
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AppUserService appUserService) {
         this.authenticationManager = authenticationManager;
+        this.appUserService = appUserService;
     }
 
     @Override
@@ -50,11 +55,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String token = JWT.create()
-                .withSubject(((User) authResult.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC256(SECRET.getBytes()));
+        String username = ((User) authResult.getPrincipal()).getUsername();
 
-        response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        if (username != null) {
+            String token = JWT.create()
+                    .withSubject(username)
+                    .withClaim("ROLE", appUserService.findUserByEmail(username).getRole())
+                    .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                    .sign(Algorithm.HMAC256(SECRET.getBytes()));
+
+            response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        }
     }
 }

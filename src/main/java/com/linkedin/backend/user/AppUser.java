@@ -1,6 +1,8 @@
 package com.linkedin.backend.user;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 @Entity
 public class AppUser {
@@ -18,6 +20,8 @@ public class AppUser {
 
     private String phone;
 
+    private String role;
+
     public AppUser() {
 
     }
@@ -28,6 +32,7 @@ public class AppUser {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.role = "ROLE_USER";
     }
 
     public Integer getId() {
@@ -54,27 +59,41 @@ public class AppUser {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstName;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstName = firstname;
-    }
-
-    public String getLastname() {
-        return lastName;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastName = lastname;
-    }
-
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public ArrayList<Role> getAuthority() {
+        ArrayList<Role> roles = new ArrayList<>();
+        roles.add(new Role(role));
+        return roles;
     }
 }

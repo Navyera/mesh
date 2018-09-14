@@ -34,6 +34,10 @@ public class AppUserService implements UserDetailsService {
         if (appUser == null)
             throw new UsernameNotFoundException(username);
 
-        return new User(appUser.getEmail(), appUser.getPassword(), Collections.emptyList());
+        return new User(appUser.getEmail(), appUser.getPassword(), appUser.getAuthority());
+    }
+
+    public AppUser findUserByEmail(String email) {
+        return appUserRepository.findByEmail(email);
     }
 }
