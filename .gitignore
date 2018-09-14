@@ -17,6 +17,9 @@
 *.iml
 *.ipr
 
+### MySQL Workbench ###
+db_schema.mwb
+
 ### NetBeans ###
 /nbproject/private/
 /build/
