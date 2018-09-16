@@ -1,6 +1,7 @@
 package com.linkedin.backend.user;
 
 import com.linkedin.backend.models.RegisterModel;
+import com.linkedin.backend.utils.JSONStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class AppUserController {
     }
 
     @PostMapping("/api/users/register")
-    public String register(@Valid @RequestBody RegisterModel model) throws DuplicateUserException {
+    public JSONStatus register(@Valid @RequestBody RegisterModel model) throws DuplicateUserException {
         // Hash and salt the password using BCrypt encoder.
         model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
 
@@ -30,7 +31,7 @@ public class AppUserController {
             throw new DuplicateUserException();
         }
 
-        return "OK";
+        return new JSONStatus("Registration succesful");
     }
 
     @GetMapping("/api/users/{id}")

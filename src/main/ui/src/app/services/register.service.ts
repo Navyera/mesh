@@ -11,6 +11,6 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   register(info: RegisterInfo) {
-    return this.http.post('localhost:8080/register', info);
+    return this.http.post('/api/users/register', info);
   }
 }

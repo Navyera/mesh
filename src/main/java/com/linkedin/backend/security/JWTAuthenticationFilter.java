@@ -30,7 +30,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     final private AuthenticationManager authenticationManager;
     final private AppUserService appUserService;
 
-    @Autowired
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AppUserService appUserService) {
         this.authenticationManager = authenticationManager;
         this.appUserService = appUserService;
