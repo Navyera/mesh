@@ -1,5 +1,7 @@
 package com.linkedin.backend.user;
 
+import com.linkedin.backend.models.RegisterModel;
+
 import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -95,5 +97,10 @@ public class AppUser {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
         return roles;
+    }
+
+    public RegisterModel toRegisterModel() {
+        return new RegisterModel(this.firstName, this.lastName, this.phone,
+                           "", this.email, "", "");
     }
 }

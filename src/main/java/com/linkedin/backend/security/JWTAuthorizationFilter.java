@@ -68,7 +68,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     ArrayList<Role> roles = new ArrayList<>();
                     roles.add(new Role(role));
 
-                    System.out.println(role);
 
                     return new UsernamePasswordAuthenticationToken(user, null, roles);
                 }

@@ -57,9 +57,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String username = ((User) authResult.getPrincipal()).getUsername();
 
         if (username != null) {
+            AppUser user = appUserService.findUserByEmail(username);
             String token = JWT.create()
                     .withSubject(username)
-                    .withClaim("ROLE", appUserService.findUserByEmail(username).getRole())
+                    .withClaim("ID", user.getId())
+                    .withClaim("ROLE", user.getRole())
                     .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                     .sign(Algorithm.HMAC256(SECRET.getBytes()));
 

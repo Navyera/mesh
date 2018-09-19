@@ -25,6 +25,26 @@ public class RegisterModel {
     @NotNull
     private String confirmPassword;
 
+    public RegisterModel(@NotNull String firstName,
+                         @NotNull String lastName,
+                         @NotNull String phone,
+                         String picture,
+                         @NotNull String email,
+                         @NotNull String password,
+                         @NotNull String confirmPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.picture = picture;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
+    public RegisterModel() {
+        this("", "", "", "", "", "", "");
+    }
+
     public String getFirstName() {
         return firstName;
     }
