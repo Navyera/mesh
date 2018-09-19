@@ -1,5 +1,6 @@
 package com.linkedin.backend.user;
 
+import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 
 import javax.persistence.*;
@@ -99,8 +100,7 @@ public class AppUser {
         return roles;
     }
 
-    public RegisterModel toRegisterModel() {
-        return new RegisterModel(this.firstName, this.lastName, this.phone,
-                           "", this.email, "", "");
+    public UserDetailsDTO toUserDetails() {
+        return new UserDetailsDTO(this.firstName, this.lastName, this.phone,"", this.email);
     }
 }

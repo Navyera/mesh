@@ -1,14 +1,10 @@
 package com.linkedin.backend.user;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.linkedin.backend.dto.UserUpdateDTO;
+import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,47 +42,47 @@ public class AppUserController {
     }
 
     @GetMapping("/settings")
-    public RegisterModel getSettings(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+    public UserDetailsDTO getSettings(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
-        return user.toRegisterModel();
+        return user.toUserDetails();
     }
 
     @PutMapping("/settings/user_details")
-    public void updateSettings(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserUpdateDTO userUpdateDTO) throws UserNotFoundException {
+    public void updateSettings(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserDetailsDTO userDetailsDTO) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        user.setFirstName(userUpdateDTO.getFirstName());
-        user.setLastName(userUpdateDTO.getLastName());
-        user.setPhone(userUpdateDTO.getPhone().toString());
+        user.setFirstName(userDetailsDTO.getFirstName());
+        user.setLastName(userDetailsDTO.getLastName());
+        user.setPhone(userDetailsDTO.getPhone());
 
         appUserService.addUser(user);
     }
 
     @PutMapping("/settings/email")
-    public void updateEmail(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserUpdateDTO userUpdateDTO) throws UserNotFoundException, DuplicateUserException{
+    public void updateEmail(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserDetailsDTO userDetailsDTO) throws UserNotFoundException, DuplicateUserException{
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        if (appUserService.findUserByEmail(userUpdateDTO.getEmail()) != null) {
+        if (appUserService.findUserByEmail(userDetailsDTO.getEmail()) != null) {
             throw new DuplicateUserException();
         }
 
-        user.setEmail(userUpdateDTO.getEmail());
+        user.setEmail(userDetailsDTO.getEmail());
 
         appUserService.addUser(user);
     }
 
     @PostMapping("/settings/password")
-    public void updatePassword(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserUpdateDTO userUpdateDTO) throws UserNotFoundException, PasswordMismatchException {
+    public void updatePassword(@Valid @RequestHeader(value="Authorization") String auth, @RequestBody UserDetailsDTO userDetailsDTO) throws UserNotFoundException, PasswordMismatchException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        if (!bCryptPasswordEncoder.matches(userUpdateDTO.getOldPassword(), user.getPassword()))
+        if (!bCryptPasswordEncoder.matches(userDetailsDTO.getOldPassword(), user.getPassword()))
             throw new PasswordMismatchException(user.getId());
 
-        user.setPassword(bCryptPasswordEncoder.encode(userUpdateDTO.getNewPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(userDetailsDTO.getNewPassword()));
 
         appUserService.addUser(user);
     }
