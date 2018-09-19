@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/users")
 public class AppUserController {
     final private AppUserService appUserService;
     final private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -25,7 +26,7 @@ public class AppUserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @PostMapping("/api/users/register")
+    @PostMapping("/register")
     public JSONStatus register(@Valid @RequestBody RegisterModel model) throws DuplicateUserException {
         // Hash and salt the password using BCrypt encoder.
         model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
@@ -39,13 +40,13 @@ public class AppUserController {
         return new JSONStatus("Registration succesful");
     }
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/{id}")
     public AppUser getUser(@Valid @PathVariable int id) throws UserNotFoundException {
         return appUserService.findUserById(id);
     }
 
-    @GetMapping("/api/users/profile")
-    public RegisterModel getProfile(@Valid @RequestHeader (value = "Authorization") String auth) throws UserNotFoundException {
+    @GetMapping("/settings")
+    public RegisterModel getSettings(@Valid @RequestHeader (value = "Authorization") String auth) throws UserNotFoundException {
 
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
