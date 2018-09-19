@@ -43,6 +43,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(appUserService).passwordEncoder(bCryptPasswordEncoder);
     }
-
-
 }
