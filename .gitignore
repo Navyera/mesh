@@ -19,7 +19,7 @@
 *.ipr
 
 ### MySQL Workbench ###
-db_schema.mwb
+db_schema.mwb.bak
 
 ### NetBeans ###
 /nbproject/private/
