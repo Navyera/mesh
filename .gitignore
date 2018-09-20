@@ -1,7 +1,10 @@
 /target/
 /src/main/ui/node_modules
 /src/main/resources/static/
+/src/main/resources/content/
+!/src/main/resources/content/.gitkeep
 !.mvn/wrapper/maven-wrapper.jar
+
 
 ### STS ###
 .apt_generated
