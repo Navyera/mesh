@@ -1,9 +1,11 @@
 package com.linkedin.backend.dto;
 
 import com.linkedin.backend.user.Skill;
+import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProfileDTO {
     private String firstName;
@@ -13,7 +15,7 @@ public class ProfileDTO {
     private String education;
     private String job;
 
-    private List<Skill> skills;
+    private List<String> skills;
 
     public ProfileDTO(String firstName, String lastName, String about, String education, String job, List<Skill> skills) {
         this.firstName = firstName;
@@ -21,7 +23,7 @@ public class ProfileDTO {
         this.about = about;
         this.education = education;
         this.job = job;
-        this.skills = skills;
+        this.skills = skills.stream().map(Skill::getSkillDescription).collect(Collectors.toList());
     }
 
     public String getFirstName() {
@@ -64,11 +66,11 @@ public class ProfileDTO {
         this.job = job;
     }
 
-    public List<Skill> getSkills() {
+    public List<String> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<String> skills) {
         this.skills = skills;
     }
 }
