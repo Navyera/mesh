@@ -36,6 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**", "/*.txt", "/*.js", "/index.html", "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/upload/*").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/content/*").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .addFilterAfter(authenticationFilter, ExceptionTranslationFilter.class)

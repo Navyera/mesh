@@ -2,16 +2,18 @@ package com.linkedin.backend.content;
 
 import com.linkedin.backend.user.AppUser;
 import com.linkedin.backend.user.AppUserService;
+import com.linkedin.backend.user.Profile;
 import com.linkedin.backend.user.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 
 @RestController
@@ -28,10 +30,12 @@ public class ContentController {
     }
 
     @PostMapping("/api/upload")
-    public Integer uploadFile(@RequestParam("file")MultipartFile file) throws FileStorageException, UserNotFoundException {
+    public Integer uploadFile(@RequestParam("file")MultipartFile file, @Valid @RequestHeader(value="Authorization") String auth) throws FileStorageException, UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
         String fileName = fileStorageService.storeFile(file);
 
-        AppUser user = appUserService.findUserById(1);
         File fileMetadata = new File();
 
         fileMetadata.setContentId(fileName);
@@ -68,5 +72,22 @@ public class ContentController {
         appUserService.addUser(user);
 
         return user;
+    }
+
+    @GetMapping("/api/content/profile_picture")
+    public ResponseEntity<Resource> getProfilePicture(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        File userProfilePicture = user.getProfile().getProfilePicture();
+
+        if (userProfilePicture == null)
+            return null;
+
+        Resource res = fileStorageService.loadFileAsResource(userProfilePicture.getContentId());
+
+        return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(userProfilePicture.getMimeType()))
+                    .body(res);
     }
 }

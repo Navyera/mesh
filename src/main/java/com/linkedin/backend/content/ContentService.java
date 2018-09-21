@@ -5,19 +5,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContentService {
-    private final FileRepository fileRepostiory;
+    private final FileRepository fileRepository;
 
     @Autowired
     public ContentService(FileRepository fileRepository) {
-        this.fileRepostiory = fileRepository;
+        this.fileRepository = fileRepository;
     }
 
     public void addFile(File file) {
-        fileRepostiory.save(file);
+        fileRepository.save(file);
     }
 
     public File findFileById(Integer id) throws FileNotFoundException {
-        return fileRepostiory.findById(id)
+        return fileRepository.findById(id)
                 .orElseThrow(() -> new FileNotFoundException(id.toString()));
     }
 }
