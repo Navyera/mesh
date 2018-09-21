@@ -1,6 +1,7 @@
 package com.linkedin.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.content.File;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Profile implements Serializable{
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_picture")
+    @JsonManagedReference
     private File profilePicture;
 
     public AppUser getUser() {

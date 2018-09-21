@@ -1,5 +1,6 @@
 package com.linkedin.backend.content;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.linkedin.backend.user.AppUser;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class File {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner", nullable = false)
+    @JsonBackReference
     private AppUser owner;
 
     public Integer getId() {
