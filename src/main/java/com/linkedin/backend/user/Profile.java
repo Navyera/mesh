@@ -6,6 +6,8 @@ import com.linkedin.backend.content.File;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Profile implements Serializable{

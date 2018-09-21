@@ -1,6 +1,7 @@
 package com.linkedin.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class AppUser implements Serializable{
@@ -30,6 +32,10 @@ public class AppUser implements Serializable{
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonManagedReference
     private Profile profile;
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Skill> skills;
 
     public AppUser() {
     }
@@ -112,15 +118,27 @@ public class AppUser implements Serializable{
         return roles;
     }
 
-    public UserDetailsDTO toUserDetails() {
-        return new UserDetailsDTO(this.firstName, this.lastName, this.phone,"", this.email);
-    }
-
     public Profile getProfile() {
         return profile;
     }
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public UserDetailsDTO toUserDetails() {
+        return new UserDetailsDTO(this.firstName, this.lastName, this.phone,"", this.email);
+    }
+
+    public ProfileDTO toProfileDTO() {
+        return new ProfileDTO(firstName, lastName, profile.getAbout(), profile.getEducation(), profile.getJob(), skills);
     }
 }

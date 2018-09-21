@@ -1,5 +1,6 @@
 package com.linkedin.backend.user;
 
+import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 import com.linkedin.backend.utils.JSONStatus;
@@ -38,7 +39,12 @@ public class AppUserController {
 
     @GetMapping("/{id}")
     public AppUser getUser(@Valid @PathVariable int id) throws UserNotFoundException {
-        return appUserService.findUserById(id);
+        AppUser user = appUserService.findUserById(id);
+
+        Skill skill = new Skill();
+
+        skill.setSkillDescription("sdafasdfas");
+        return user;
     }
 
     @GetMapping("/settings")
@@ -85,5 +91,13 @@ public class AppUserController {
         user.setPassword(bCryptPasswordEncoder.encode(userDetailsDTO.getNewPassword()));
 
         appUserService.addUser(user);
+    }
+
+    @GetMapping("/profile")
+    public ProfileDTO getProfile(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        return user.toProfileDTO();
     }
 }

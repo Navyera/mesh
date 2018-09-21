@@ -3,18 +3,12 @@ package com.linkedin.backend.content;
 import com.linkedin.backend.dto.ImageResourceDTO;
 import com.linkedin.backend.user.AppUser;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.Profile;
 import com.linkedin.backend.user.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import java.util.Base64;
 
@@ -95,7 +89,6 @@ public class ContentController {
 
         if (userProfilePicture == null)
             return null;
-
 
         byte[] fileContent = fileStorageService.loadFileAsByteArray(userProfilePicture.getContentId());
 
