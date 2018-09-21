@@ -9,7 +9,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class AppUser implements Serializable{
@@ -33,7 +35,7 @@ public class AppUser implements Serializable{
     @JsonManagedReference
     private Profile profile;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonManagedReference
     private List<Skill> skills;
 
@@ -128,6 +130,10 @@ public class AppUser implements Serializable{
 
     public List<Skill> getSkills() {
         return skills;
+    }
+
+    public void setSkillsFromStrList(List<String> skills) {
+        this.skills = skills.stream().map(skill -> new Skill(skill, this)).collect(Collectors.toList());
     }
 
     public void setSkills(List<Skill> skills) {

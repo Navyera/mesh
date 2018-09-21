@@ -17,6 +17,9 @@ public class ProfileDTO {
 
     private List<String> skills;
 
+    public ProfileDTO() {
+    }
+
     public ProfileDTO(String firstName, String lastName, String about, String education, String job, List<Skill> skills) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppUserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final SkillsRepository skillsRepository;
 
     @Autowired
-    public AppUserService(UserRepository userRepository) {
+    public AppUserService(UserRepository userRepository, SkillsRepository skillsRepository) {
         this.userRepository = userRepository;
+        this.skillsRepository = skillsRepository;
     }
 
     public void addUser(AppUser appUser) {
@@ -38,4 +40,9 @@ public class AppUserService implements UserDetailsService {
     public AppUser findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public void clearUserSkills(AppUser user) {
+        skillsRepository.deleteSkillsByUser(user);
+    }
+
 }

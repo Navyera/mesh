@@ -20,6 +20,14 @@ public class Skill {
     @JsonIgnore
     private AppUser user;
 
+    public Skill() {
+    }
+
+    public Skill(String skillDescription, AppUser user) {
+        this.skillDescription = skillDescription;
+        this.user = user;
+    }
+
     public Integer getSkillId() {
         return skillId;
     }

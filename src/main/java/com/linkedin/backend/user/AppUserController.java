@@ -100,4 +100,19 @@ public class AppUserController {
 
         return user.toProfileDTO();
     }
+
+    @PostMapping("/profile")
+    public void test(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody ProfileDTO profileDTO) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        appUserService.clearUserSkills(user);
+
+        user.getProfile().setAbout(profileDTO.getAbout());
+        user.getProfile().setEducation(profileDTO.getEducation());
+        user.getProfile().setJob(profileDTO.getJob());
+        user.setSkillsFromStrList(profileDTO.getSkills());
+
+        appUserService.addUser(user);
+    }
 }
