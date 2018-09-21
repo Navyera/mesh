@@ -37,7 +37,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/assets/**", "/*.txt", "/*.js", "/index.html", "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/content/*").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/content/*").authenticated()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(authenticationFilter, ExceptionTranslationFilter.class)
                 .addFilterAfter(new JWTAuthorizationFilter(authenticationManager(), appUserService), ExceptionTranslationFilter.class)
@@ -49,10 +49,4 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(appUserService).passwordEncoder(bCryptPasswordEncoder);
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
 }

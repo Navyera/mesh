@@ -1,8 +1,8 @@
 package com.linkedin.backend.dto;
 
 public class ImageResourceDTO {
-    String type;
-    String image;
+    private String type;
+    private String image;
 
     public ImageResourceDTO(String type, String image) {
         this.type = type;
