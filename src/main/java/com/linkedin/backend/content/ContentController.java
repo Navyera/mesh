@@ -6,7 +6,6 @@ import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.Profile;
 import com.linkedin.backend.user.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -17,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Base64;
 
 @RestController
 public class ContentController {
@@ -51,16 +50,26 @@ public class ContentController {
         return fileMetadata.getId();
     }
 
-    @PostMapping("/api/upload/profile_picture")
+    @PostMapping("/api/content/profile_picture")
     public AppUser uploadProfilePicture(@RequestParam("file") MultipartFile picture, @Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileStorageException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
+        File profilePicture = user.getProfile().getProfilePicture();
+        File fileMetadata;
+
+        if (profilePicture != null) {
+            fileMetadata = profilePicture;
+            this.fileStorageService.deleteFile(profilePicture.getContentId());
+        }
+        else {
+            fileMetadata = new File();
+        }
         // Store file and get the random generated name.
         String fileName = fileStorageService.storeFile(picture);
 
         // Insert metadata about the file in the database.
-        File fileMetadata = new File();
+
 
         fileMetadata.setContentId(fileName);
         fileMetadata.setOwner(user);
@@ -86,6 +95,7 @@ public class ContentController {
 
         if (userProfilePicture == null)
             return null;
+
 
         byte[] fileContent = fileStorageService.loadFileAsByteArray(userProfilePicture.getContentId());
 

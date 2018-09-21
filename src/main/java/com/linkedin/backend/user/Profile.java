@@ -21,7 +21,7 @@ public class Profile implements Serializable{
 
     private String education;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_picture")
     @JsonManagedReference
     private File profilePicture;

@@ -24,6 +24,16 @@ public class FileStorageService {
                 .toAbsolutePath().normalize();
     }
 
+    public void deleteFile(String fileName) throws FileStorageException {
+        try {
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.delete(targetLocation);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file");
+        }
+
+    }
+
     public String storeFile(MultipartFile file) throws FileStorageException{
         String fileName = UUID.randomUUID().toString();
 
