@@ -1,10 +1,12 @@
 package com.linkedin.backend.content;
 
+import com.linkedin.backend.dto.ImageResourceDTO;
 import com.linkedin.backend.user.AppUser;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.Profile;
 import com.linkedin.backend.user.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
+import java.util.*;
 
 @RestController
 public class ContentController {
@@ -75,7 +78,7 @@ public class ContentController {
     }
 
     @GetMapping("/api/content/profile_picture")
-    public ResponseEntity<Resource> getProfilePicture(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileNotFoundException {
+    public ImageResourceDTO getProfilePicture(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
@@ -84,10 +87,8 @@ public class ContentController {
         if (userProfilePicture == null)
             return null;
 
-        Resource res = fileStorageService.loadFileAsResource(userProfilePicture.getContentId());
+        byte[] fileContent = fileStorageService.loadFileAsByteArray(userProfilePicture.getContentId());
 
-        return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(userProfilePicture.getMimeType()))
-                    .body(res);
+        return new ImageResourceDTO(userProfilePicture.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
     }
 }

@@ -1,10 +1,12 @@
 package com.linkedin.backend.content;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -35,7 +37,7 @@ public class FileStorageService {
         return fileName;
     }
 
-    public Resource loadFileAsResource(String fileName) throws FileNotFoundException{
+    public Resource loadFileAsResource(String fileName) throws FileNotFoundException {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
 
@@ -47,6 +49,16 @@ public class FileStorageService {
                 throw new FileNotFoundException("File " + fileName + " could not be found");
 
         } catch (MalformedURLException e) {
+            throw new FileNotFoundException("File " + fileName + " could not be found");
+        }
+    }
+
+    public byte[] loadFileAsByteArray(String fileName) throws FileNotFoundException {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+
+            return FileUtils.readFileToByteArray(new File(filePath.toString()));
+        } catch (IOException e) {
             throw new FileNotFoundException("File " + fileName + " could not be found");
         }
     }
