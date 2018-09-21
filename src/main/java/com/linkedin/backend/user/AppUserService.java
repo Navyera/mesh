@@ -7,29 +7,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 @Service
 public class AppUserService implements UserDetailsService {
-    private final AppUserRepository appUserRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AppUserService(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
+    public AppUserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public void addUser(AppUser appUser) {
-        appUserRepository.save(appUser);
+        userRepository.save(appUser);
     }
 
     public AppUser findUserById(Integer id) throws UserNotFoundException{
-        return appUserRepository.findById(id)
+        return userRepository.findById(id)
                              .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findByEmail(username);
+        AppUser appUser = userRepository.findByEmail(username);
 
         if (appUser == null)
             throw new UsernameNotFoundException(username);
@@ -38,6 +36,6 @@ public class AppUserService implements UserDetailsService {
     }
 
     public AppUser findUserByEmail(String email) {
-        return appUserRepository.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 }

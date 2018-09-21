@@ -1,14 +1,16 @@
 package com.linkedin.backend.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Entity
-public class AppUser {
+public class AppUser implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -25,8 +27,16 @@ public class AppUser {
 
     private String role;
 
-    public AppUser() {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private Profile profile;
 
+    public AppUser() {
+    }
+
+    public AppUser(Profile profile) {
+        this.profile = profile;
+        profile.setUser(this);
     }
 
     public AppUser(String email, String password, String firstName, String lastName, String phone) {
@@ -36,6 +46,8 @@ public class AppUser {
         this.lastName = lastName;
         this.phone = phone;
         this.role = "ROLE_USER";
+        this.profile = new Profile();
+        profile.setUser(this);
     }
 
     public Integer getId() {
@@ -102,5 +114,13 @@ public class AppUser {
 
     public UserDetailsDTO toUserDetails() {
         return new UserDetailsDTO(this.firstName, this.lastName, this.phone,"", this.email);
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
