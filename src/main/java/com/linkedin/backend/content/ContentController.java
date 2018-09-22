@@ -94,4 +94,18 @@ public class ContentController {
 
         return new ImageResourceDTO(userProfilePicture.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
     }
+
+    @GetMapping("/api/content/profile_picture/{id}")
+    public ImageResourceDTO getProfilePicture(@Valid @PathVariable Integer id) throws UserNotFoundException, FileNotFoundException {
+        AppUser user = appUserService.findUserById(id);
+
+        File userProfilePicture = user.getProfile().getProfilePicture();
+
+        if (userProfilePicture == null)
+            return null;
+
+        byte[] fileContent = fileStorageService.loadFileAsByteArray(userProfilePicture.getContentId());
+
+        return new ImageResourceDTO(userProfilePicture.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
+    }
 }
