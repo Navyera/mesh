@@ -3,8 +3,11 @@ package com.linkedin.backend.user;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
+import com.linkedin.backend.post.Post;
+import com.linkedin.backend.post.PostType;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -102,7 +105,7 @@ public class AppUserController {
     }
 
     @PostMapping("/profile")
-    public void test(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody ProfileDTO profileDTO) throws UserNotFoundException {
+    public void updateProfile(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody ProfileDTO profileDTO) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
@@ -112,6 +115,18 @@ public class AppUserController {
         user.getProfile().setEducation(profileDTO.getEducation());
         user.getProfile().setJob(profileDTO.getJob());
         user.setSkillsFromStrList(profileDTO.getSkills());
+
+        appUserService.addUser(user);
+    }
+
+    @PostMapping("/test")
+    public void test(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        AppUser user2 = appUserService.findUserById(9);
+
+        user.addConnection(user2);
 
         appUserService.addUser(user);
     }

@@ -1,9 +1,12 @@
 package com.linkedin.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
+import com.linkedin.backend.post.Comment;
+import com.linkedin.backend.post.Post;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Entity
+@Entity(name = "User")
+@Table(name = "user")
 public class AppUser implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +43,49 @@ public class AppUser implements Serializable{
     @JsonManagedReference
     private List<Skill> skills;
 
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<Post> posts;
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    @JsonManagedReference
+    private List<Comment> comments;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "user_likes_post",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    @JsonManagedReference
+    private List<Post> likedPosts;
+
+
+    @OneToMany(
+            mappedBy = "requester",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Connection> requestedConnections;
+
+    @OneToMany(
+            mappedBy = "receiver",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Connection> receivedConnections;
+
     public AppUser() {
     }
 
@@ -56,6 +103,19 @@ public class AppUser implements Serializable{
         this.role = "ROLE_USER";
         this.profile = new Profile();
         profile.setUser(this);
+    }
+
+    public void addPost(Post post) {
+        post.setUser(this);
+        posts.add(post);
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Integer getId() {
@@ -114,6 +174,14 @@ public class AppUser implements Serializable{
         this.role = role;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     public ArrayList<Role> getAuthority() {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
@@ -146,5 +214,44 @@ public class AppUser implements Serializable{
 
     public ProfileDTO toProfileDTO() {
         return new ProfileDTO(firstName, lastName, profile.getAbout(), profile.getEducation(), profile.getJob(), skills);
+    }
+
+    public List<Post> getLikedPosts() {
+        return likedPosts;
+    }
+
+    public void setLikedPosts(List<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+    }
+
+    public void likePost(Post post) {
+        likedPosts.add(post);
+    }
+
+    public void commentPost(String body, Post post) {
+        Comment comment = new Comment(this, post, body);
+
+        comments.add(comment);
+    }
+
+    public List<Connection> getRequestedConnections() {
+        return requestedConnections;
+    }
+
+    public void setRequestedConnections(List<Connection> requestedConnections) {
+        this.requestedConnections = requestedConnections;
+    }
+
+    public List<Connection> getReceivedConnections() {
+        return receivedConnections;
+    }
+
+    public void setReceivedConnections(List<Connection> receivedConnections) {
+        this.receivedConnections = receivedConnections;
+    }
+
+    public void addConnection(AppUser user) {
+        Connection connection = new Connection(this, user);
+        requestedConnections.add(connection);
     }
 }
