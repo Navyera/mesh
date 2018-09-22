@@ -16,7 +16,7 @@ public class Skill {
     private String skillDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id")
+    @JoinColumn(name="user_id")
     @JsonIgnore
     private AppUser user;
 
