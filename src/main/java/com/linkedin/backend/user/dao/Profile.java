@@ -1,4 +1,4 @@
-package com.linkedin.backend.user;
+package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -6,8 +6,6 @@ import com.linkedin.backend.content.File;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Profile implements Serializable{

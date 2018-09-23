@@ -1,4 +1,4 @@
-package com.linkedin.backend.user;
+package com.linkedin.backend.user.dao;
 
 import org.springframework.security.core.GrantedAuthority;
 

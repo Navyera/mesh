@@ -1,7 +1,7 @@
 package com.linkedin.backend.content;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.linkedin.backend.user.AppUser;
+import com.linkedin.backend.user.dao.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

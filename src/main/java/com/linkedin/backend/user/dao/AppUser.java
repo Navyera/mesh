@@ -1,18 +1,15 @@
-package com.linkedin.backend.user;
+package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
-import com.linkedin.backend.models.RegisterModel;
 import com.linkedin.backend.post.Comment;
 import com.linkedin.backend.post.Post;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

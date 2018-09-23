@@ -3,7 +3,7 @@ package com.linkedin.backend.post;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.content.File;
-import com.linkedin.backend.user.AppUser;
+import com.linkedin.backend.user.dao.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

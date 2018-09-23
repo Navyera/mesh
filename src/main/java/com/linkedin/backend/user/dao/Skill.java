@@ -1,10 +1,8 @@
-package com.linkedin.backend.user;
+package com.linkedin.backend.user.dao;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 public class Skill {

@@ -1,9 +1,7 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.user.Skill;
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
+import com.linkedin.backend.user.dao.Skill;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

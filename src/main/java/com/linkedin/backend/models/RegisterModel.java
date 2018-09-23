@@ -1,6 +1,6 @@
 package com.linkedin.backend.models;
 
-import com.linkedin.backend.user.AppUser;
+import com.linkedin.backend.user.dao.AppUser;
 
 import javax.validation.constraints.NotNull;
 

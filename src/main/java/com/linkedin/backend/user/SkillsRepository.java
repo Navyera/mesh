@@ -1,5 +1,7 @@
 package com.linkedin.backend.user;
 
+import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.user.dao.Skill;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;

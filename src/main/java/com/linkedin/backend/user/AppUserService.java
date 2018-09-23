@@ -1,5 +1,7 @@
 package com.linkedin.backend.user;
 
+import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.user.handlers.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +24,7 @@ public class AppUserService implements UserDetailsService {
         userRepository.save(appUser);
     }
 
-    public AppUser findUserById(Integer id) throws UserNotFoundException{
+    public AppUser findUserById(Integer id) throws UserNotFoundException {
         return userRepository.findById(id)
                              .orElseThrow(() -> new UserNotFoundException(id));
     }

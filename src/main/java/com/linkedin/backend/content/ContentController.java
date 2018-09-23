@@ -1,9 +1,9 @@
 package com.linkedin.backend.content;
 
 import com.linkedin.backend.dto.ImageResourceDTO;
-import com.linkedin.backend.user.AppUser;
+import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.UserNotFoundException;
+import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
