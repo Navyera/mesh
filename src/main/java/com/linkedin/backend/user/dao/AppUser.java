@@ -251,4 +251,5 @@ public class AppUser implements Serializable{
         Connection connection = new Connection(this, user);
         requestedConnections.add(connection);
     }
+
 }

@@ -69,6 +69,10 @@ public class Connection {
         this.time = time;
     }
 
+    public Integer getAccepted() {
+        return accepted;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(requester, receiver);
