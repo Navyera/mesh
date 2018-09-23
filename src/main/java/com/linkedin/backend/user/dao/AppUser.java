@@ -2,7 +2,9 @@ package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
+import com.linkedin.backend.dto.PermissionsDTO;
 import com.linkedin.backend.dto.ProfileDTO;
+import com.linkedin.backend.dto.ProfileViewDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.post.Comment;
 import com.linkedin.backend.post.Post;
@@ -212,6 +214,10 @@ public class AppUser implements Serializable{
 
     public ProfileDTO toProfileDTO() {
         return new ProfileDTO(firstName, lastName, profile.getAbout(), profile.getEducation(), profile.getJob(), skills);
+    }
+
+    public ProfileViewDTO toProfileViewDTO() {
+        return new ProfileViewDTO(toProfileDTO(), new PermissionsDTO(getProfile().getPermissions()));
     }
 
     public List<Post> getLikedPosts() {

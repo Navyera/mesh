@@ -16,6 +16,19 @@ public class ConnectionService {
         this.connectionRepository = connectionRepository;
     }
 
+    public Boolean friends(Integer user1, Integer user2) {
+
+        Optional<Connection> connection = connectionRepository.findById(new ConnectionId(user1, user2));
+        if(connection.isPresent())
+            return connection.get().getAccepted() == 1;
+
+        connection = connectionRepository.findById(new ConnectionId(user2, user1));
+        if(connection.isPresent())
+            return connection.get().getAccepted() == 1;
+
+        return false;
+    }
+
     public Connection findConnectionById(Integer requesterId, Integer receiverId) throws ConnectionNotFoundException {
         Optional<Connection> connection = connectionRepository.findById(new ConnectionId(requesterId, receiverId));
         return connection.orElseThrow(ConnectionNotFoundException::new);

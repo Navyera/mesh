@@ -26,6 +26,8 @@ public class Profile implements Serializable{
     @JsonManagedReference
     private File profilePicture;
 
+    private int permissions = 0;
+
     public AppUser getUser() {
         return user;
     }
@@ -64,5 +66,13 @@ public class Profile implements Serializable{
 
     public void setProfilePicture(File profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public int getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(int permissions) {
+        this.permissions = permissions;
     }
 }
