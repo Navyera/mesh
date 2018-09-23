@@ -16,4 +16,11 @@ public class ConnectionAdvice {
     String duplicateConnection(DuplicateConnectionException ex) {
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(ConnectionNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    String missingConnection(ConnectionNotFoundException ex) {
+        return ex.getMessage();
+    }
 }

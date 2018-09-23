@@ -16,9 +16,9 @@ public class ConnectionService {
         this.connectionRepository = connectionRepository;
     }
 
-    public Connection findConnectionById(Integer requesterId, Integer receiverId) {
+    public Connection findConnectionById(Integer requesterId, Integer receiverId) throws ConnectionNotFoundException {
         Optional<Connection> connection = connectionRepository.findById(new ConnectionId(requesterId, receiverId));
-        return connection.orElse(null);
+        return connection.orElseThrow(ConnectionNotFoundException::new);
 
     }
 
@@ -26,11 +26,13 @@ public class ConnectionService {
         if (connectionRepository.existsById(new ConnectionId(requester.getId(), receiver.getId())))
             throw new DuplicateConnectionException();
         connectionRepository.save(new Connection(requester, receiver));
-
-
     }
 
-    public void activateConnection(Connection connection) {
+    public void removeConnection(Connection connection) {
+        connectionRepository.delete(connection);
+    }
+
+    public void activateConnection(Connection connection)  {
         connection.setAccepted(1);
         connectionRepository.save(connection);
     }

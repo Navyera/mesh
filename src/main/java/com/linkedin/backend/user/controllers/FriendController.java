@@ -1,6 +1,7 @@
 package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.connection.Connection;
+import com.linkedin.backend.connection.ConnectionNotFoundException;
 import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.connection.DuplicateConnectionException;
 import com.linkedin.backend.user.AppUserService;
@@ -31,9 +32,8 @@ public class FriendController {
     public JSONStatus addFriend(@Valid @RequestHeader(value="Authorization") String auth,
                                 @Valid @PathVariable Integer id)
                             throws UserNotFoundException, DuplicateConnectionException {
+
         JWTUtils token = new JWTUtils(auth);
-
-
         Integer requesterID = token.getUserID();
         Integer receiverID = id;
 
@@ -42,25 +42,70 @@ public class FriendController {
             return new JSONStatus("SELF_ERROR");
         }
         // Check if symmetric relationship exists
-        Connection connection = this.connectionService.findConnectionById(receiverID, requesterID);
+        try {
+            Connection connection = this.connectionService.findConnectionById(receiverID, requesterID);
 
-        if (connection == null) {
-            AppUser requester = appUserService.findUserById(requesterID);
-            AppUser receiver = appUserService.findUserById(receiverID);
-            connectionService.addConnection(requester, receiver);
-            return new JSONStatus("INACTIVE");
-        }
-        else {
             if(connection.getAccepted() == 1){
                 return new JSONStatus("ALREADY_ACTIVE");
             }
             connectionService.activateConnection(connection);
             return new JSONStatus("ACTIVATED");
+
         }
+        catch(ConnectionNotFoundException e) {
+            AppUser requester = appUserService.findUserById(requesterID);
+            AppUser receiver = appUserService.findUserById(receiverID);
+            connectionService.addConnection(requester, receiver);
+            return new JSONStatus("INACTIVE");
+
+        }
+
+
     }
 
+    @PostMapping("/accept/{id}")
+    public JSONStatus acceptFriend(@Valid @RequestHeader(value="Authorization") String auth,
+                                   @Valid @PathVariable Integer id) throws ConnectionNotFoundException {
+
+        JWTUtils token = new JWTUtils(auth);
+        Integer receiverID = token.getUserID();
+        Integer requesterID = id;
+
+        connectionService.activateConnection(connectionService.findConnectionById(requesterID, receiverID));
+
+        return new JSONStatus("Successful friend addition");
+    }
+
+
+    @PostMapping("/decline/{id}")
+    public JSONStatus declineFriend(@Valid @RequestHeader(value="Authorization") String auth,
+                                   @Valid @PathVariable Integer id) throws ConnectionNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        Integer receiverID = token.getUserID();
+        Integer requesterID = id;
+
+        connectionService.removeConnection(connectionService.findConnectionById(requesterID, receiverID));
+
+        return new JSONStatus("Successful friend decline");
+    }
+
+    @GetMapping("/pending")
+    public List<Integer> getPendingRequests(@Valid @RequestHeader(value="Authorization") String auth)
+                                                throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        return user.getReceivedConnections().stream()
+                                            .filter(c -> c.getAccepted() == 0)
+                                            .map(c -> c.getRequester().getId())
+                                            .collect(Collectors.toList());
+
+    }
+
+
     @GetMapping("")
-    public List<Integer> getFriends(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException{
+    public List<Integer> getFriends(@Valid @RequestHeader(value="Authorization") String auth)
+                                                            throws UserNotFoundException{
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
