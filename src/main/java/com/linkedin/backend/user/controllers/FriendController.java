@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users/friends")
@@ -27,7 +29,8 @@ public class FriendController {
 
     @PostMapping("/add/{id}")
     public JSONStatus addFriend(@Valid @RequestHeader(value="Authorization") String auth,
-                                @Valid @PathVariable Integer id) throws UserNotFoundException, DuplicateConnectionException {
+                                @Valid @PathVariable Integer id)
+                            throws UserNotFoundException, DuplicateConnectionException {
         JWTUtils token = new JWTUtils(auth);
 
 
@@ -54,7 +57,13 @@ public class FriendController {
             connectionService.activateConnection(connection);
             return new JSONStatus("ACTIVATED");
         }
+    }
 
+    @GetMapping("")
+    public List<Integer> getFriends(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException{
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
 
+        return user.getFriendIDs();
     }
 }

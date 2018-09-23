@@ -6,6 +6,7 @@ import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.post.Comment;
 import com.linkedin.backend.post.Post;
+import org.apache.commons.collections4.ListUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -250,6 +251,17 @@ public class AppUser implements Serializable{
     public void addConnection(AppUser user) {
         Connection connection = new Connection(this, user);
         requestedConnections.add(connection);
+    }
+
+    public List<Integer> getFriendIDs() {
+        List<Integer> activeReceived = receivedConnections.stream().filter(c -> c.getAccepted() == 1)
+                                                                   .map(c -> c.getRequester().getId())
+                                                                   .collect(Collectors.toList());
+
+        List<Integer> activeRequested = requestedConnections.stream().filter(c -> c.getAccepted() == 1)
+                                                                     .map(c -> c.getReceiver().getId())
+                                                                     .collect(Collectors.toList());
+        return ListUtils.union(activeReceived, activeRequested);
     }
 
 }

@@ -4,6 +4,7 @@ import com.linkedin.backend.dto.ImageResourceDTO;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class ContentController {
     }
 
     @PostMapping("/api/content/profile_picture")
-    public AppUser uploadProfilePicture(@RequestParam("file") MultipartFile picture, @Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileStorageException {
+    public JSONStatus uploadProfilePicture(@RequestParam("file") MultipartFile picture, @Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileStorageException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
@@ -77,7 +78,7 @@ public class ContentController {
 
         appUserService.addUser(user);
 
-        return user;
+        return new JSONStatus("OK");
     }
 
     @GetMapping("/api/content/profile_picture")
