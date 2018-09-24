@@ -5,6 +5,8 @@ public class ProfileViewDTO {
     private ProfileDTO profile;
     private PermissionsDTO permissions;
 
+    public ProfileViewDTO() {}
+
     public ProfileViewDTO(ProfileDTO profile, PermissionsDTO permissions) {
         this.profile = profile;
         this.permissions = permissions;

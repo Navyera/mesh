@@ -26,11 +26,11 @@ public class ProfileController {
 
 
     @GetMapping("")
-    public ProfileDTO getMyProfile(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+    public ProfileViewDTO getMyProfile(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        return user.toProfileDTO();
+        return user.toProfileViewDTO();
     }
 
     @PostMapping("")
