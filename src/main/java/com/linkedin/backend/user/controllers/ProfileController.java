@@ -2,6 +2,7 @@ package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.dto.ProfileDTO;
+import com.linkedin.backend.dto.ProfileStatsDTO;
 import com.linkedin.backend.dto.ProfileViewDTO;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
@@ -75,5 +76,13 @@ public class ProfileController {
     @GetMapping("/light/{id}")
     public ProfileDTO getUserName(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id) throws UserNotFoundException {
         return getUserProfile(auth, id).stripDetails().getProfileDTO();
+    }
+
+    @GetMapping("/stats")
+    public ProfileStatsDTO getUserStats(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        return new ProfileStatsDTO(user);
     }
 }
