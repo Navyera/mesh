@@ -14,6 +14,7 @@ import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
@@ -85,7 +86,7 @@ public class PostController {
     }
 
     @PostMapping("/post/toggle-like/{postId}")
-    public JSONStatus toggleLike(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId)
+    public JSONReturn<Integer> toggleLike(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId)
                                                                                          throws UserNotFoundException, PostNotFoundException{
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
@@ -97,6 +98,6 @@ public class PostController {
 
         appUserService.addUser(user);
 
-        return new JSONStatus("User toggled like successfully");
+        return new JSONReturn<>(user.getId());
     }
 }
