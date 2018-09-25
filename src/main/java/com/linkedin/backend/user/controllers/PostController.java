@@ -75,14 +75,12 @@ public class PostController {
     }
 
     @PostMapping("/post/comment/{postId}")
-    public JSONStatus postComment(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId, @Valid @RequestBody CommentDTO comment)
+    public CommentDTO postComment(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId, @Valid @RequestBody CommentDTO comment)
                                                                                             throws UserNotFoundException, PostNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        postService.postComment(postId, user, comment);
-
-        return new JSONStatus("Comment was successfully submitted");
+        return new CommentDTO(postService.postComment(postId, user, comment));
     }
 
     @PostMapping("/post/toggle-like/{postId}")

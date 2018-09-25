@@ -10,17 +10,20 @@ import org.springframework.stereotype.Service;
 public class PostService {
     private final PostRepository postRepository;
     private final AppUserService appUserService;
+    private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, AppUserService appUserService) {
+    public PostService(PostRepository postRepository, AppUserService appUserService, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.appUserService = appUserService;
+        this.commentRepository = commentRepository;
     }
+
 
     public Post findPostById(Integer id) throws PostNotFoundException {
         return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
     }
 
-    public void postComment(Integer postId, AppUser user, CommentDTO commentDto) throws PostNotFoundException{
+    public Comment postComment(Integer postId, AppUser user, CommentDTO commentDto) throws PostNotFoundException{
         Post post = findPostById(postId);
 
         Comment comment = new Comment();
@@ -29,9 +32,9 @@ public class PostService {
         comment.setBody(commentDto.getBody());
         comment.setPost(post);
 
-        user.getComments().add(comment);
+        comment.setUser(user);
 
-        appUserService.addUser(user);
+        return commentRepository.save(comment);
     }
 
     public Post savePost(Post post) {
