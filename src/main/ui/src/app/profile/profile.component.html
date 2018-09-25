@@ -1,0 +1,108 @@
+<div align="center">
+<img class="center" id="profile-picture" [src]="pictureSrc || '../../assets/images/profile-placeholder.png'" alt="your image" />
+
+<h2> {{ this.model.profileDTO.firstName }} {{ this.model.profileDTO.lastName }}</h2>
+</div>
+
+<div class="container">
+
+
+  <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+
+
+      <div class="form-group">
+        <h2> About me </h2>
+        <textarea rows="3" class="form-control" id="about"
+               placeholder="Fill in a short bio..."
+               [(ngModel)]="model.profileDTO.about" name="about"
+               #about="ngModel"> </textarea>
+
+      </div>
+
+      <div class="btn-group btn-group-toggle my-btn-group" ngbRadioGroup name="groupAbout" [(ngModel)]="permissionsMgr.about">
+        <label ngbButtonLabel class = "btn-info my-btn">
+          <input ngbButton type="radio" [value]="false"> Private
+        </label>
+        <label ngbButtonLabel class="btn-info my-btn">
+          <input ngbButton type="radio" [value]="true"> Public
+        </label>
+      </div>
+
+      <div class="form-group">
+        <h2> Education </h2>
+        <textarea rows="3" class="form-control" id="education"
+                placeholder="Fill in a short paragraph about your education..."
+                [(ngModel)]="model.profileDTO.education" name="education"
+                #education="ngModel"></textarea>
+      </div>
+
+      <div class="btn-group btn-group-toggle my-btn-group" ngbRadioGroup name="groupEdu" [(ngModel)]="permissionsMgr.education">
+        <label ngbButtonLabel class = "btn-info my-btn">
+          <input ngbButton type="radio" [value]="false"> Private
+        </label>
+        <label ngbButtonLabel class="btn-info my-btn">
+          <input ngbButton type="radio" [value]="true"> Public
+        </label>
+      </div>
+
+      <div class="form-group">
+        <h2> Job </h2>
+        <textarea rows="1" class="form-control" id="job"
+                placeholder="Fill in your job description and/or company..."
+                [(ngModel)]="model.profileDTO.job" name="job"
+                #job="ngModel"></textarea>
+      </div>
+
+      <div class="btn-group btn-group-toggle my-btn-group" ngbRadioGroup name="groupJob" [(ngModel)]="permissionsMgr.job">
+        <label ngbButtonLabel class = "btn-info my-btn">
+          <input ngbButton type="radio" [value]="false"> Private
+        </label>
+        <label ngbButtonLabel class="btn-info my-btn">
+          <input ngbButton type="radio" [value]="true"> Public
+        </label>
+      </div>
+
+      <div class="form-group">
+        <h2> Skills </h2>
+        <h3>
+        <span *ngFor="let skill of model.profileDTO.skills" class="badge badge-pill badge-info">
+        {{skill}}
+        <a class="remove" (click)="deleteSkill(skill)">
+          <i class="fa fa-times 2x" style="color: rgb(51, 52, 56);">
+          </i>
+        </a>
+        </span>
+        </h3>
+      </div>
+
+
+
+      <div class="form-group form-inline">
+
+        <input id="newskill" type="text" class="form-control" id="newskill"
+              placeholder="New skill"
+              [(ngModel)]="newSkill" name="newskill"
+              #newskill="ngModel">
+
+        <button type="button" class="btn btn-primary" (click)="addSkill()"> Add Skill</button>
+
+      </div>
+
+      <div class="btn-group btn-group-toggle my-btn-group" ngbRadioGroup name="groupSkills" [(ngModel)]="permissionsMgr.skills">
+        <label ngbButtonLabel class = "btn-info my-btn">
+          <input ngbButton type="radio" [value]="false"> Private
+        </label>
+        <label ngbButtonLabel class="btn-info my-btn">
+          <input ngbButton type="radio" [value]="true"> Public
+        </label>
+      </div>
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary"
+          [disabled]="!profileChanged()"> Save changes</button>
+      </div>
+
+    </form>
+
+</div>

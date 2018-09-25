@@ -1,0 +1,8 @@
+
+<div style="margin:10px">
+<h1> My Network </h1>
+</div>
+<div class="list"> 
+    <app-profile-card *ngFor="let friendID of friendIDs"
+    [userID]="friendID" ></app-profile-card>
+</div>

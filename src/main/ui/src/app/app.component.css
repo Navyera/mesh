@@ -1,0 +1,19 @@
+/* app-alert {
+    text-align: center;
+    width: 80%;
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    margin-left: -40%;
+} */
+
+app-alert {
+    text-align: center;
+    width: 80%;
+    position: fixed;
+    top: 1%;
+    left: 50%;
+    margin-left: -40%; /*half the size of width*/
+    z-index: 99999;
+    opacity: 0.9;
+}

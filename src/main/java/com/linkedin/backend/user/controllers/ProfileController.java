@@ -46,7 +46,9 @@ public class ProfileController {
         user.getProfile().setEducation(profileDTO.getEducation());
         user.getProfile().setJob(profileDTO.getJob());
         user.getProfile().setPermissions(profileViewDTO.getPermissionsDTO().getPermissions());
-        user.setSkillsFromStrList(profileDTO.getSkills());
+
+        if (profileDTO.getSkills() != null)
+            user.setSkillsFromStrList(profileDTO.getSkills());
 
         appUserService.addUser(user);
     }

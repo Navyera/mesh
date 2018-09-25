@@ -1,0 +1,56 @@
+<div align="center">
+  <img class="center" id="profile-picture" [src]="pictureSrc || '../../assets/images/profile-placeholder.png'" alt="your image" />
+  
+  <h2> {{ this.model.firstName }} {{ this.model.lastName }}</h2>
+
+  <a class="btn btn-primary btn-twitter btn-sm" (click)="addFriend()">
+    <i class="fa fa-user-plus fa-2x"></i>
+  </a>
+  <a class="btn btn-danger btn-sm">
+      <i class="fa fa-users fa-2x"></i>
+  </a>
+  <a class="btn btn-primary btn-sm">
+      <i class="fa fa-comment fa-2x"></i>
+  </a>
+
+  </div>
+  
+
+
+  <div class="container"> 
+
+          <div class="form-group">
+          <h2> About me </h2>
+          
+          <h4 class="form-control"> {{model.about}} </h4>
+          </div>
+       
+    
+          <div class="form-group">
+          <h2> Education </h2>
+          
+          <h4 class="form-control"> {{model.education}} </h4>
+          </div>
+       
+  
+       
+          <div class="form-group">
+          <h2> Job </h2>
+          <h4 class="form-control"> {{model.job}} </h4>
+          </div>  
+        
+  
+  
+       
+          <h2> Skills </h2>
+          <h3>
+          <span *ngFor="let skill of model.skills" class="badge badge-pill badge-info">
+          {{skill}} 
+          
+          </span>
+          </h3>
+        
+  
+
+    
+  </div>

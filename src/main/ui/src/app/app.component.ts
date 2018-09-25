@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HostListener } from '@angular/core';
 
 
 @Component({
@@ -8,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'signup-login-test';
+
+// @HostListener('window:beforeunload', ['$event'])
+// beforeunloadHandler(event) {
+//     localStorage.clear();
+// }
+
 }

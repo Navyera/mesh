@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Register</h1>
-  {{ this.model | json }}
+
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
 
 
@@ -38,7 +38,7 @@
         <label for="phone">Phone</label>
         <input type="tel" class="form-control" id="phone" required
                 placeholder="123456789" 
-                pattern="[0-9]+"
+                pattern="[0-9]{1,15}"
                 [(ngModel)]="model.phone" name="phone"
                 #phone="ngModel">
         
@@ -67,7 +67,7 @@
     </div>
 
     <div ngModelGroup="passwords" id="passwords" 
-         #passwords="ngModelGroup" appCheckPassword>
+         #passwords="ngModelGroup" appCheckPassword password="password" confirmPassword="confirmPassword">
 
       <div class="form-group">
         <label for="password">Password</label>
@@ -102,14 +102,6 @@
           Passwords do not match
           </div>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="picture">Profile Picture</label>
-      <input type="file" class="form-control-file" id="picture"
-              placeholder="" 
-              [(ngModel)]="model.picture" name="picture"
-              #picture="ngModel">
     </div>
 
     <div class="form-group">

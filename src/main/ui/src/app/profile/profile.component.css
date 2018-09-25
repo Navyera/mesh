@@ -1,0 +1,51 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.badge-pill {
+    border-color: black;
+    border-radius: 5px;
+}
+.badge {
+    
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-right: 5px;
+}
+
+.remove {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+}
+
+.my-btn {
+    
+}
+
+.my-btn-group {
+    margin-bottom: 30px;
+    border: none;
+}
+
+#education, #about, #job, #newskill {
+    border-left: 5px solid #0c5eda;
+  }
+
+#newskill {
+    width: 35%;
+}
+
+#profile-picture {
+    margin-top: 15px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+}
