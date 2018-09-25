@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PostDTO {
+    private Integer postId;
+
     private Integer userId;
 
     private String type;
@@ -23,6 +25,7 @@ public class PostDTO {
     }
 
     public PostDTO(Post post) {
+        postId = post.getId();
         userId = post.getUser().getId();
         type   = post.getType().name().toLowerCase();
         body   = post.getBody();
@@ -68,5 +71,21 @@ public class PostDTO {
 
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 }
