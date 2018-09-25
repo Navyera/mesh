@@ -102,7 +102,6 @@ public class FriendController {
 
     }
 
-
     @GetMapping("")
     public List<Integer> getFriends(@Valid @RequestHeader(value="Authorization") String auth)
                                                             throws UserNotFoundException{

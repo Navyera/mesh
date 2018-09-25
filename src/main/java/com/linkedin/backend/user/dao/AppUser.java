@@ -2,10 +2,7 @@ package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
-import com.linkedin.backend.dto.PermissionsDTO;
-import com.linkedin.backend.dto.ProfileDTO;
-import com.linkedin.backend.dto.ProfileViewDTO;
-import com.linkedin.backend.dto.UserDetailsDTO;
+import com.linkedin.backend.dto.*;
 import com.linkedin.backend.post.Comment;
 import com.linkedin.backend.post.Post;
 import org.apache.commons.collections4.ListUtils;
@@ -270,4 +267,27 @@ public class AppUser implements Serializable{
         return ListUtils.union(activeReceived, activeRequested);
     }
 
+    public List<PostDTO> getUserFeed() {
+        List<PostDTO> postListA = receivedConnections.stream()
+                                                     .filter(c -> c.getAccepted() == 1)
+                                                     .map(c -> c.getRequester().getPosts())
+                                                     .flatMap(List::stream)
+                                                     .map(PostDTO::new)
+                                                     .collect(Collectors.toList());
+
+        List<PostDTO> postListB = receivedConnections.stream()
+                                                     .filter(c -> c.getAccepted() == 1)
+                                                     .map(c -> c.getRequester().getPosts())
+                                                     .flatMap(List::stream)
+                                                     .map(PostDTO::new)
+                                                     .collect(Collectors.toList());
+
+        List<PostDTO> otherPosts = ListUtils.union(postListA, postListB);
+
+        List<PostDTO> myPosts = getPosts().stream()
+                                          .map(PostDTO::new)
+                                          .collect(Collectors.toList());
+
+        return ListUtils.union(otherPosts, myPosts);
+    }
 }

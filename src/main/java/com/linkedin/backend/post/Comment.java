@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.linkedin.backend.user.dao.AppUser;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_comments_post")
@@ -24,6 +25,9 @@ public class Comment {
     private Post post;
 
     private String body;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date = new Date();
 
     public Comment() {
     }
@@ -64,5 +68,13 @@ public class Comment {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

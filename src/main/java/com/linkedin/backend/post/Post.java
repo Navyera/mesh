@@ -39,6 +39,7 @@ public class Post {
             orphanRemoval = true
     )
     @JsonManagedReference
+    @OrderBy("date ASC")
     private List<Comment> comments;
 
     @ManyToMany(mappedBy = "likedPosts")
@@ -102,5 +103,13 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<AppUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<AppUser> users) {
+        this.users = users;
     }
 }
