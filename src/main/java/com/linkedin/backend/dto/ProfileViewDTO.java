@@ -39,4 +39,14 @@ public class ProfileViewDTO {
         if (!permissions.skills())
             profile.setSkills(null);
     }
+
+    public ProfileViewDTO stripDetails() {
+        this.profile.setAbout(null);
+        this.profile.setEducation(null);
+        this.profile.setJob(null);
+        this.profile.setSkills(null);
+        this.permissions = null;
+
+        return this;
+    }
 }
