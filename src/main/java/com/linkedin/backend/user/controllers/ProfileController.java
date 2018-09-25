@@ -72,7 +72,7 @@ public class ProfileController {
         return requestedProfile;
     }
 
-    @GetMapping("/name/{id}")
+    @GetMapping("/light/{id}")
     public ProfileDTO getUserName(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id) throws UserNotFoundException {
         return getUserProfile(auth, id).stripDetails().getProfileDTO();
     }
