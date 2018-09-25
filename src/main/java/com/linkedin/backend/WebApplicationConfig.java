@@ -11,21 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@Configuration
-public class WebApplicationConfig extends WebMvcConfigurerAdapter {
+// TODO: Enable when using Spring as the app server.
+//@Controller
+class WebApplicationConfig {
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/notFound").setViewName("forward:/index.html");
+    // Match everything without a suffix (so not a static resource)
+    @RequestMapping(value = "/**/{[path:[^\\.]*}")
+    public String redirect() {
+        // Forward to home page so that route is preserved.
+        return "forward:/";
     }
-
-
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> containerCustomizer() {
-        return container -> {
-            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,
-                    "/notFound"));
-        };
-    }
-
 }
