@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,15 +30,28 @@ public class PostController {
     }
 
     @GetMapping("/feed")
-    public List<PostDTO> getUserFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+    public List<Integer> getUserFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        List<PostDTO> userFeed = user.getUserFeed();
+        List<Post> userFeed = user.getUserFeed();
 
-        userFeed.sort((Comparator.comparing(PostDTO::getDate)).reversed());
+        userFeed.sort((Comparator.comparing(Post::getDate)).reversed());
 
-        return userFeed;
+        return userFeed.stream().map(Post::getId).collect(Collectors.toList());
+    }
+
+    @GetMapping("/post/{postId}")
+    public PostDTO getPost(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId)
+                                                                                     throws UserNotFoundException, PostNotFoundException{
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        Post post = postService.findPostById(postId);
+
+        // TODO: Check if users are connected (or are the same person.
+
+        return new PostDTO(post);
     }
 
     @PostMapping("/post/text")
@@ -67,5 +81,21 @@ public class PostController {
         postService.postComment(postId, user, comment);
 
         return new JSONStatus("Comment was successfully submitted");
+    }
+
+    @PostMapping("/post/toggle-like/{postId}")
+    public JSONStatus toggleLike(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId)
+                                                                                         throws UserNotFoundException, PostNotFoundException{
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        Post post = postService.findPostById(postId);
+
+        if (!user.getLikedPosts().removeIf(p -> p.getId().equals(post.getId())))
+            user.getLikedPosts().add(post);
+
+        appUserService.addUser(user);
+
+        return new JSONStatus("User toggled like successfully");
     }
 }

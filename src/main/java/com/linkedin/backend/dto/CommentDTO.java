@@ -5,7 +5,7 @@ import com.linkedin.backend.post.Comment;
 import java.util.Date;
 
 public class CommentDTO {
-    private Integer userId;
+    private Integer userID;
 
     private String body;
 
@@ -15,17 +15,17 @@ public class CommentDTO {
     }
 
     public CommentDTO(Comment comment) {
-        userId = comment.getUser().getId();
+        userID = comment.getUser().getId();
         body   = comment.getBody();
         date   = comment.getDate();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getBody() {

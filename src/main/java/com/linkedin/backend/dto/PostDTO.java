@@ -1,23 +1,26 @@
 package com.linkedin.backend.dto;
 
 import com.linkedin.backend.post.Post;
+import com.linkedin.backend.user.dao.AppUser;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PostDTO {
-    private Integer postId;
+    private Integer postID;
 
-    private Integer userId;
+    private Integer userID;
 
     private String type;
 
     private String body;
 
-    private Integer fileId;
+    private Integer fileID;
 
     private Date date;
+
+    private List<Integer> userLikes;
 
     private List<CommentDTO> comments;
 
@@ -25,20 +28,21 @@ public class PostDTO {
     }
 
     public PostDTO(Post post) {
-        postId = post.getId();
-        userId = post.getUser().getId();
+        postID = post.getId();
+        userID = post.getUser().getId();
         type   = post.getType().name().toLowerCase();
         body   = post.getBody();
         date   = post.getDate();
+        userLikes = post.getUsers().stream().map(AppUser::getId).collect(Collectors.toList());
         comments = post.getComments().stream().map(CommentDTO::new).collect(Collectors.toList());
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getType() {
@@ -65,12 +69,12 @@ public class PostDTO {
         this.date = date;
     }
 
-    public Integer getFileId() {
-        return fileId;
+    public Integer getFileID() {
+        return fileID;
     }
 
-    public void setFileId(Integer fileId) {
-        this.fileId = fileId;
+    public void setFileID(Integer fileID) {
+        this.fileID = fileID;
     }
 
     public List<CommentDTO> getComments() {
@@ -81,11 +85,19 @@ public class PostDTO {
         this.comments = comments;
     }
 
-    public Integer getPostId() {
-        return postId;
+    public Integer getPostID() {
+        return postID;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setPostID(Integer postID) {
+        this.postID = postID;
+    }
+
+    public List<Integer> getUserLikes() {
+        return userLikes;
+    }
+
+    public void setUserLikes(List<Integer> userLikes) {
+        this.userLikes = userLikes;
     }
 }

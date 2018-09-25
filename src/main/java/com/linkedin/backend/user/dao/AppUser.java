@@ -267,26 +267,22 @@ public class AppUser implements Serializable{
         return ListUtils.union(activeReceived, activeRequested);
     }
 
-    public List<PostDTO> getUserFeed() {
-        List<PostDTO> postListA = receivedConnections.stream()
+    public List<Post> getUserFeed() {
+        List<Post> postListA = receivedConnections.stream()
                                                      .filter(c -> c.getAccepted() == 1)
                                                      .map(c -> c.getRequester().getPosts())
                                                      .flatMap(List::stream)
-                                                     .map(PostDTO::new)
                                                      .collect(Collectors.toList());
 
-        List<PostDTO> postListB = requestedConnections.stream()
+        List<Post> postListB = requestedConnections.stream()
                                                      .filter(c -> c.getAccepted() == 1)
                                                      .map(c -> c.getReceiver().getPosts())
                                                      .flatMap(List::stream)
-                                                     .map(PostDTO::new)
                                                      .collect(Collectors.toList());
 
-        List<PostDTO> otherPosts = ListUtils.union(postListA, postListB);
+        List<Post> otherPosts = ListUtils.union(postListA, postListB);
 
-        List<PostDTO> myPosts = getPosts().stream()
-                                          .map(PostDTO::new)
-                                          .collect(Collectors.toList());
+        List<Post> myPosts = getPosts();
 
         return ListUtils.union(otherPosts, myPosts);
     }
