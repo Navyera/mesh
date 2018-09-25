@@ -275,9 +275,9 @@ public class AppUser implements Serializable{
                                                      .map(PostDTO::new)
                                                      .collect(Collectors.toList());
 
-        List<PostDTO> postListB = receivedConnections.stream()
+        List<PostDTO> postListB = requestedConnections.stream()
                                                      .filter(c -> c.getAccepted() == 1)
-                                                     .map(c -> c.getRequester().getPosts())
+                                                     .map(c -> c.getReceiver().getPosts())
                                                      .flatMap(List::stream)
                                                      .map(PostDTO::new)
                                                      .collect(Collectors.toList());

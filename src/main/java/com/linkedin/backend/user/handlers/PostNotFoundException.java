@@ -1,4 +1,4 @@
-package com.linkedin.backend.post;
+package com.linkedin.backend.user.handlers;
 
 public class PostNotFoundException extends Exception {
     private Integer postId;

@@ -1,7 +1,6 @@
 package com.linkedin.backend.user.handlers;
 
 
-import com.linkedin.backend.post.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

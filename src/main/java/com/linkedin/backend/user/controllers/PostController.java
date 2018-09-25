@@ -3,7 +3,7 @@ package com.linkedin.backend.user.controllers;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
 import com.linkedin.backend.post.Post;
-import com.linkedin.backend.post.PostNotFoundException;
+import com.linkedin.backend.user.handlers.PostNotFoundException;
 import com.linkedin.backend.post.PostService;
 import com.linkedin.backend.post.PostType;
 import com.linkedin.backend.user.AppUserService;
@@ -14,7 +14,6 @@ import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

@@ -3,6 +3,7 @@ package com.linkedin.backend.post;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.user.handlers.PostNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +16,7 @@ public class PostService {
         this.appUserService = appUserService;
     }
 
-    public Post findPostById(Integer id) throws PostNotFoundException{
+    public Post findPostById(Integer id) throws PostNotFoundException {
         return postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
     }
 

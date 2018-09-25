@@ -1,9 +1,9 @@
 package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.connection.Connection;
-import com.linkedin.backend.connection.ConnectionNotFoundException;
+import com.linkedin.backend.user.handlers.ConnectionNotFoundException;
 import com.linkedin.backend.connection.ConnectionService;
-import com.linkedin.backend.connection.DuplicateConnectionException;
+import com.linkedin.backend.user.handlers.DuplicateConnectionException;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.handlers.UserNotFoundException;

@@ -1,7 +1,8 @@
 package com.linkedin.backend.connection;
 
 import com.linkedin.backend.user.dao.AppUser;
-import org.apache.coyote.http2.ConnectionException;
+import com.linkedin.backend.user.handlers.ConnectionNotFoundException;
+import com.linkedin.backend.user.handlers.DuplicateConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
