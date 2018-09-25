@@ -112,4 +112,16 @@ public class Post {
     public void setUsers(List<AppUser> users) {
         this.users = users;
     }
+
+
+    public boolean equals(Object p1) {
+        if (this == p1)
+            return true;
+
+        if (!(p1 instanceof Post))
+            return false;
+
+        Post other = (Post) p1;
+        return other.getId().equals(this.getId());
+    }
 }

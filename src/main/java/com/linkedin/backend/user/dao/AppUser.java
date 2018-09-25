@@ -10,7 +10,9 @@ import org.apache.commons.collections4.ListUtils;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity(name = "User")
@@ -267,16 +269,25 @@ public class AppUser implements Serializable{
         return ListUtils.union(activeReceived, activeRequested);
     }
 
+    public List<Post> getRelevantPosts() {
+        Set<Post> set = new LinkedHashSet<>();
+
+        set.addAll(likedPosts);
+        set.addAll(posts);
+
+        return new ArrayList<>(set);
+    }
+
     public List<Post> getUserFeed() {
         List<Post> postListA = receivedConnections.stream()
                                                      .filter(c -> c.getAccepted() == 1)
-                                                     .map(c -> c.getRequester().getPosts())
+                                                     .map(c -> c.getRequester().getRelevantPosts())
                                                      .flatMap(List::stream)
                                                      .collect(Collectors.toList());
 
         List<Post> postListB = requestedConnections.stream()
                                                      .filter(c -> c.getAccepted() == 1)
-                                                     .map(c -> c.getReceiver().getPosts())
+                                                     .map(c -> c.getReceiver().getRelevantPosts())
                                                      .flatMap(List::stream)
                                                      .collect(Collectors.toList());
 
