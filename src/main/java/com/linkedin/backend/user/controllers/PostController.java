@@ -9,6 +9,7 @@ import com.linkedin.backend.post.PostType;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +56,7 @@ public class PostController {
     }
 
     @PostMapping("/post/text")
-    public JSONStatus createTextPost(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody PostDTO post) throws UserNotFoundException {
+    public JSONReturn<Integer> createTextPost(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody PostDTO post) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
@@ -65,11 +66,11 @@ public class PostController {
         newPost.setBody(post.getBody());
         newPost.setUser(user);
 
-        user.addPost(newPost);
+        newPost.setUser(user);
 
-        appUserService.addUser(user);
+        newPost = postService.savePost(newPost);
 
-        return new JSONStatus("Post was successfully created.");
+        return new JSONReturn<Integer>(newPost.getId());
     }
 
     @PostMapping("/post/comment/{postId}")

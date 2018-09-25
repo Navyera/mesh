@@ -33,4 +33,8 @@ public class PostService {
 
         appUserService.addUser(user);
     }
+
+    public Post savePost(Post post) {
+        return postRepository.save(post);
+    }
 }
