@@ -53,7 +53,7 @@ public class PostController {
 
         // TODO: Check if users are connected (or are the same person.
 
-        return new PostDTO(post);
+        return new PostDTO(post, user);
     }
 
     @PostMapping("/post/text")

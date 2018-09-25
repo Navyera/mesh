@@ -24,7 +24,20 @@ public class PostDTO {
 
     private List<CommentDTO> comments;
 
+    private boolean liked = false;
+
     public PostDTO() {
+    }
+
+    public PostDTO(Post post, AppUser user) {
+        postID = post.getId();
+        userID = post.getUser().getId();
+        type   = post.getType().name().toLowerCase();
+        body   = post.getBody();
+        date   = post.getDate();
+        userLikes = post.getUsers().stream().map(AppUser::getId).collect(Collectors.toList());
+        comments = post.getComments().stream().map(CommentDTO::new).collect(Collectors.toList());
+        liked = userLikes.contains(user.getId());
     }
 
     public PostDTO(Post post) {
@@ -99,5 +112,13 @@ public class PostDTO {
 
     public void setUserLikes(List<Integer> userLikes) {
         this.userLikes = userLikes;
+    }
+
+    public boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }
