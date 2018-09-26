@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.dto.*;
 import com.linkedin.backend.post.Comment;
+import com.linkedin.backend.post.Like;
 import com.linkedin.backend.post.Post;
 import org.apache.commons.collections4.ListUtils;
 
@@ -58,18 +59,13 @@ public class AppUser implements Serializable{
     @JsonManagedReference
     private List<Comment> comments;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(
-            name = "user_likes_post",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_id")
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     @JsonManagedReference
-    private List<Post> likedPosts;
-
+    private List<Like> likes;
 
     @OneToMany(
             mappedBy = "requester",
@@ -220,15 +216,7 @@ public class AppUser implements Serializable{
     }
 
     public List<Post> getLikedPosts() {
-        return likedPosts;
-    }
-
-    public void setLikedPosts(List<Post> likedPosts) {
-        this.likedPosts = likedPosts;
-    }
-
-    public void likePost(Post post) {
-        likedPosts.add(post);
+        return likes.stream().map(Like::getPost).collect(Collectors.toList());
     }
 
     public void commentPost(String body, Post post) {
@@ -272,10 +260,18 @@ public class AppUser implements Serializable{
     public List<Post> getRelevantPosts() {
         Set<Post> set = new LinkedHashSet<>();
 
-        set.addAll(likedPosts);
+        set.addAll(likes.stream().map(Like::getPost).collect(Collectors.toList()));
         set.addAll(posts);
 
         return new ArrayList<>(set);
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 
     public List<Post> getUserFeed() {

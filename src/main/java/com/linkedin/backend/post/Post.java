@@ -8,6 +8,7 @@ import com.linkedin.backend.user.dao.AppUser;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class Post {
@@ -42,9 +43,12 @@ public class Post {
     @OrderBy("date ASC")
     private List<Comment> comments;
 
-    @ManyToMany(mappedBy = "likedPosts")
+    @OneToMany(
+            mappedBy = "post",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonBackReference
-    private List<AppUser> users;
+    private List<Like> likes;
 
     public Post() {
     }
@@ -106,13 +110,16 @@ public class Post {
     }
 
     public List<AppUser> getUsers() {
-        return users;
+        return likes.stream().map(Like::getUser).collect(Collectors.toList());
     }
 
-    public void setUsers(List<AppUser> users) {
-        this.users = users;
+    public List<Like> getLikes() {
+        return likes;
     }
 
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
 
     public boolean equals(Object p1) {
         if (this == p1)
