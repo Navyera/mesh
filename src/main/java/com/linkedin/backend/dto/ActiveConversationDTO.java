@@ -6,7 +6,7 @@ import com.linkedin.backend.user.dao.AppUser;
 import java.util.Date;
 
 public class ActiveConversationDTO {
-    private Integer conversationId;
+    private Integer conversationID;
 
     private String firstName;
     private String lastName;
@@ -16,7 +16,7 @@ public class ActiveConversationDTO {
     private Date date;
 
     public ActiveConversationDTO(Conversation conversation, boolean small) {
-        conversationId = conversation.getConversationId();
+        conversationID = conversation.getConversationId();
         date = conversation.getLastUpdated();
 
         AppUser targetUser = small ? conversation.getLargerUser() : conversation.getSmallerUser();
@@ -26,12 +26,12 @@ public class ActiveConversationDTO {
         userID    = targetUser.getId();
     }
 
-    public Integer getConversationId() {
-        return conversationId;
+    public Integer getConversationID() {
+        return conversationID;
     }
 
-    public void setConversationId(Integer conversationId) {
-        this.conversationId = conversationId;
+    public void setConversationID(Integer conversationID) {
+        this.conversationID = conversationID;
     }
 
     public String getFirstName() {
