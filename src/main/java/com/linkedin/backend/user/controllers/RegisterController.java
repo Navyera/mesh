@@ -71,6 +71,9 @@ public class RegisterController {
     public List<Like> getUser(@Valid @PathVariable int id) throws UserNotFoundException {
         AppUser user = appUserService.findUserById(id);
 
+        Skill skill = new Skill();
+
+        skill.setSkillDescription("sdafasdfas");
         return user.getLikes();
     }
 }

@@ -12,7 +12,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    private Integer comment_id;
+    private Integer commentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -38,12 +38,12 @@ public class Comment {
         this.body = body;
     }
 
-    public Integer getComment_id() {
-        return comment_id;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setComment_id(Integer comment_id) {
-        this.comment_id = comment_id;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
     public AppUser getUser() {

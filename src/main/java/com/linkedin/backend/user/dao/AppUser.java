@@ -293,4 +293,22 @@ public class AppUser implements Serializable{
 
         return ListUtils.union(otherPosts, myPosts);
     }
+
+    public List<NotificationDTO> getNotifications() {
+        List<NotificationDTO> commentNotifications = posts.stream()
+                                                          .map(Post::getComments)
+                                                          .flatMap(List::stream)
+                                                          .filter(l -> !l.getUser().id.equals(id))
+                                                          .map(NotificationDTO::new)
+                                                          .collect(Collectors.toList());
+
+        List<NotificationDTO> likeNotifications = posts.stream()
+                                                       .map(Post::getLikes)
+                                                       .flatMap(List::stream)
+                                                       .filter(l -> !l.getUser().id.equals(id))
+                                                       .map(NotificationDTO::new)
+                                                       .collect(Collectors.toList());
+
+        return ListUtils.union(commentNotifications, likeNotifications);
+    }
 }
