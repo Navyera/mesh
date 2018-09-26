@@ -3,6 +3,7 @@ package com.linkedin.backend.user.controllers;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
+import com.linkedin.backend.post.Like;
 import com.linkedin.backend.user.*;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Skill;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -66,12 +68,9 @@ public class RegisterController {
 
     // TODO: This is a test controller
     @GetMapping("/{id}")
-    public AppUser getUser(@Valid @PathVariable int id) throws UserNotFoundException {
+    public List<Like> getUser(@Valid @PathVariable int id) throws UserNotFoundException {
         AppUser user = appUserService.findUserById(id);
 
-        Skill skill = new Skill();
-
-        skill.setSkillDescription("sdafasdfas");
-        return user;
+        return user.getLikes();
     }
 }

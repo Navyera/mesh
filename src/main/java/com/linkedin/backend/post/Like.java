@@ -1,5 +1,6 @@
 package com.linkedin.backend.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linkedin.backend.user.dao.AppUser;
 
 import javax.persistence.*;
@@ -14,10 +15,13 @@ public class Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
+    @JsonIgnore
     private AppUser user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     @MapsId("postId")
+    @JsonIgnore
     private Post post;
 
     @Temporal(TemporalType.TIMESTAMP)

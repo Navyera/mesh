@@ -177,6 +177,14 @@ public class AppUser implements Serializable{
         this.posts = posts;
     }
 
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
     public ArrayList<Role> getAuthority() {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
@@ -264,14 +272,6 @@ public class AppUser implements Serializable{
         set.addAll(posts);
 
         return new ArrayList<>(set);
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
     }
 
     public List<Post> getUserFeed() {
