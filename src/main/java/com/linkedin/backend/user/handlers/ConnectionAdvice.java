@@ -2,6 +2,7 @@ package com.linkedin.backend.user.handlers;
 
 
 
+import com.linkedin.backend.connection.NotFriendsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,13 @@ public class ConnectionAdvice {
     @ExceptionHandler(ConnectionNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     String missingConnection(ConnectionNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(NotFriendsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String notFriends(NotFriendsException ex) {
         return ex.getMessage();
     }
 }

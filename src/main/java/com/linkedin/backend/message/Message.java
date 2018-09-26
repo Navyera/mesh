@@ -1,5 +1,6 @@
 package com.linkedin.backend.message;
 
+import com.linkedin.backend.conversation.Conversation;
 import com.linkedin.backend.user.dao.AppUser;
 
 import javax.persistence.*;
@@ -17,8 +18,8 @@ public class Message {
     private AppUser sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id")
-    private AppUser receiver;
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
 
     private String body;
 
@@ -44,12 +45,12 @@ public class Message {
         this.sender = sender;
     }
 
-    public AppUser getReceiver() {
-        return receiver;
+    public Conversation getConversation() {
+        return conversation;
     }
 
-    public void setReceiver(AppUser receiver) {
-        this.receiver = receiver;
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 
     public String getBody() {

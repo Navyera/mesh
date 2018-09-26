@@ -2,6 +2,7 @@ package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
+import com.linkedin.backend.conversation.Conversation;
 import com.linkedin.backend.dto.*;
 import com.linkedin.backend.message.Message;
 import com.linkedin.backend.post.Comment;
@@ -90,11 +91,18 @@ public class AppUser implements Serializable{
     private List<Message> sentMessages;
 
     @OneToMany(
-            mappedBy = "receiver",
+            mappedBy = "smallerUser",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Message> receivedMessages;
+    private List<Conversation> smallerConversations;
+
+    @OneToMany(
+            mappedBy = "largerUser",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Conversation> largerConversations;
 
     public AppUser() {
     }
@@ -222,14 +230,6 @@ public class AppUser implements Serializable{
         this.sentMessages = sentMessages;
     }
 
-    public List<Message> getReceivedMessages() {
-        return receivedMessages;
-    }
-
-    public void setReceivedMessages(List<Message> receivedMessages) {
-        this.receivedMessages = receivedMessages;
-    }
-
     public List<Skill> getSkills() {
         return skills;
     }
@@ -240,6 +240,22 @@ public class AppUser implements Serializable{
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    public List<Conversation> getSmallerConversations() {
+        return smallerConversations;
+    }
+
+    public void setSmallerConversations(List<Conversation> smallerConversations) {
+        this.smallerConversations = smallerConversations;
+    }
+
+    public List<Conversation> getLargerConversations() {
+        return largerConversations;
+    }
+
+    public void setLargerConversations(List<Conversation> largerConversations) {
+        this.largerConversations = largerConversations;
     }
 
     public UserDetailsDTO toUserDetails() {
@@ -341,5 +357,17 @@ public class AppUser implements Serializable{
                                                        .collect(Collectors.toList());
 
         return ListUtils.union(commentNotifications, likeNotifications);
+    }
+
+    public List<ActiveConversationDTO> getActiveConversations() {
+        List<ActiveConversationDTO> listA = getSmallerConversations().stream()
+                                                                     .map(c -> new ActiveConversationDTO(c, true))
+                                                                     .collect(Collectors.toList());
+
+        List<ActiveConversationDTO> listB = getLargerConversations().stream()
+                                                                    .map(c -> new ActiveConversationDTO(c, false))
+                                                                    .collect(Collectors.toList());
+
+        return ListUtils.union(listA, listB);
     }
 }
