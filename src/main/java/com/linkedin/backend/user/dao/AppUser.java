@@ -3,6 +3,7 @@ package com.linkedin.backend.user.dao;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.dto.*;
+import com.linkedin.backend.message.Message;
 import com.linkedin.backend.post.Comment;
 import com.linkedin.backend.post.Like;
 import com.linkedin.backend.post.Post;
@@ -80,6 +81,20 @@ public class AppUser implements Serializable{
             orphanRemoval = true
     )
     private List<Connection> receivedConnections;
+
+    @OneToMany(
+            mappedBy = "sender",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Message> sentMessages;
+
+    @OneToMany(
+            mappedBy = "receiver",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Message> receivedMessages;
 
     public AppUser() {
     }
@@ -197,6 +212,22 @@ public class AppUser implements Serializable{
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public List<Message> getSentMessages() {
+        return sentMessages;
+    }
+
+    public void setSentMessages(List<Message> sentMessages) {
+        this.sentMessages = sentMessages;
+    }
+
+    public List<Message> getReceivedMessages() {
+        return receivedMessages;
+    }
+
+    public void setReceivedMessages(List<Message> receivedMessages) {
+        this.receivedMessages = receivedMessages;
     }
 
     public List<Skill> getSkills() {

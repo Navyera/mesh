@@ -28,7 +28,7 @@ public class NotificationController {
 
         List<NotificationDTO> notifications = user.getNotifications();
         notifications.sort((Comparator.comparing(NotificationDTO::getDate)).reversed());
-        
+
         return notifications;
     }
 }
