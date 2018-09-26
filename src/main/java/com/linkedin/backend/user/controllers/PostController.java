@@ -2,6 +2,7 @@ package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
+import com.linkedin.backend.post.Like;
 import com.linkedin.backend.post.Post;
 import com.linkedin.backend.user.handlers.PostNotFoundException;
 import com.linkedin.backend.post.PostService;
@@ -91,8 +92,8 @@ public class PostController {
 
         Post post = postService.findPostById(postId);
 
-        if (!user.getLikedPosts().removeIf(p -> p.getId().equals(post.getId())))
-            user.getLikedPosts().add(post);
+        if (!user.getLikes().removeIf(p -> p.getUser().getId().equals(user.getId()) && p.getPost().getId().equals(post.getId())))
+            user.getLikes().add(new Like(user, post));
 
         appUserService.addUser(user);
 
