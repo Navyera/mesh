@@ -35,19 +35,13 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<UserListItem> getUserList(@Valid @RequestHeader(value="Authorization") String auth) {
-        JWTUtils token = new JWTUtils(auth);
-        Integer myId = token.getUserID();
-
-        return appUserService.getAll(myId).stream().map(UserListItem::new).collect(Collectors.toList());
+    public List<UserListItem> getUserList() {
+        return appUserService.getAll().stream().map(UserListItem::new).collect(Collectors.toList());
     }
 
     @GetMapping("/xml")
-    public ResponseEntity<String> getXml(@Valid @RequestHeader(value="Authorization") String auth) throws JsonProcessingException {
-        JWTUtils token = new JWTUtils(auth);
-        Integer myId = token.getUserID();
-
-        List<AppUserXML> users = appUserService.getAll(myId).stream().map(AppUserXML::new).collect(Collectors.toList());
+    public ResponseEntity<String> getXml(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody List<Integer> userIds) throws JsonProcessingException {
+        List<AppUserXML> users = appUserService.getAll(userIds).stream().map(AppUserXML::new).collect(Collectors.toList());
 
         XmlMapper mapper = new XmlMapper();
 

@@ -50,11 +50,28 @@ public class AppUserService implements UserDetailsService {
         skillsRepository.deleteSkillsByUser(user);
     }
 
-    public List<AppUser> getAll(Integer myId) {
+    public List<AppUser> getAll(List<Integer> userIds) {
+        List<AppUser> users = new ArrayList<>();
+
+        for (Integer userId : userIds) {
+            try {
+                AppUser user = findUserById(userId);
+
+                if (!user.getRole().equals("ROLE_ADMIN"))
+                    users.add(user);
+            } catch (UserNotFoundException ignored) {
+
+            }
+        }
+
+        return users;
+    }
+
+    public List<AppUser> getAll() {
         List<AppUser> users = new ArrayList<>();
 
         for (AppUser user : userRepository.findAll()) {
-            if (!user.getId().equals(myId))
+            if (!user.getRole().equals("ROLE_ADMIN"))
                 users.add(user);
         }
 
