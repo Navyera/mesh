@@ -10,6 +10,8 @@ import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.utils.JWTUtils;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +39,7 @@ public class AdminController {
     }
 
     @GetMapping("/xml")
-    public String getXml(@Valid @RequestHeader(value="Authorization") String auth) throws JsonProcessingException {
+    public ResponseEntity<String> getXml(@Valid @RequestHeader(value="Authorization") String auth) throws JsonProcessingException {
         JWTUtils token = new JWTUtils(auth);
         Integer myId = token.getUserID();
 
@@ -45,6 +47,9 @@ public class AdminController {
 
         XmlMapper mapper = new XmlMapper();
 
-        return mapper.writeValueAsString(new AdminXML(users));
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.TEXT_XML)
+                .body(mapper.writeValueAsString(new AdminXML(users)));
     }
 }
