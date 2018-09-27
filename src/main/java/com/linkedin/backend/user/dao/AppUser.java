@@ -302,11 +302,11 @@ public class AppUser implements Serializable{
     }
 
     public List<Integer> getFriendIDs() {
-        List<Integer> activeReceived = receivedConnections.stream().filter(c -> c.getAccepted() == 1)
+        List<Integer> activeReceived = getReceivedConnections().stream().filter(c -> c.getAccepted() == 1)
                                                                    .map(c -> c.getRequester().getId())
                                                                    .collect(Collectors.toList());
 
-        List<Integer> activeRequested = requestedConnections.stream().filter(c -> c.getAccepted() == 1)
+        List<Integer> activeRequested = getRequestedConnections().stream().filter(c -> c.getAccepted() == 1)
                                                                      .map(c -> c.getReceiver().getId())
                                                                      .collect(Collectors.toList());
         return ListUtils.union(activeReceived, activeRequested);

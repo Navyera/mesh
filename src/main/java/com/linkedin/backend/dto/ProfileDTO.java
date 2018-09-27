@@ -1,5 +1,6 @@
 package com.linkedin.backend.dto;
 
+import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Skill;
 
 import java.util.List;
@@ -16,6 +17,11 @@ public class ProfileDTO {
     private List<String> skills;
 
     public ProfileDTO() {
+    }
+
+    public ProfileDTO(AppUser user) {
+        this.firstName = user.getFirstName();
+        this.lastName  = user.getLastName();
     }
 
     public ProfileDTO(String firstName, String lastName, String about, String education, String job, List<Skill> skills) {

@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AppUserService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -47,4 +50,14 @@ public class AppUserService implements UserDetailsService {
         skillsRepository.deleteSkillsByUser(user);
     }
 
+    public List<AppUser> getAll(Integer myId) {
+        List<AppUser> users = new ArrayList<>();
+
+        for (AppUser user : userRepository.findAll()) {
+            if (!user.getId().equals(myId))
+                users.add(user);
+        }
+
+        return users;
+    }
 }
