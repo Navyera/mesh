@@ -338,7 +338,11 @@ public class AppUser implements Serializable{
 
         List<Post> myPosts = getPosts();
 
-        return ListUtils.union(otherPosts, myPosts);
+        Set<Post> returnSet = new LinkedHashSet<>();
+        returnSet.addAll(otherPosts);
+        returnSet.addAll(myPosts);
+
+        return new ArrayList<>(returnSet);
     }
 
     public List<NotificationDTO> getNotifications() {
