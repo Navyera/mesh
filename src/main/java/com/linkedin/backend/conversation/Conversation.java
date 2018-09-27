@@ -28,7 +28,7 @@ public class Conversation {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    @OrderBy("time DESC")
+    @OrderBy("time ASC")
     private List<Message> messages;
 
     @Temporal(TemporalType.TIMESTAMP)

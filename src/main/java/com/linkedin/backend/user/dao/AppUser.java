@@ -271,7 +271,7 @@ public class AppUser implements Serializable{
     }
 
     public List<Post> getLikedPosts() {
-        return likes.stream().map(Like::getPost).collect(Collectors.toList());
+        return getLikes().stream().map(Like::getPost).collect(Collectors.toList());
     }
 
     public void commentPost(String body, Post post) {
@@ -315,7 +315,7 @@ public class AppUser implements Serializable{
     public List<Post> getRelevantPosts() {
         Set<Post> set = new LinkedHashSet<>();
 
-        set.addAll(likes.stream().map(Like::getPost).collect(Collectors.toList()));
+        set.addAll(getLikes().stream().map(Like::getPost).collect(Collectors.toList()));
         set.addAll(posts);
 
         return new ArrayList<>(set);
@@ -345,14 +345,14 @@ public class AppUser implements Serializable{
         List<NotificationDTO> commentNotifications = posts.stream()
                                                           .map(Post::getComments)
                                                           .flatMap(List::stream)
-                                                          .filter(l -> !l.getUser().id.equals(id))
+                                                          .filter(l -> !l.getUser().getId().equals(id))
                                                           .map(NotificationDTO::new)
                                                           .collect(Collectors.toList());
 
         List<NotificationDTO> likeNotifications = posts.stream()
                                                        .map(Post::getLikes)
                                                        .flatMap(List::stream)
-                                                       .filter(l -> !l.getUser().id.equals(id))
+                                                       .filter(l -> !l.getUser().getId().equals(id))
                                                        .map(NotificationDTO::new)
                                                        .collect(Collectors.toList());
 

@@ -22,7 +22,7 @@ public class NotificationDTO {
     }
 
     public NotificationDTO(Comment comment) {
-        postID    = comment.getCommentId();
+        postID    = comment.getPost().getId();
         userID    = comment.getUser().getId();
         firstName = comment.getUser().getFirstName();
         lastName  = comment.getUser().getLastName();

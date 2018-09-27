@@ -24,7 +24,7 @@ public class Message {
     private String body;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Date time = new Date();
 
     public Message() {
     }

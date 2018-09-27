@@ -110,7 +110,7 @@ public class Post {
     }
 
     public List<AppUser> getUsers() {
-        return likes.stream().map(Like::getUser).collect(Collectors.toList());
+        return getLikes().stream().map(Like::getUser).collect(Collectors.toList());
     }
 
     public List<Like> getLikes() {
