@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.linkedin.backend.admin.xml.AdminXML;
 import com.linkedin.backend.admin.xml.AppUserXML;
 import com.linkedin.backend.dto.ProfileDTO;
+import com.linkedin.backend.dto.UserListItem;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.utils.JWTUtils;
@@ -31,11 +32,11 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<ProfileDTO> getUserList(@Valid @RequestHeader(value="Authorization") String auth) {
+    public List<UserListItem> getUserList(@Valid @RequestHeader(value="Authorization") String auth) {
         JWTUtils token = new JWTUtils(auth);
         Integer myId = token.getUserID();
 
-        return appUserService.getAll(myId).stream().map(ProfileDTO::new).collect(Collectors.toList());
+        return appUserService.getAll(myId).stream().map(UserListItem::new).collect(Collectors.toList());
     }
 
     @GetMapping("/xml")
