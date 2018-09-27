@@ -10,13 +10,11 @@ import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserListItem;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,6 +27,11 @@ public class AdminController {
 
     public AdminController(AppUserService appUserService) {
         this.appUserService = appUserService;
+    }
+
+    @GetMapping("/users/{id}")
+    public ProfileDTO getUserInfo(@Valid @PathVariable Integer id) throws UserNotFoundException {
+        return new ProfileDTO(appUserService.findUserById(id), false);
     }
 
     @GetMapping("/users")
