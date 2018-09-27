@@ -1,6 +1,7 @@
 package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.connection.Connection;
+import com.linkedin.backend.connection.NotFriendsException;
 import com.linkedin.backend.user.handlers.ConnectionNotFoundException;
 import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.user.handlers.DuplicateConnectionException;
@@ -66,7 +67,6 @@ public class FriendController {
     @PostMapping("/accept/{id}")
     public JSONStatus acceptFriend(@Valid @RequestHeader(value="Authorization") String auth,
                                    @Valid @PathVariable Integer id) throws ConnectionNotFoundException {
-
         JWTUtils token = new JWTUtils(auth);
         Integer receiverID = token.getUserID();
         Integer requesterID = id;
@@ -110,4 +110,19 @@ public class FriendController {
 
         return user.getFriendIDs();
     }
+
+    @GetMapping("/{id}")
+    public List<Integer> getUserFriends(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id)
+                                                                                                  throws UserNotFoundException, NotFriendsException {
+        JWTUtils token = new JWTUtils(auth);
+        Integer myId = token.getUserID();
+
+        if (!connectionService.friends(id, myId))
+            throw new NotFriendsException(id, myId);
+
+        AppUser user = appUserService.findUserById(id);
+
+        return user.getFriendIDs();
+    }
+
 }
