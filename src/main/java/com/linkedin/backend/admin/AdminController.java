@@ -39,7 +39,7 @@ public class AdminController {
         return appUserService.getAll().stream().map(UserListItem::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/xml")
+    @PostMapping("/xml")
     public ResponseEntity<String> getXml(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody List<Integer> userIds) throws JsonProcessingException {
         List<AppUserXML> users = appUserService.getAll(userIds).stream().map(AppUserXML::new).collect(Collectors.toList());
 

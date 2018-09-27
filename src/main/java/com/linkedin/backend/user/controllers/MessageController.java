@@ -77,7 +77,7 @@ public class MessageController {
 
         List<ActiveConversationDTO> conversations = user.getActiveConversations();
 
-        conversations.sort(Comparator.comparing(ActiveConversationDTO::getDate));
+        conversations.sort(Comparator.comparing(ActiveConversationDTO::getDate).reversed());
 
         return conversations;
     }

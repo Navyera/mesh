@@ -1,5 +1,6 @@
 package com.linkedin.backend.admin.xml;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.linkedin.backend.post.Post;
 import com.linkedin.backend.post.PostType;
 
@@ -20,7 +21,9 @@ public class PostXML {
         id = post.getId();
         type = post.getType();
         body = post.getBody();
-        fileRef = post.getFile().getId();
+        if(post.getFile() != null)
+            fileRef = post.getFile().getId();
+
         date = post.getDate();
     }
 
@@ -56,6 +59,7 @@ public class PostXML {
         this.fileRef = fileRef;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
     public Date getDate() {
         return date;
     }
