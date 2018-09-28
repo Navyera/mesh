@@ -27,7 +27,7 @@ public class NetworkController {
 
         if (terms.length == 0)
             return Collections.emptyList();
-        
+
         String firstTerm = terms[0].trim().toLowerCase();
 
         String secondTerm = "________________________________";

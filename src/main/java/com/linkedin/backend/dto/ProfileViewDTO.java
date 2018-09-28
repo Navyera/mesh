@@ -13,6 +13,22 @@ public class ProfileViewDTO {
 
     }
 
+    public ProfileDTO getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ProfileDTO profile) {
+        this.profile = profile;
+    }
+
+    public PermissionsDTO getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(PermissionsDTO permissions) {
+        this.permissions = permissions;
+    }
+
     public ProfileDTO getProfileDTO() {
         return profile;
     }

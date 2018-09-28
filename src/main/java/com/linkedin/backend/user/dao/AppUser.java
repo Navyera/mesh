@@ -38,7 +38,14 @@ public class AppUser implements Serializable{
     @JsonManagedReference
     private Profile profile;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "user_has_skill",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
     @JsonManagedReference
     private List<Skill> skills;
 
@@ -231,10 +238,6 @@ public class AppUser implements Serializable{
         return skills;
     }
 
-    public void setSkillsFromStrList(List<String> skills) {
-        this.skills = skills.stream().map(skill -> new Skill(skill, this)).collect(Collectors.toList());
-    }
-
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
@@ -321,6 +324,11 @@ public class AppUser implements Serializable{
 
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
     }
 
     public List<Post> getRelevantPosts() {

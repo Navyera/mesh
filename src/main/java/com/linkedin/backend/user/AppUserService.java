@@ -1,6 +1,7 @@
 package com.linkedin.backend.user;
 
 import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.user.dao.Skill;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -49,7 +50,7 @@ public class AppUserService implements UserDetailsService {
     }
 
     public void clearUserSkills(AppUser user) {
-        skillsRepository.deleteSkillsByUser(user);
+
     }
 
     public List<AppUser> getAll(List<Integer> userIds) {

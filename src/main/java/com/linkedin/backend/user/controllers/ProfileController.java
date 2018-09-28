@@ -4,6 +4,7 @@ import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.ProfileStatsDTO;
 import com.linkedin.backend.dto.ProfileViewDTO;
+import com.linkedin.backend.user.SkillService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
@@ -18,11 +19,13 @@ import javax.validation.Valid;
 public class ProfileController {
     final private AppUserService appUserService;
     final private ConnectionService connectionService;
+    final private SkillService skillService;
 
     @Autowired
-    public ProfileController(AppUserService appUserService, ConnectionService connectionService) {
+    public ProfileController(AppUserService appUserService, ConnectionService connectionService, SkillService skillService) {
         this.appUserService = appUserService;
         this.connectionService = connectionService;
+        this.skillService = skillService;
     }
 
 
@@ -39,7 +42,7 @@ public class ProfileController {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        appUserService.clearUserSkills(user);
+        //appUserService.clearUserSkills(user);
 
         ProfileDTO profileDTO = profileViewDTO.getProfileDTO();
 
@@ -49,7 +52,7 @@ public class ProfileController {
         user.getProfile().setPermissions(profileViewDTO.getPermissionsDTO().getPermissions());
 
         if (profileDTO.getSkills() != null)
-            user.setSkillsFromStrList(profileDTO.getSkills());
+            skillService.setSkillsFromStrList(user, profileDTO.getSkills());
 
         appUserService.addUser(user);
     }

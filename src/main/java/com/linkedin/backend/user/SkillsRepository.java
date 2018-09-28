@@ -8,5 +8,5 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface SkillsRepository extends CrudRepository<Skill, Integer> {
-    void deleteSkillsByUser(AppUser user);
+    Skill findBySkillDescription(String description);
 }

@@ -3,6 +3,7 @@ package com.linkedin.backend.user.dao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Skill {
@@ -13,17 +14,15 @@ public class Skill {
 
     private String skillDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @ManyToMany(mappedBy = "skills")
     @JsonIgnore
-    private AppUser user;
+    private List<AppUser> users;
 
     public Skill() {
     }
 
-    public Skill(String skillDescription, AppUser user) {
+    public Skill(String skillDescription) {
         this.skillDescription = skillDescription;
-        this.user = user;
     }
 
     public Integer getSkillId() {
