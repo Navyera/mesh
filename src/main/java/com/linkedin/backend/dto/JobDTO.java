@@ -1,5 +1,6 @@
 package com.linkedin.backend.dto;
 
+import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Job;
 import com.linkedin.backend.user.dao.Skill;
 
@@ -19,6 +20,8 @@ public class JobDTO {
 
     private Integer ownerID;
 
+    private Boolean applied;
+
     private Date date;
 
     private Boolean fromFriend;
@@ -26,11 +29,12 @@ public class JobDTO {
     public JobDTO() {
     }
 
-    public JobDTO(Job job) {
-        this(job, false);
+
+    public JobDTO(Job job, AppUser user) {
+        this(job, user, false);
     }
 
-    public JobDTO(Job job, Boolean fromFriend) {
+    public JobDTO(Job job, AppUser user, Boolean fromFriend) {
         jobID = job.getJobId();
 
         jobTitle = job.getJobTitle();
@@ -42,6 +46,8 @@ public class JobDTO {
         ownerID = job.getOwner().getId();
 
         date = job.getDate();
+
+        applied = user.getMyAppliedJobs().contains(job);
 
         this.fromFriend = fromFriend;
     }
@@ -108,5 +114,13 @@ public class JobDTO {
 
     public void setOwnerID(Integer ownerID) {
         this.ownerID = ownerID;
+    }
+
+    public Boolean getApplied() {
+        return applied;
+    }
+
+    public void setApplied(Boolean applied) {
+        this.applied = applied;
     }
 }

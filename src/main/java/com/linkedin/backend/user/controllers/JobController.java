@@ -51,7 +51,7 @@ public class JobController {
 
         return user.getMyCreatedJobs()
                 .stream()
-                .map(JobDTO::new)
+                .map(j -> new JobDTO(j, user))
                 .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
                 .collect(Collectors.toList());
     }
@@ -65,7 +65,7 @@ public class JobController {
                 .stream()
                 .map(AppUser::getMyCreatedJobs)
                 .flatMap(List::stream)
-                .map(j -> new JobDTO(j, true))
+                .map(j -> new JobDTO(j, user, true))
                 .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
                 .collect(Collectors.toList());
 
