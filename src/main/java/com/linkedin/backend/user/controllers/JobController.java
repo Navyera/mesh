@@ -34,14 +34,14 @@ public class JobController {
     }
 
     @PostMapping("")
-    public JSONReturn<JobDTO> createJob(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody JobDTO jobDto)
+    public JobDTO createJob(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody JobDTO jobDto)
                                                                                                    throws UserNotFoundException{
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
         Job createdJob = jobService.createJob(user.getId(), jobDto);
 
-        return new JSONReturn<>(new JobDTO(createdJob, user));
+        return new JobDTO(createdJob, user);
     }
 
     @GetMapping("/my-jobs")

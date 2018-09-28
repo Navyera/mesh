@@ -23,7 +23,7 @@ public class NetworkController {
 
     @PostMapping("/search")
     public List<SearchResultDTO> searchUsers(@Valid @RequestBody JSONReturn<String> searchTerms) {
-        String[] terms = searchTerms.getPayload().split(" ", -2);
+        String[] terms = searchTerms.getPayload().split(" ", 2);
 
         if (terms.length == 0)
             return Collections.emptyList();

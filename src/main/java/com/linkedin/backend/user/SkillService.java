@@ -52,7 +52,7 @@ public class SkillService {
     public List<Skill> getTopNTrending(Integer n) {
         Iterable<Skill> skills = skillsRepository.findAll();
 
-        Map<Skill, Integer> skillMap = new TreeMap<>();
+        Map<Skill, Integer> skillMap = new HashMap<>();
 
         for (Skill skill : skills)
             skillMap.put(skill, skill.getRelevantJobs().size());
