@@ -7,6 +7,8 @@ import com.linkedin.backend.utils.JSONReturn;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,9 @@ public class NetworkController {
     public List<SearchResultDTO> searchUsers(@Valid @RequestBody JSONReturn<String> searchTerms) {
         String[] terms = searchTerms.getPayload().split(" ", -2);
 
+        if (terms.length == 0)
+            return Collections.emptyList();
+        
         String firstTerm = terms[0].trim().toLowerCase();
 
         String secondTerm = "________________________________";
