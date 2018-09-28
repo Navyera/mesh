@@ -37,8 +37,8 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public void addJob(Job job) {
-        jobRepository.save(job);
+    public Job addJob(Job job) {
+        return jobRepository.save(job);
     }
 
     public Job findJobById(Integer jobId) throws JobNotFoundException {

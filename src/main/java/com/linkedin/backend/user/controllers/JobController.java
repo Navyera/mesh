@@ -2,6 +2,7 @@ package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.dto.JobStatsDTO;
+import com.linkedin.backend.dto.UserListItem;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.JobService;
 import com.linkedin.backend.user.SkillService;
@@ -73,23 +74,20 @@ public class JobController {
     }
 
     @PostMapping("/toggle-apply/{jobId}")
-    public JSONReturn<Boolean> toggleApply(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer jobId)
+    public List<UserListItem> toggleApply(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer jobId)
                                                                                       throws UserNotFoundException, JobNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
         Job job = jobService.findJobById(jobId);
 
-        Boolean ret = false;
 
-        if (!job.getApplicants().removeIf(a -> a.equals(user))) {
+        if (!job.getApplicants().removeIf(a -> a.equals(user)))
             job.getApplicants().add(user);
-            ret = true;
-        }
 
-        jobService.addJob(job);
+        job = jobService.addJob(job);
 
-        return new JSONReturn<>(ret);
+        return job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
     }
 
     @GetMapping("/stats")
