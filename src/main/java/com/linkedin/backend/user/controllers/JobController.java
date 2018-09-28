@@ -16,6 +16,7 @@ import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,11 @@ public class JobController {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        return user.getMyCreatedJobs().stream().map(JobDTO::new).collect(Collectors.toList());
+        return user.getMyCreatedJobs()
+                .stream()
+                .map(JobDTO::new)
+                .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/feed")
@@ -60,7 +65,9 @@ public class JobController {
                 .stream()
                 .map(AppUser::getMyCreatedJobs)
                 .flatMap(List::stream)
-                .map(j -> new JobDTO(j, true)).collect(Collectors.toList());
+                .map(j -> new JobDTO(j, true))
+                .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
+                .collect(Collectors.toList());
 
         return feed;
     }

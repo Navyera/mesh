@@ -4,6 +4,7 @@ import com.linkedin.backend.user.dao.Job;
 import com.linkedin.backend.user.dao.Skill;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,8 @@ public class JobDTO {
     private List<UserListItem> applicants;
 
     private Integer ownerID;
+
+    private Date date;
 
     private Boolean fromFriend;
 
@@ -37,6 +40,8 @@ public class JobDTO {
         applicants = job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
 
         ownerID = job.getOwner().getId();
+
+        date = job.getDate();
 
         this.fromFriend = fromFriend;
     }
@@ -87,6 +92,14 @@ public class JobDTO {
 
     public void setFromFriend(Boolean fromFriend) {
         this.fromFriend = fromFriend;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getOwnerID() {

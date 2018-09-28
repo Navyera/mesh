@@ -1,6 +1,7 @@
 package com.linkedin.backend.user.dao;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,6 +41,8 @@ public class Job {
     )
     private List<Skill> requiredSkills;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date = new Date();
 
     public Job() {
     }
@@ -90,6 +93,14 @@ public class Job {
 
     public void setRequiredSkills(List<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
