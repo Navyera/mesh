@@ -12,10 +12,7 @@ import org.apache.commons.collections4.ListUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity(name = "User")
@@ -310,6 +307,20 @@ public class AppUser implements Serializable{
                                                                      .map(c -> c.getReceiver().getId())
                                                                      .collect(Collectors.toList());
         return ListUtils.union(activeReceived, activeRequested);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        AppUser that = (AppUser) obj;
+
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getId(), that.getId());
     }
 
     public List<Post> getRelevantPosts() {

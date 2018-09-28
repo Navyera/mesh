@@ -3,6 +3,9 @@ package com.linkedin.backend.utils;
 public class JSONReturn<T> {
     T payload;
 
+    public JSONReturn() {
+    }
+
     public JSONReturn(T payload) {
         this.payload = payload;
     }

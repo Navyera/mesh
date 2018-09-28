@@ -124,5 +124,4 @@ public class FriendController {
 
         return user.getFriendIDs();
     }
-
 }

@@ -2,6 +2,8 @@ package com.linkedin.backend.user;
 
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -76,5 +78,30 @@ public class AppUserService implements UserDetailsService {
         }
 
         return users;
+    }
+
+    private Integer calculateScore(AppUser user, String firstTerm, String secondTerm) {
+        Integer scoreA = LevenshteinDistance.getDefaultInstance().apply(user.getFirstName() + user.getLastName(), firstTerm + secondTerm);
+
+        Integer scoreB = LevenshteinDistance.getDefaultInstance().apply(user.getFirstName() + user.getLastName(), secondTerm + firstTerm);
+
+        return scoreA > scoreB ? scoreB : scoreA;
+    }
+
+    public List<AppUser> getSearchResults(String firstTerm, String lastTerm) {
+        List<AppUser> listA = userRepository.findDistinctByFirstNameContainingOrLastNameContainingAllIgnoreCase(firstTerm, lastTerm);
+        List<AppUser> listB = userRepository.findDistinctByFirstNameContainingOrLastNameContainingAllIgnoreCase(lastTerm, firstTerm);
+
+        Map<AppUser, Integer> distinctBatch = new HashMap<>();
+
+        ListUtils.union(listA, listB).forEach(user -> distinctBatch.put(user, 0));
+
+        distinctBatch.forEach((user, score) -> distinctBatch.put(user, calculateScore(user, firstTerm, lastTerm)));
+
+        return distinctBatch.entrySet()
+                            .stream()
+                            .sorted(Comparator.comparing(Map.Entry::getValue))
+                            .map(Map.Entry::getKey)
+                            .collect(Collectors.toList());
     }
 }
