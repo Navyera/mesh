@@ -5,8 +5,8 @@ import com.linkedin.backend.user.dao.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SkillService {
@@ -47,5 +47,22 @@ public class SkillService {
         user.setSkills(newSkills);
 
         userRepository.save(user);
+    }
+
+    public List<Skill> getTopNTrending(Integer n) {
+        Iterable<Skill> skills = skillsRepository.findAll();
+
+        Map<Skill, Integer> skillMap = new TreeMap<>();
+
+        for (Skill skill : skills)
+            skillMap.put(skill, skill.getRelevantJobs().size());
+
+        return skillMap
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .limit(n)
+                .collect(Collectors.toList());
     }
 }

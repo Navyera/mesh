@@ -1,11 +1,13 @@
 package com.linkedin.backend.user.controllers;
 
 import com.linkedin.backend.dto.JobDTO;
+import com.linkedin.backend.dto.JobStatsDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.JobService;
 import com.linkedin.backend.user.SkillService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Job;
+import com.linkedin.backend.user.dao.Skill;
 import com.linkedin.backend.user.handlers.JobNotFoundException;
 import com.linkedin.backend.user.handlers.PostNotFoundException;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
@@ -21,11 +23,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/users/jobs")
 public class JobController {
     final private AppUserService appUserService;
+    final private SkillService skillService;
     final private JobService jobService;
 
-    public JobController(AppUserService appUserService, JobService jobService) {
+    public JobController(AppUserService appUserService, JobService jobService, SkillService skillService) {
         this.appUserService = appUserService;
         this.jobService = jobService;
+        this.skillService = skillService;
     }
 
     @PostMapping("")
@@ -81,5 +85,13 @@ public class JobController {
         return new JSONReturn<>(ret);
     }
 
+    @GetMapping("/stats")
+    public JobStatsDTO getJobStats(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, JobNotFoundException {
+            JWTUtils token = new JWTUtils(auth);
+            AppUser user = appUserService.findUserById(token.getUserID());
 
+            List<Skill> trendingSkills = skillService.getTopNTrending(5);
+
+            return new JobStatsDTO(user, trendingSkills);
+    }
 }
