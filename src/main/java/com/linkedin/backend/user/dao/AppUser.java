@@ -1,6 +1,7 @@
 package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.linkedin.backend.Job;
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.conversation.Conversation;
 import com.linkedin.backend.dto.*;
@@ -107,6 +108,16 @@ public class AppUser implements Serializable{
             orphanRemoval = true
     )
     private List<Conversation> largerConversations;
+
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Job> myCreatedJobs;
+
+    @ManyToMany(mappedBy = "applicants")
+    private List<Job> myAppliedJobs;
 
     public AppUser() {
     }
@@ -294,6 +305,22 @@ public class AppUser implements Serializable{
 
     public void setReceivedConnections(List<Connection> receivedConnections) {
         this.receivedConnections = receivedConnections;
+    }
+
+    public List<Job> getMyCreatedJobs() {
+        return myCreatedJobs;
+    }
+
+    public void setMyCreatedJobs(List<Job> myCreatedJobs) {
+        this.myCreatedJobs = myCreatedJobs;
+    }
+
+    public List<Job> getMyAppliedJobs() {
+        return myAppliedJobs;
+    }
+
+    public void setMyAppliedJobs(List<Job> myAppliedJobs) {
+        this.myAppliedJobs = myAppliedJobs;
     }
 
     public void addConnection(AppUser user) {
