@@ -24,11 +24,11 @@ public class NetworkController {
     public List<ProfileDTO> searchUsers(@Valid @RequestBody JSONReturn<String> searchTerms) {
         String[] terms = searchTerms.getPayload().split(" ", -2);
 
-        String firstTerm = terms[0].trim();
+        String firstTerm = terms[0].trim().toLowerCase();
 
-        String secondTerm = "";
+        String secondTerm = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
         if (terms.length == 2)
-            secondTerm = terms[1].trim();
+            secondTerm = terms[1].trim().toLowerCase();
 
         return appUserService.getSearchResults(firstTerm, secondTerm)
                              .stream()

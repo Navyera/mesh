@@ -81,7 +81,9 @@ public class AppUserService implements UserDetailsService {
     }
 
     private Integer calculateScore(AppUser user, String firstTerm, String secondTerm) {
-        Integer scoreA = LevenshteinDistance.getDefaultInstance().apply(user.getFirstName() + user.getLastName(), firstTerm + secondTerm);
+        Integer scoreA = LevenshteinDistance.getDefaultInstance().apply(user.getFirstName().toLowerCase() +
+                                                                            user.getLastName().toLowerCase(),
+                                                                        firstTerm + secondTerm);
 
         Integer scoreB = LevenshteinDistance.getDefaultInstance().apply(user.getFirstName() + user.getLastName(), secondTerm + firstTerm);
 
