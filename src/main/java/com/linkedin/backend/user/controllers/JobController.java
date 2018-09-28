@@ -11,6 +11,7 @@ import com.linkedin.backend.user.dao.Job;
 import com.linkedin.backend.user.dao.Skill;
 import com.linkedin.backend.user.handlers.JobNotFoundException;
 import com.linkedin.backend.user.handlers.PostNotFoundException;
+import com.linkedin.backend.user.handlers.SelfApplyException;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JWTUtils;
@@ -75,12 +76,14 @@ public class JobController {
 
     @PostMapping("/toggle-apply/{jobId}")
     public List<UserListItem> toggleApply(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer jobId)
-                                                                                      throws UserNotFoundException, JobNotFoundException {
+                                                                                      throws UserNotFoundException, JobNotFoundException, SelfApplyException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
         Job job = jobService.findJobById(jobId);
 
+        if (user.equals(job.getOwner()))
+            throw new SelfApplyException();
 
         if (!job.getApplicants().removeIf(a -> a.equals(user)))
             job.getApplicants().add(user);

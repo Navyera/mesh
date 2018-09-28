@@ -14,4 +14,11 @@ public class JobAdvice {
     String jobNotFound(JobNotFoundException ex) {
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler(SelfApplyException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String selfApply(SelfApplyException ex) {
+        return ex.getMessage();
+    }
 }
