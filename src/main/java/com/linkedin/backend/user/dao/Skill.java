@@ -1,10 +1,10 @@
 package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linkedin.backend.Job;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Skill {
@@ -59,5 +59,16 @@ public class Skill {
 
     public void setRelevantJobs(List<Job> relevantJobs) {
         this.relevantJobs = relevantJobs;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Skill skill = (Skill) o;
+        return Objects.equals(skillId, skill.skillId);
     }
 }

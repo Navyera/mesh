@@ -1,7 +1,6 @@
 package com.linkedin.backend.user.dao;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.linkedin.backend.Job;
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.conversation.Conversation;
 import com.linkedin.backend.dto.*;
@@ -336,6 +335,20 @@ public class AppUser implements Serializable{
         List<Integer> activeRequested = getRequestedConnections().stream().filter(c -> c.getAccepted() == 1)
                                                                      .map(c -> c.getReceiver().getId())
                                                                      .collect(Collectors.toList());
+        return ListUtils.union(activeReceived, activeRequested);
+    }
+
+    public List<AppUser> getFriends() {
+        List<AppUser> activeReceived = getReceivedConnections().stream()
+                .filter(c -> c.getAccepted() == 1)
+                .map(Connection::getRequester)
+                .collect(Collectors.toList());
+
+        List<AppUser> activeRequested = getRequestedConnections()
+                .stream().filter(c -> c.getAccepted() == 1)
+                .map(Connection::getReceiver)
+                .collect(Collectors.toList());
+
         return ListUtils.union(activeReceived, activeRequested);
     }
 

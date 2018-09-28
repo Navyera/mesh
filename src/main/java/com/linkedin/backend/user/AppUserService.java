@@ -49,10 +49,6 @@ public class AppUserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public void clearUserSkills(AppUser user) {
-
-    }
-
     public List<AppUser> getAll(List<Integer> userIds) {
         List<AppUser> users = new ArrayList<>();
 

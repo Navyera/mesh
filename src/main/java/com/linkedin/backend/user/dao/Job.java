@@ -1,10 +1,8 @@
-package com.linkedin.backend;
-
-import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.dao.Skill;
+package com.linkedin.backend.user.dao;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Job {
@@ -92,5 +90,17 @@ public class Job {
 
     public void setRequiredSkills(List<Skill> requiredSkills) {
         this.requiredSkills = requiredSkills;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Job job = (Job) o;
+        return Objects.equals(jobId, job.jobId);
     }
 }

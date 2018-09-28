@@ -23,8 +23,11 @@ public class SkillService {
         return skillsRepository.findBySkillDescription(desc);
     }
 
-    public void setSkillsFromStrList(AppUser user, List<String> skills) {
+    public List<Skill> generateSkills(List<String> skills) {
         List<Skill> newSkills = new ArrayList<>();
+
+        if (skills == null)
+            return newSkills;
 
         for (String skill : skills) {
             Skill newSkill = findSkillByDesc(skill);
@@ -34,6 +37,12 @@ public class SkillService {
 
             newSkills.add(newSkill);
         }
+
+        return newSkills;
+    }
+
+    public void setSkillsFromStrList(AppUser user, List<String> skills) {
+        List<Skill> newSkills = generateSkills(skills);
 
         user.setSkills(newSkills);
 
