@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class PostNotFoundAdvice {
+public class PostAdvice {
 
     @ResponseBody
     @ExceptionHandler(PostNotFoundException.class)
