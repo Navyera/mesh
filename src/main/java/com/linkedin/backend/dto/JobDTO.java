@@ -41,7 +41,11 @@ public class JobDTO {
         jobDescription = job.getJobDescription();
 
         requiredSkills = job.getRequiredSkills().stream().map(Skill::getSkillDescription).collect(Collectors.toList());
-        applicants = job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+
+        if (user.equals(job.getOwner()))
+            applicants = job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+        else
+            applicants = job.getApplicants().stream().map(c -> UserListItem.getDummy()).collect(Collectors.toList());
 
         ownerID = job.getOwner().getId();
 
