@@ -85,6 +85,7 @@ public class JobController {
 
         List<JobDTO> feed = jobKNNService.generateUserKNN(user)
                                          .stream()
+                                         .filter(j -> !j.getOwner().getId().equals(user.getId()))
                                          .map(j -> new JobDTO(j, user, connectionService.friends(user.getId(), j.getOwner().getId())))
                                          .collect(Collectors.toList());
 
