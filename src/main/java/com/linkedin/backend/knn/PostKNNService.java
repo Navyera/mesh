@@ -2,7 +2,6 @@ package com.linkedin.backend.knn;
 
 import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.post.Comment;
-import com.linkedin.backend.post.CommentRepository;
 import com.linkedin.backend.post.Post;
 import com.linkedin.backend.post.PostRepository;
 import com.linkedin.backend.user.AppUserService;
@@ -10,23 +9,17 @@ import com.linkedin.backend.user.dao.AppUser;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class KNNService {
+public class PostKNNService {
     private final PostRepository postRepository;
     private final AppUserService appUserService;
     private final ConnectionService friendService;
-    private final CommentRepository commentRepository;
 
     public class KNNResult {
         private AppUser user;
         private Double distance;
-
-        public KNNResult(Post post) {
-            this.user = post.getUser();
-        }
 
         public KNNResult(AppUser user, Double distance) {
             this.user = user;
@@ -49,35 +42,6 @@ public class KNNService {
             this.distance = distance;
         }
 
-        public KNNTestReturn toTestReturn() {
-            return new KNNTestReturn(this);
-        }
-    }
-
-    public class KNNTestReturn {
-        private Integer id;
-        private Double distance;
-
-        public KNNTestReturn(KNNResult res) {
-            id = res.getUser().getId();
-            distance = res.distance;
-        }
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        public Double getDistance() {
-            return distance;
-        }
-
-        public void setDistance(Double distance) {
-            this.distance = distance;
-        }
     }
 
     public class PostScore {
@@ -119,11 +83,10 @@ public class KNNService {
         }
     }
 
-    public KNNService(PostRepository postRepository, AppUserService appUserService, ConnectionService friendService, CommentRepository commentRepository) {
+    public PostKNNService(PostRepository postRepository, AppUserService appUserService, ConnectionService friendService) {
         this.postRepository = postRepository;
         this.appUserService = appUserService;
         this.friendService = friendService;
-        this.commentRepository = commentRepository;
     }
 
     private double distance(List<Double> myVector, List<Double> otherVector) {

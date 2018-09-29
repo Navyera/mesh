@@ -1,8 +1,10 @@
 package com.linkedin.backend.user.controllers;
 
+import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.dto.JobStatsDTO;
 import com.linkedin.backend.dto.UserListItem;
+import com.linkedin.backend.knn.JobKNNService;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.JobService;
 import com.linkedin.backend.user.SkillService;
@@ -10,10 +12,8 @@ import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Job;
 import com.linkedin.backend.user.dao.Skill;
 import com.linkedin.backend.user.handlers.JobNotFoundException;
-import com.linkedin.backend.user.handlers.PostNotFoundException;
 import com.linkedin.backend.user.handlers.SelfApplyException;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
-import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +28,15 @@ public class JobController {
     final private AppUserService appUserService;
     final private SkillService skillService;
     final private JobService jobService;
+    final private JobKNNService jobKNNService;
+    final private ConnectionService connectionService;
 
-    public JobController(AppUserService appUserService, JobService jobService, SkillService skillService) {
+    public JobController(AppUserService appUserService, JobService jobService, SkillService skillService, JobKNNService jobKNNService, ConnectionService connectionService) {
         this.appUserService = appUserService;
         this.jobService = jobService;
         this.skillService = skillService;
+        this.jobKNNService = jobKNNService;
+        this.connectionService = connectionService;
     }
 
     @PostMapping("")
@@ -70,6 +74,19 @@ public class JobController {
                 .map(j -> new JobDTO(j, user, true))
                 .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
                 .collect(Collectors.toList());
+
+        return feed;
+    }
+
+    @GetMapping("/matching-feed")
+    public List<JobDTO> getMatchingFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        List<JobDTO> feed = jobKNNService.generateUserKNN(user)
+                                         .stream()
+                                         .map(j -> new JobDTO(j, user, connectionService.friends(user.getId(), j.getOwner().getId())))
+                                         .collect(Collectors.toList());
 
         return feed;
     }

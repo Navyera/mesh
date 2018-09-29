@@ -29,7 +29,6 @@ public class JobDTO {
     public JobDTO() {
     }
 
-
     public JobDTO(Job job, AppUser user) {
         this(job, user, false);
     }

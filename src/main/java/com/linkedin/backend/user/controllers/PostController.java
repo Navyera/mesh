@@ -6,7 +6,7 @@ import com.linkedin.backend.content.FileStorageException;
 import com.linkedin.backend.content.FileStorageService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
-import com.linkedin.backend.knn.KNNService;
+import com.linkedin.backend.knn.PostKNNService;
 import com.linkedin.backend.post.Like;
 import com.linkedin.backend.post.Post;
 import com.linkedin.backend.user.handlers.PostNotFoundException;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,14 +31,14 @@ public class PostController {
     private final FileStorageService fileStorageService;
     private final PostService postService;
     private final ContentService contentService;
-    private final KNNService knnService;
+    private final PostKNNService postKnnService;
 
-    public PostController(AppUserService appUserService, FileStorageService fileStorageService, PostService postService, ContentService contentService, KNNService knnService) {
+    public PostController(AppUserService appUserService, FileStorageService fileStorageService, PostService postService, ContentService contentService, PostKNNService postKnnService) {
         this.appUserService = appUserService;
         this.fileStorageService = fileStorageService;
         this.postService = postService;
         this.contentService = contentService;
-        this.knnService = knnService;
+        this.postKnnService = postKnnService;
     }
 
     @GetMapping("/post/{postId}")
@@ -135,6 +134,6 @@ public class PostController {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
-        return knnService.generateUserKNN(user).stream().map(Post::getId).collect(Collectors.toList());
+        return postKnnService.generateUserKNN(user).stream().map(Post::getId).collect(Collectors.toList());
     }
 }
