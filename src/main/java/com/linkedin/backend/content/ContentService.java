@@ -12,8 +12,8 @@ public class ContentService {
         this.fileRepository = fileRepository;
     }
 
-    public void addFile(File file) {
-        fileRepository.save(file);
+    public File addFile(File file) {
+        return fileRepository.save(file);
     }
 
     public File findFileById(Integer id) throws FileNotFoundException {

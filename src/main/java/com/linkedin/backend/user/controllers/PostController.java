@@ -1,5 +1,9 @@
 package com.linkedin.backend.user.controllers;
 
+import com.linkedin.backend.content.ContentService;
+import com.linkedin.backend.content.File;
+import com.linkedin.backend.content.FileStorageException;
+import com.linkedin.backend.content.FileStorageService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
 import com.linkedin.backend.post.Like;
@@ -11,11 +15,10 @@ import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
-import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
@@ -25,11 +28,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/users")
 public class PostController {
     private final AppUserService appUserService;
+    private final FileStorageService fileStorageService;
     private final PostService postService;
+    private final ContentService contentService;
 
-    public PostController(AppUserService appUserService, PostService postService) {
+    public PostController(AppUserService appUserService, FileStorageService fileStorageService, PostService postService, ContentService contentService) {
         this.appUserService = appUserService;
+        this.fileStorageService = fileStorageService;
         this.postService = postService;
+        this.contentService = contentService;
     }
 
     @GetMapping("/feed")
@@ -71,6 +78,37 @@ public class PostController {
         newPost.setUser(user);
 
         newPost = postService.savePost(newPost);
+
+        return new JSONReturn<Integer>(newPost.getId());
+    }
+
+    @PostMapping("/post/image")
+    public JSONReturn<Integer> createImagePost(@Valid @RequestHeader(value="Authorization") String auth,
+                                               @RequestParam("file") MultipartFile file,
+                                               @RequestParam PostDTO post) throws UserNotFoundException, FileStorageException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        // Create file and store metadata in DB
+        String fileName = fileStorageService.storeFile(file);
+
+        File fileMetadata = new File();
+
+        fileMetadata.setContentId(fileName);
+        fileMetadata.setOwner(user);
+        fileMetadata.setContentLength(file.getSize());
+        fileMetadata.setMimeType(file.getContentType());
+
+        fileMetadata = contentService.addFile(fileMetadata);
+
+        Post newPost = new Post();
+
+        newPost.setType(PostType.IMAGE);
+        newPost.setBody(post.getBody());
+        newPost.setUser(user);
+        newPost.setFile(fileMetadata);
+
+        newPost.setUser(user);
 
         return new JSONReturn<Integer>(newPost.getId());
     }

@@ -81,6 +81,15 @@ public class ContentController {
         return new JSONStatus("OK");
     }
 
+    @GetMapping("/api/content/{id}")
+    public ImageResourceDTO getContent(@Valid @PathVariable Integer id) throws FileNotFoundException {
+        File file = contentService.findFileById(id);
+
+        byte[] fileContent = fileStorageService.loadFileAsByteArray(file.getContentId());
+
+        return new ImageResourceDTO(file.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
+    }
+
     @GetMapping("/api/content/profile_picture")
     public ImageResourceDTO getProfilePicture(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException, FileNotFoundException {
         JWTUtils token = new JWTUtils(auth);
