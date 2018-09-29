@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 // TODO: Enable when using Spring as the app server.
-// @Controller
+ @Controller
 class WebApplicationConfig {
 
     // Match everything without a suffix (so not a static resource)

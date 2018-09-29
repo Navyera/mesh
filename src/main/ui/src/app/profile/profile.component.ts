@@ -8,6 +8,7 @@ import { ProfileView } from '../models/models.profile-view';
 import { Permissions, PermissionsManager } from '../models/models.permissions';
 
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -31,7 +32,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfilePicture()
     .subscribe(
       response => {
-        console.log(response);
         if (response.body !== null) {
           const base64data = response.body.image;
           const mimeType = response.body.type;
@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateProfile(this.model).subscribe(
       response => {
         this.alertService.success('Your profile was updated successfully');
-        this.initialModel.profileDTO = this.copy(this.model.profileDTO);
+        this.initialModel = this.copy(this.model);
       },
       error => {
         console.log(error);

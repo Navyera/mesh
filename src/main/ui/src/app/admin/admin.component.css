@@ -1,0 +1,55 @@
+.my-container {
+    margin-top: 14px;
+}
+
+.my-chat-list {
+    max-width: 370px;
+    height: calc(100vh - 100px);
+    overflow-y: scroll;
+}
+
+.profile-picture {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%; 
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.my-center {
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-card {
+    max-width: 500px;
+    cursor: pointer;
+}
+
+
+.my-checkbox {
+    margin-right: 0px;
+    float:right;
+}
+
+.my-square {
+    font-size: 20px;
+}
+
+.btn-circle {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+  }
+
+  .my-button {
+      margin-left: 18px;
+  }

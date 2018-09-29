@@ -4,6 +4,7 @@ import { Profile } from '../models/models.profile';
 import { SafeUrl } from '@angular/platform-browser';
 import { FriendService } from '../services/friend.service';
 import { AlertService } from '../services/alert.service';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -19,7 +20,8 @@ export class ProfileViewComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private friendService: FriendService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private messagingService: MessagingService) { }
 
   ngOnInit() {
 
@@ -28,7 +30,6 @@ export class ProfileViewComponent implements OnInit {
     this.friendService.getProfilePicture(this.profileID)
     .subscribe(
       response => {
-        console.log(response);
         if (response.body !== null) {
           const base64data = response.body.image;
           const mimeType = response.body.type;
@@ -69,7 +70,6 @@ export class ProfileViewComponent implements OnInit {
             this.alertService.warn('You are already friends with that user');
           break;
         }
-        console.log(response);
       },
       error => {
         switch (error.status) {
@@ -82,6 +82,38 @@ export class ProfileViewComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  goToNetworkView() {
+    if (this.profileID.toString() === localStorage.getItem('id')) {
+      this.router.navigate(['/user/network']);
+    } else {
+      this.router.navigate(['/user/network-view', this.profileID]);
+    }
+  }
+
+  goToMessaging() {
+    if (this.profileID.toString() === localStorage.getItem('id')) {
+      this.router.navigate(['/user/messaging']);
+    } else {
+      this.messagingService.initiateConversation(this.profileID).subscribe(
+        response => {
+          const convID = response.body.payload;
+          this.messagingService.registerSelection(convID);
+          this.router.navigate(['/user/messaging'], { queryParams: {redirect: true}});
+        },
+        error => {
+          console.log(error);
+          switch (error.status) {
+            case 400:
+              this.alertService.error('You must first connect with that user to initiate a conversation');
+            break;
+            default:
+              this.alertService.error('Unexpected error occured');
+          }
+        }
+      );
+    }
   }
 
 }

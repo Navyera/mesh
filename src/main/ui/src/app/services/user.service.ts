@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Settings } from '../models/models.settings';
 import { Profile } from '../models/models.profile';
 import { ProfileView } from '../models/models.profile-view';
+import { ProfileStats } from '../models/models.profile-stats';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,15 @@ export class UserService {
 
 
   getProfile() {
-    return this.http.get<ProfileView>('api/users/profile', {observe: 'response'});
+    return this.http.get<ProfileView>('/api/users/profile', {observe: 'response'});
+  }
+
+  getProfileStats() {
+    return this.http.get<ProfileStats>('/api/users/profile/stats', {observe: 'response'});
   }
 
   updateProfile(profileView: ProfileView) {
-    return this.http.post('api/users/profile', profileView, {observe: 'response'});
+    return this.http.post('/api/users/profile', profileView, {observe: 'response'});
   }
 
   getSettings() {
@@ -41,7 +46,7 @@ export class UserService {
   }
 
   getProfilePicture() {
-    return this.http.get<any>('api/content/profile_picture', {observe: 'response' });
+    return this.http.get<any>('/api/content/profile_picture', {observe: 'response' });
   }
 
 

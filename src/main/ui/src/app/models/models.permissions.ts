@@ -30,7 +30,7 @@ export class Permissions {
     public getFriend(): boolean {
         return (this.permissions & this.FRIEND) !== 0;
     }
-    
+
     public setAbout(value: boolean): void  {
         this.permissions = value ? this.permissions | this.ABOUT : this.permissions & ~this.ABOUT;
     }

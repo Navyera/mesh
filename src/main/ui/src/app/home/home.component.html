@@ -1,26 +1,118 @@
-<p>
-  home works!
-</p>
 
-<div class="list">
+<div class="container-fluid my-container">
+  <div class="row">
 
-<app-profile-card [userID]="3" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
-<app-profile-card [userID]="2" ></app-profile-card>
+    <!-- Profile Info Tab -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+            
+            <img class="my-center profile-picture" 
+                 [src]="pictureSrc || '../../assets/images/profile-placeholder.png'"
+                 alt="" />
+            <div class="h5" style="text-align: center"> {{ profileStats.firstName }}
+                             {{ profileStats.lastName  }} </div>
+            <div class="h7 text-muted" style="text-align: center">
+              {{ profileStats.job }}
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="h6 text-muted">Connections</div>
+                <div class="h5">{{ profileStats.connections }}</div>
+            </li>
+            <li class="list-group-item">
+                <div class="h6 text-muted">Posts</div>
+                <div class="h5">{{ profileStats.posts }}</div>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Profile Info Tab ends here -->
 
 
+    <div class="col-md-6 gedf-main">
+      <!---Post Compose Area-->
+      <div class="card gedf-card">
+          <div class="card-body">
+          
+            <ngb-tabset>
+              <ngb-tab title="New post">
+                <ng-template ngbTabContent>
+                  <form (ngSubmit)="newPostSubmit()" #newPostForm="ngForm">
+                    <br>
+                    <div class="form-group">
+                        <label class="sr-only" for="message">post</label>
+                        <textarea class="form-control" id="message" name="postbody"
+                                  rows="3" placeholder="What are you thinking?"
+                                  [(ngModel)]="newPost.body" required></textarea>
+                    </div>
+
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-primary my-post-button"
+                                [disabled]="!newPostForm.valid"> 
+                          Post </button> 
+                    </div>
+                  </form>                    
+                </ng-template>
+              </ngb-tab>
+
+              <ngb-tab title="New media post">
+                  <ng-template ngbTabContent>
+                    <form (ngSubmit)="newMediaPostSubmit()" #newMediaPostForm="ngForm">
+                        <br>
+                        <div class="form-group">
+                            <label class="sr-only" for="message">post</label>
+                            <textarea class="form-control" id="mediamessage" name="mediapostbody"
+                                      rows="2" placeholder="What are you thinking?"
+                                      [(ngModel)]="newMediaPost.body"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input class="form-control custom-file-input" type="file" 
+                                id="customFile" (change)="onFileChanged($event)">
+
+                                <label class="custom-file-label" for="customFile">Upload image</label>
+                            </div>
+                        </div>
+
+                        <div *ngIf="this.preview">
+                          <img [src]="this.preview" class="img-preview center"
+                               *ngIf="media.type.includes('image')">
+
+                          <audio class="center" controls [src]="this.preview"
+                                *ngIf="media.type.includes('audio')"></audio>
+
+                         
+                          <video class="center" width="320" height="240" controls
+                                *ngIf="media.type.includes('video')">
+
+                            <source [src]="this.preview">
+
+                          </video>
+                        </div>
+    
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary my-post-button"
+                                    [disabled]="!newMediaPostForm.valid"> 
+                              Post </button> 
+                        </div>
+                    </form>
+                    <br>
+                      
+                    <div class="py-4"></div>
+                  </ng-template>
+                </ngb-tab>
+            </ngb-tabset>        
+          </div>
+      </div>
+      <!---Post Compose Area ends here-->
+
+      <!-- Post feed-->
+      
+      <app-post *ngFor="let postID of postIDs" [postID]="postID"></app-post>
+      
+      <!-- Post feed ends here-->
+  </div>
 </div>

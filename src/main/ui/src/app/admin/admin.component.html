@@ -1,3 +1,71 @@
-<h1>
-  SUCH SECURITY MUCH WOW!
-</h1>
+<div class="container-fluid my-container">
+    <div class="row">
+        <button class="btn btn-secondary my-button" (click)="selectAllUsers()"> Select all </button>
+        <button class="btn btn-primary my-button" (click)="downloadXML()"> Download XML </button>
+        <button class="btn btn-danger my-button" (click)="onLogout()">
+            <i class="fa fa-sign-out icon" aria-hidden="true" style="font-size:17px;"></i>
+            Logout</button>
+    </div>
+    <hr>
+    <div class="row" >
+      
+        
+        <!-- User list -->
+        <div class="col-md-4 my-chat-list">
+          
+          
+
+            <div class="card my-card" *ngFor="let user of users">
+
+                <div class="card-body">
+                    <div class="row">
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                    
+
+                                  <div [ngClass]="{    'btn btn-circle': true,
+                                                      'btn-primary': selectedUsers[user.userID],
+                                                      'btn-dark': !selectedUsers[user.userID] }" 
+                                                  (click)="toggleUserSelect(user.userID)">
+                                    <!-- <i [ngClass]="{ 'fa fa-twitter': selectedUsers[user.userID],
+                                                    'fa fa-square my-square': !selectedUsers[user.userID] }"></i> -->
+                                    </div>
+                                   
+                                </div>
+
+
+                                <div class="ml-2 list" (click)="onUserSelect(user.userID)">
+                                    <div class="h5" style="text-align: center"> 
+                                                    {{ user.userID    }}
+                                                    &nbsp;
+                                                    {{ user.firstName }}
+                                                    {{ user.lastName  }} 
+  
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+
+                        
+                  </div>
+                  
+              </div>
+
+          </div>
+        </div>
+        <!-- Ends here-->
+
+        
+        <div class="col-md-8">
+
+        <app-admin-profile-view></app-admin-profile-view>
+
+
+        </div>
+
+         
+    </div>
+</div>
+

@@ -87,6 +87,7 @@ public class JobController {
                                          .stream()
                                          .filter(j -> !j.getOwner().getId().equals(user.getId()))
                                          .map(j -> new JobDTO(j, user, connectionService.friends(user.getId(), j.getOwner().getId())))
+                                         .sorted(Comparator.comparing(JobDTO::getDate, Comparator.reverseOrder()))
                                          .collect(Collectors.toList());
 
         return feed;

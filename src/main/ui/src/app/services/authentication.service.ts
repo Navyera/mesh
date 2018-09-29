@@ -4,6 +4,7 @@ import { LoginInfo } from '../models/models.login';
 import { map } from 'rxjs/operators';
 import { AlertService } from './alert.service';
 import { JWTToken } from '../utils/utils.jwt';
+import { Router } from '@angular/router';
 
 
 
@@ -12,7 +13,8 @@ import { JWTToken } from '../utils/utils.jwt';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   login(loginInfo: LoginInfo) {
     return this.http.post<LoginInfo>('/api/login', loginInfo, { observe: 'response' })
@@ -33,7 +35,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.clear();
+    this.router.navigateByUrl('/');
   }
 
   isAuthenticated(): boolean {

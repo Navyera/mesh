@@ -13,6 +13,7 @@ import { NotificationsComponent } from '../notifications/notifications.component
 import { ProfileComponent } from '../profile/profile.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
+import { NetworkViewComponent } from '../network-view/network-view.component';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
         component: HomeComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -36,7 +37,15 @@ const routes: Routes = [
         component: NetworkComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
+        }
+      },
+      {
+        path: 'network-view/:userID',
+        component: NetworkViewComponent,
+        canActivate: [RoleguardService],
+        data: {
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -44,7 +53,7 @@ const routes: Routes = [
         component: JobsComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -52,7 +61,7 @@ const routes: Routes = [
         component: MessagingComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -60,7 +69,7 @@ const routes: Routes = [
         component: NotificationsComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -68,7 +77,7 @@ const routes: Routes = [
         component: ProfileViewComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -76,7 +85,7 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       },
       {
@@ -84,7 +93,7 @@ const routes: Routes = [
         component: SettingsComponent,
         canActivate: [RoleguardService],
         data: {
-          expectedRoles: ['ROLE_USER', 'ROLE_ADMIN']
+          expectedRoles: ['ROLE_USER']
         }
       }
     ]

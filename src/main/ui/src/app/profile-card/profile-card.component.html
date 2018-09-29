@@ -3,7 +3,7 @@
 
 <div *ngIf="!hidden">
 <div class="card">
-  <a [routerLink]="['../profile', userID]">
+  <a [routerLink]="['/user/profile', userID]">
     <div class="card-img-top">
     <img [src]="pictureSrc || '../../assets/images/profile-placeholder.png'" id="profile-picture">
     </div>

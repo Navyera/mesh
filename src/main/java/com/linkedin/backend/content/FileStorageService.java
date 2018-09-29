@@ -69,7 +69,7 @@ public class FileStorageService {
 
             return FileUtils.readFileToByteArray(new File(filePath.toString()));
         } catch (IOException e) {
-            throw new FileNotFoundException("File " + fileName + " could not be found");
+            throw new FileNotFoundException("File " + this.fileStorageLocation.resolve(fileName).normalize() + " could not be found");
         }
     }
 }

@@ -1,3 +1,130 @@
-<p>
-  jobs works!
-</p>
+<div class="container-fluid my-container">
+  <div class="row">
+
+    <!-- Job Info Tab -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+            
+            <img class="my-center profile-picture" 
+                  [src]="pictureSrc || '../../assets/images/profile-placeholder.png'"
+                  alt="" />
+            <div class="h5" style="text-align: center"> 
+                              {{ jobProfile.firstName }}
+                              {{ jobProfile.lastName  }} 
+            </div>
+
+            <div class="h7 text-muted" style="text-align: center">
+              {{ jobProfile.job }}
+            </div>
+
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="h5">Trending Skills</div>
+                <hr>
+                <div class="h5" 
+                     *ngFor="let skill of jobProfile.trendingSkills">
+                     {{ skill }}
+                </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+      <!-- Job Info Tab ends here -->
+  
+  
+      <div class="col-md-7 gedf-main">
+        
+        <ngb-tabset>
+          <!-- Network Job Feed -->
+          <ngb-tab title="Network Feed">
+              <ng-template ngbTabContent>
+
+                <app-job-view *ngFor="let job of jobs" [job]="job">            
+                </app-job-view>
+
+              </ng-template>
+          </ngb-tab>
+          <!-- Ends here -->
+          <!-- Skill based feed  -->
+          <ngb-tab title="Based on your skills">
+              <ng-template ngbTabContent>
+
+                <app-job-view *ngFor="let job of skillBasedJobs" [job]="job">            
+                </app-job-view>
+
+              </ng-template>
+          </ngb-tab>
+          <!-- Ends here -->
+          <!-- My job postings -->
+          <ngb-tab title="My Postings">
+              <ng-template ngbTabContent>
+
+                  <app-job-view *ngFor="let job of myJobs" [job]="job">
+                  </app-job-view>
+
+              </ng-template>
+          </ngb-tab>
+          <!-- Ends here -->
+
+          <!-- Create job posting -->
+          <ngb-tab title="New Posting">
+              <ng-template ngbTabContent>
+                  <h4 style="margin: 10px; margin-left: 0px;"> Create a job posting </h4>
+                  <form (ngSubmit)="newJobSubmit()" #newJobForm="ngForm">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <input class="form-control" id="title" name="jobTitle"
+                                  placeholder="Job Title"
+                                  [(ngModel)]="newJob.jobTitle" required>
+                    </div>
+
+                    <div class="form-group">
+                
+                        <textarea class="form-control" id="description" name="jobDescription"
+                                  rows="3" placeholder="Job Description"
+                                  [(ngModel)]="newJob.jobDescription" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <h4> Preferred Skills </h4>
+                        <h3>
+                        <span *ngFor="let skill of newJob.requiredSkills" 
+                            class="badge badge-pill badge-info">
+                        {{skill}} 
+                        <a class="remove" (click)="deleteSkill(skill)">
+                          <i class="fa fa-times 2x" style="color: rgb(51, 52, 56);">
+                          </i>
+                        </a>
+                        </span>
+                        </h3>
+                      </div>
+                
+                      
+                
+                      <div class="form-group form-inline">
+                        
+                        <input id="newskill" type="text" class="form-control" id="newskill"
+                              placeholder="New skill" 
+                              [(ngModel)]="newSkill" name="newskill"
+                              #newskill="ngModel">
+                     
+                        <button type="button" class="btn btn-primary" (click)="addSkill()"> Add Skill</button>
+                        
+                      </div>   
+
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-primary my-post-button"
+                                [disabled]="!newJobForm.valid"> 
+                          Post </button> 
+                    </div>
+
+                  </form>
+
+              </ng-template>
+          </ngb-tab>
+          <!-- Ends here -->
+          </ngb-tabset>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,28 @@
 
 <div style="margin:10px">
-<h1> My Network </h1>
+
+    <div class="inline-block-child">
+        <h2> My Network </h2>
+    </div>
+
+    <div class="inline-block-child float-right">
+    <form class="form-inline" style="padding-top: 6px;"
+        (ngSubmit)="onSubmit()" #searchForm="ngForm">
+
+        <input class="form-control mr-sm-2" type="search" 
+        placeholder="Search for people..." aria-label="Search"
+        [(ngModel)]="searchTerms" name="search"
+        #search="ngModel">
+
+        <button class="btn btn-primary my-shadow my-2 my-sm-0" type="submit">
+            <i class="fa fa-search" style="margin-right:5px;"></i>Search 
+        </button>
+    </form>
+    </div>
 </div>
+
+
+<hr>
 <div class="list"> 
     <app-profile-card *ngFor="let friendID of friendIDs"
     [userID]="friendID" ></app-profile-card>

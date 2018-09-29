@@ -30,7 +30,6 @@ export class ProfileCardComponent implements OnInit {
     this.friendService.getProfilePicture(this.userID)
     .subscribe(
       response => {
-        console.log(response);
         if (response.body !== null) {
           const base64data = response.body.image;
           const mimeType = response.body.type;
@@ -45,7 +44,6 @@ export class ProfileCardComponent implements OnInit {
     this.friendService.getProfile(this.userID)
     .subscribe(
       response => {
-        console.log(response);
         this.model = response.body.profileDTO;
       },
 

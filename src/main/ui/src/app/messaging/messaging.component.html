@@ -1,3 +1,34 @@
-<p>
-  messaging works!
-</p>
+<div class="container-fluid my-container">
+    <div class="row" >
+  
+        <!-- Chat  list -->
+        <div class="col-md-4 my-chat-list">
+          
+          <a style="cursor: pointer;" (click)="onConversationSelect(conversation)"
+            *ngFor="let conversation of conversations">
+          <app-chat-profile [conversation]="conversation">
+          </app-chat-profile>
+          </a>
+
+        
+          
+        </div>
+        <!-- Ends here-->
+
+        
+        <div class="col-md-8">
+
+         <h4 style="text-align: center;">
+              {{ selectedConversation.firstName }}
+             {{ selectedConversation.lastName }} 
+        </h4> 
+          <!-- Chat view -->
+          <app-chat-view></app-chat-view>
+          <!-- Ends here-->
+
+
+        </div>
+
+         
+    </div>
+</div>

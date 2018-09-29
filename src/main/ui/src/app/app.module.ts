@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +15,7 @@ import { CheckPasswordDirective } from '../directives/check-password.directive';
 import { AlertComponent } from './alert/alert.component';
 import { AdminComponent } from './admin/admin.component';
 
+import { StringToDatePipe } from './utils/utils.string-to-date.pipe';
 import { JwtInterceptor } from './utils/utils.jwt-interceptor';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
@@ -25,6 +27,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { PostComponent } from './post/post.component';
+import { CommentComponent } from './comment/comment.component';
+import { NotificationViewComponent } from './notification-view/notification-view.component';
+import { ChatProfileComponent } from './chat-profile/chat-profile.component';
+import { ChatViewComponent } from './chat-view/chat-view.component';
+import { AdminProfileViewComponent } from './admin-profile-view/admin-profile-view.component';
+import { NetworkViewComponent } from './network-view/network-view.component';
+import { UserListItemComponent } from './user-list-item/user-list-item.component';
+import { UserListModalComponent } from './user-list-modal/user-list-modal.component';
+import { JobViewComponent } from './job-view/job-view.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +57,18 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
     ProfileComponent,
     SettingsComponent,
     ProfileCardComponent,
-    ProfileViewComponent
+    ProfileViewComponent,
+    PostComponent,
+    CommentComponent,
+    StringToDatePipe,
+    NotificationViewComponent,
+    ChatProfileComponent,
+    ChatViewComponent,
+    AdminProfileViewComponent,
+    NetworkViewComponent,
+    UserListItemComponent,
+    UserListModalComponent,
+    JobViewComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +86,7 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
       multi: true
     }
   ],
+  entryComponents: [PostComponent, UserListModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

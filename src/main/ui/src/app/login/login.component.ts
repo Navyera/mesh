@@ -36,11 +36,22 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
               this.alertService.success('Login successful', true);
-              this.router.navigateByUrl(this.returnUrl);
+
+              const role = localStorage.getItem('role');
+
+              switch (role) {
+                case 'ROLE_USER':
+                  this.router.navigateByUrl(this.returnUrl);
+                  break;
+                case 'ROLE_ADMIN':
+                  this.router.navigateByUrl('/admin');
+                  break;
+              }
+
           },
           error => {
             switch (error.status) {
-              case 403:
+              case 401:
                 this.alertService.error('Invalid e-mail/password');
                 break;
               default:

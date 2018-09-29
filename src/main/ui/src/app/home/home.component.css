@@ -1,4 +1,44 @@
-.list {
-    display: flex;
-    flex-wrap: wrap;
+.my-container {
+    margin-top: 1rem;
 }
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #0c5eda;
+}
+
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #0c5eda; 
+  }
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%; 
+}
+
+
+.my-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-post-button {
+    margin-top: 20px;
+    width: 80px;
+}
+
+.img-preview {
+    max-height: 200px;
+    max-width: 100%;
+
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* SHADOW!! box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
