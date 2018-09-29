@@ -3,8 +3,8 @@ package com.linkedin.backend.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkedin.backend.models.LoginModel;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.dto.LoginDTO;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.entities.user.AppUserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,7 +35,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            LoginModel user = new ObjectMapper().readValue(request.getInputStream(), LoginModel.class);
+            LoginDTO user = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

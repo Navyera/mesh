@@ -1,10 +1,10 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.content.*;
+import com.linkedin.backend.storage.*;
 import com.linkedin.backend.dto.ImageResourceDTO;
 import com.linkedin.backend.handlers.exception.FileNotFoundException;
 import com.linkedin.backend.handlers.exception.FileStorageException;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;

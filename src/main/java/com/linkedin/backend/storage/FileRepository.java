@@ -1,4 +1,4 @@
-package com.linkedin.backend.content;
+package com.linkedin.backend.storage;
 
 import org.springframework.data.repository.CrudRepository;
 

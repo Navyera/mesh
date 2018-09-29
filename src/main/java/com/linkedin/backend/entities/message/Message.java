@@ -1,7 +1,7 @@
 package com.linkedin.backend.entities.message;
 
 import com.linkedin.backend.entities.conversation.Conversation;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

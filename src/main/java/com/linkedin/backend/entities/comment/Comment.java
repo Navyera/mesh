@@ -1,7 +1,8 @@
-package com.linkedin.backend.entities.post;
+package com.linkedin.backend.entities.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.post.Post;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

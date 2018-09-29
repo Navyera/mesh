@@ -2,8 +2,10 @@ package com.linkedin.backend.entities.post;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.linkedin.backend.content.File;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.comment.Comment;
+import com.linkedin.backend.entities.like.Like;
+import com.linkedin.backend.storage.File;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

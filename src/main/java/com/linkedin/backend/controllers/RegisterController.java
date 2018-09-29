@@ -1,10 +1,10 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.models.RegisterModel;
-import com.linkedin.backend.entities.post.Like;
+import com.linkedin.backend.dto.RegisterDTO;
+import com.linkedin.backend.entities.like.Like;
 import com.linkedin.backend.entities.user.*;
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.skill.Skill;
 import com.linkedin.backend.handlers.exception.DuplicateUserException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
@@ -29,7 +29,7 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public JSONStatus register(@Valid @RequestBody RegisterModel model) throws DuplicateUserException {
+    public JSONStatus register(@Valid @RequestBody RegisterDTO model) throws DuplicateUserException {
         // Hash and salt the password using BCrypt encoder.
         model.setPassword(bCryptPasswordEncoder.encode(model.getPassword()));
 

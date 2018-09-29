@@ -1,4 +1,4 @@
-package com.linkedin.backend.entities.post;
+package com.linkedin.backend.entities.comment;
 
 import org.springframework.data.repository.CrudRepository;
 

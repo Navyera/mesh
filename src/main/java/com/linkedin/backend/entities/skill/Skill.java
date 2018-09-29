@@ -1,6 +1,8 @@
-package com.linkedin.backend.entities.user.dao;
+package com.linkedin.backend.entities.skill;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.job.Job;
 
 import javax.persistence.*;
 import java.util.List;

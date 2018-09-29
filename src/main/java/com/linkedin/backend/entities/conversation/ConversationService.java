@@ -5,7 +5,7 @@ import com.linkedin.backend.handlers.exception.NotFriendsException;
 import com.linkedin.backend.handlers.exception.ConversationNotFoundException;
 import com.linkedin.backend.entities.message.Message;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 

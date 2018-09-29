@@ -1,8 +1,9 @@
-package com.linkedin.backend.entities.user;
+package com.linkedin.backend.entities.job;
 
 import com.linkedin.backend.dto.JobDTO;
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Job;
+import com.linkedin.backend.entities.skill.SkillService;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.JobNotFoundException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;

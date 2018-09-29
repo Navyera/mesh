@@ -1,8 +1,8 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Job;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.job.Job;
+import com.linkedin.backend.entities.skill.Skill;
 
 import java.util.Date;
 import java.util.List;
@@ -15,7 +15,7 @@ public class JobDTO {
     private String jobDescription;
     private List<String> requiredSkills;
 
-    private List<UserListItem> applicants;
+    private List<UserListItemDTO> applicants;
 
     private Integer ownerID;
 
@@ -41,9 +41,9 @@ public class JobDTO {
         requiredSkills = job.getRequiredSkills().stream().map(Skill::getSkillDescription).collect(Collectors.toList());
 
         if (user.equals(job.getOwner()))
-            applicants = job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+            applicants = job.getApplicants().stream().map(UserListItemDTO::new).collect(Collectors.toList());
         else
-            applicants = job.getApplicants().stream().map(c -> UserListItem.getDummy()).collect(Collectors.toList());
+            applicants = job.getApplicants().stream().map(c -> UserListItemDTO.getDummy()).collect(Collectors.toList());
 
         ownerID = job.getOwner().getId();
 
@@ -86,11 +86,11 @@ public class JobDTO {
         this.requiredSkills = requiredSkills;
     }
 
-    public List<UserListItem> getApplicants() {
+    public List<UserListItemDTO> getApplicants() {
         return applicants;
     }
 
-    public void setApplicants(List<UserListItem> applicants) {
+    public void setApplicants(List<UserListItemDTO> applicants) {
         this.applicants = applicants;
     }
 

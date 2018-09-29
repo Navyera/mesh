@@ -1,8 +1,8 @@
-package com.linkedin.backend.entities.user.dao;
+package com.linkedin.backend.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.linkedin.backend.content.File;
+import com.linkedin.backend.storage.File;
 
 import javax.persistence.*;
 import java.io.Serializable;

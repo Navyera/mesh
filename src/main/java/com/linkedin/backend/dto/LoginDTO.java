@@ -1,6 +1,6 @@
-package com.linkedin.backend.models;
+package com.linkedin.backend.dto;
 
-public class LoginModel {
+public class LoginDTO {
     private String email;
     private String password;
 

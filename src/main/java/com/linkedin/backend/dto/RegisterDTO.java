@@ -1,10 +1,10 @@
-package com.linkedin.backend.models;
+package com.linkedin.backend.dto;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.validation.constraints.NotNull;
 
-public class RegisterModel {
+public class RegisterDTO {
     @NotNull
     private String firstName;
 
@@ -23,12 +23,12 @@ public class RegisterModel {
     @NotNull
     private String confirmPassword;
 
-    public RegisterModel(@NotNull String firstName,
-                         @NotNull String lastName,
-                         @NotNull String phone,
-                         @NotNull String email,
-                         @NotNull String password,
-                         @NotNull String confirmPassword) {
+    public RegisterDTO(@NotNull String firstName,
+                       @NotNull String lastName,
+                       @NotNull String phone,
+                       @NotNull String email,
+                       @NotNull String password,
+                       @NotNull String confirmPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -37,7 +37,7 @@ public class RegisterModel {
         this.confirmPassword = confirmPassword;
     }
 
-    public RegisterModel() {
+    public RegisterDTO() {
         this("", "", "", "", "", "");
     }
 

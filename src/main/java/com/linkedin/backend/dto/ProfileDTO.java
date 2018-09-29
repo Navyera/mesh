@@ -1,8 +1,8 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Profile;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.user.Profile;
+import com.linkedin.backend.entities.skill.Skill;
 
 import java.util.List;
 import java.util.stream.Collectors;

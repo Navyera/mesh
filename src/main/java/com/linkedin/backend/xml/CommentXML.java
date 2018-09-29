@@ -1,6 +1,6 @@
 package com.linkedin.backend.xml;
 
-import com.linkedin.backend.entities.post.Comment;
+import com.linkedin.backend.entities.comment.Comment;
 
 import java.util.Date;
 

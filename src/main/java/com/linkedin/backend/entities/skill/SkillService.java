@@ -1,7 +1,7 @@
-package com.linkedin.backend.entities.user;
+package com.linkedin.backend.entities.skill;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.user.UserRepository;
+import com.linkedin.backend.entities.user.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 @Service
 public class SkillService {
     private final UserRepository userRepository;
-    private final SkillsRepository skillsRepository;
+    private final SkillRepository skillRepository;
 
     @Autowired
-    public SkillService(UserRepository userRepository, SkillsRepository skillsRepository) {
+    public SkillService(UserRepository userRepository, SkillRepository skillRepository) {
         this.userRepository = userRepository;
-        this.skillsRepository = skillsRepository;
+        this.skillRepository = skillRepository;
     }
 
     Skill findSkillByDesc(String desc) {
-        return skillsRepository.findBySkillDescription(desc);
+        return skillRepository.findBySkillDescription(desc);
     }
 
     public List<Skill> generateSkills(List<String> skills) {
@@ -50,7 +50,7 @@ public class SkillService {
     }
 
     public List<Skill> getTopNTrending(Integer n) {
-        Iterable<Skill> skills = skillsRepository.findAll();
+        Iterable<Skill> skills = skillRepository.findAll();
 
         Map<Skill, Integer> skillMap = new HashMap<>();
 

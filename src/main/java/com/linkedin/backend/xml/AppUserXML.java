@@ -2,8 +2,8 @@ package com.linkedin.backend.xml;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Profile;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.user.Profile;
 
 import java.util.List;
 import java.util.stream.Collectors;

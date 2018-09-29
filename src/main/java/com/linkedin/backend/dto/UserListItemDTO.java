@@ -1,19 +1,19 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 
-public class UserListItem {
-    final private static UserListItem dummy = new UserListItem();
+public class UserListItemDTO {
+    final private static UserListItemDTO dummy = new UserListItemDTO();
 
     private Integer userID;
 
     private String firstName;
     private String lastName;
 
-    public UserListItem() {
+    public UserListItemDTO() {
     }
 
-    public UserListItem(AppUser user) {
+    public UserListItemDTO(AppUser user) {
         userID = user.getId();
 
         firstName = user.getFirstName();
@@ -44,7 +44,7 @@ public class UserListItem {
         this.lastName = lastName;
     }
 
-    public static UserListItem getDummy() {
+    public static UserListItemDTO getDummy() {
         return dummy;
     }
 }

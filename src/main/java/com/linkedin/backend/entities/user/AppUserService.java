@@ -1,6 +1,6 @@
 package com.linkedin.backend.entities.user;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.skill.SkillRepository;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class AppUserService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final SkillsRepository skillsRepository;
+    private final SkillRepository skillRepository;
 
     @Autowired
-    public AppUserService(UserRepository userRepository, SkillsRepository skillsRepository) {
+    public AppUserService(UserRepository userRepository, SkillRepository skillRepository) {
         this.userRepository = userRepository;
-        this.skillsRepository = skillsRepository;
+        this.skillRepository = skillRepository;
     }
 
     public void addUser(AppUser appUser) {

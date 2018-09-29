@@ -1,10 +1,10 @@
 package com.linkedin.backend.knn;
 
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.SkillsRepository;
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Job;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.skill.SkillRepository;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.job.Job;
+import com.linkedin.backend.entities.skill.Skill;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JobKNNService {
-    private final SkillsRepository skillsRepository;
+    private final SkillRepository skillRepository;
     private final AppUserService appUserService;
 
     public class KNNResult {
@@ -41,8 +41,8 @@ public class JobKNNService {
         }
     }
 
-    public JobKNNService(SkillsRepository skillsRepository, AppUserService appUserService) {
-        this.skillsRepository = skillsRepository;
+    public JobKNNService(SkillRepository skillRepository, AppUserService appUserService) {
+        this.skillRepository = skillRepository;
         this.appUserService = appUserService;
     }
 
@@ -71,7 +71,7 @@ public class JobKNNService {
         PriorityQueue<KNNResult> pqueue = new PriorityQueue<>(Comparator.comparing(KNNResult::getDistance));
 
         int idx = 0;
-        for (Skill skill : skillsRepository.findAll())
+        for (Skill skill : skillRepository.findAll())
             skillIndices.put(skill, idx++);
 
         List<Double> myVector = createVector(user, skillIndices);

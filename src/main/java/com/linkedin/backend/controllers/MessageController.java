@@ -7,7 +7,7 @@ import com.linkedin.backend.entities.conversation.ConversationService;
 import com.linkedin.backend.dto.ActiveConversationDTO;
 import com.linkedin.backend.dto.MessageDTO;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JSONStatus;

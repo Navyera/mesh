@@ -1,19 +1,19 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.content.ContentService;
-import com.linkedin.backend.content.File;
+import com.linkedin.backend.storage.ContentService;
+import com.linkedin.backend.storage.File;
 import com.linkedin.backend.handlers.exception.FileStorageException;
-import com.linkedin.backend.content.FileStorageService;
+import com.linkedin.backend.storage.FileStorageService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
 import com.linkedin.backend.knn.PostKNNService;
-import com.linkedin.backend.entities.post.Like;
+import com.linkedin.backend.entities.like.Like;
 import com.linkedin.backend.entities.post.Post;
 import com.linkedin.backend.handlers.exception.PostNotFoundException;
 import com.linkedin.backend.entities.post.PostService;
 import com.linkedin.backend.entities.post.PostType;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JWTUtils;

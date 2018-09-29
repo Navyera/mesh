@@ -1,4 +1,4 @@
-package com.linkedin.backend.entities.post;
+package com.linkedin.backend.entities.like;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

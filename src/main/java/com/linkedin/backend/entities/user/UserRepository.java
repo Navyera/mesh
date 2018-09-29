@@ -1,6 +1,5 @@
 package com.linkedin.backend.entities.user;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

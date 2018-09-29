@@ -3,14 +3,14 @@ package com.linkedin.backend.controllers;
 import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.dto.JobStatsDTO;
-import com.linkedin.backend.dto.UserListItem;
+import com.linkedin.backend.dto.UserListItemDTO;
 import com.linkedin.backend.knn.JobKNNService;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.JobService;
-import com.linkedin.backend.entities.user.SkillService;
-import com.linkedin.backend.entities.user.dao.AppUser;
-import com.linkedin.backend.entities.user.dao.Job;
-import com.linkedin.backend.entities.user.dao.Skill;
+import com.linkedin.backend.entities.job.JobService;
+import com.linkedin.backend.entities.skill.SkillService;
+import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.job.Job;
+import com.linkedin.backend.entities.skill.Skill;
 import com.linkedin.backend.handlers.exception.JobNotFoundException;
 import com.linkedin.backend.handlers.exception.SelfApplyException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
@@ -94,7 +94,7 @@ public class JobController {
     }
 
     @PostMapping("/toggle-apply/{jobId}")
-    public List<UserListItem> toggleApply(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer jobId)
+    public List<UserListItemDTO> toggleApply(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer jobId)
                                                                                       throws UserNotFoundException, JobNotFoundException, SelfApplyException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
@@ -110,9 +110,9 @@ public class JobController {
         job = jobService.addJob(job);
 
         if (user.equals(job.getOwner()))
-            return job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+            return job.getApplicants().stream().map(UserListItemDTO::new).collect(Collectors.toList());
         else
-            return job.getApplicants().stream().map(c -> UserListItem.getDummy()).collect(Collectors.toList());
+            return job.getApplicants().stream().map(c -> UserListItemDTO.getDummy()).collect(Collectors.toList());
     }
 
     @GetMapping("/stats")

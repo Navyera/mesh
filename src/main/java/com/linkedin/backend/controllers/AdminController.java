@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.linkedin.backend.xml.AdminXML;
 import com.linkedin.backend.xml.AppUserXML;
 import com.linkedin.backend.dto.ProfileDTO;
-import com.linkedin.backend.dto.UserListItem;
+import com.linkedin.backend.dto.UserListItemDTO;
 import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.http.MediaType;
@@ -31,8 +31,8 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<UserListItem> getUserList() {
-        return appUserService.getAll().stream().map(UserListItem::new).collect(Collectors.toList());
+    public List<UserListItemDTO> getUserList() {
+        return appUserService.getAll().stream().map(UserListItemDTO::new).collect(Collectors.toList());
     }
 
     @PostMapping("/xml")

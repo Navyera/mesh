@@ -1,6 +1,6 @@
 package com.linkedin.backend.entities.connection;
 
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

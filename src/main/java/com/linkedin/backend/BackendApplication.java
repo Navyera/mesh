@@ -1,6 +1,6 @@
 package com.linkedin.backend;
 
-import com.linkedin.backend.content.FileStorageConfig;
+import com.linkedin.backend.storage.FileStorageConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,11 +1,11 @@
 package com.linkedin.backend.knn;
 
 import com.linkedin.backend.entities.connection.ConnectionService;
-import com.linkedin.backend.entities.post.Comment;
+import com.linkedin.backend.entities.comment.Comment;
 import com.linkedin.backend.entities.post.Post;
 import com.linkedin.backend.entities.post.PostRepository;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package com.linkedin.backend.content;
+package com.linkedin.backend.storage;
 
 import com.linkedin.backend.handlers.exception.FileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

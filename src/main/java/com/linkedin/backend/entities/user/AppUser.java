@@ -1,13 +1,15 @@
-package com.linkedin.backend.entities.user.dao;
+package com.linkedin.backend.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.linkedin.backend.entities.connection.Connection;
 import com.linkedin.backend.entities.conversation.Conversation;
 import com.linkedin.backend.dto.*;
+import com.linkedin.backend.entities.job.Job;
 import com.linkedin.backend.entities.message.Message;
-import com.linkedin.backend.entities.post.Comment;
-import com.linkedin.backend.entities.post.Like;
+import com.linkedin.backend.entities.comment.Comment;
+import com.linkedin.backend.entities.like.Like;
 import com.linkedin.backend.entities.post.Post;
+import com.linkedin.backend.entities.skill.Skill;
 import org.apache.commons.collections4.ListUtils;
 
 import javax.persistence.*;

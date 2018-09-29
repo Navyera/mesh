@@ -1,9 +1,11 @@
 package com.linkedin.backend.entities.post;
 
+import com.linkedin.backend.entities.comment.Comment;
+import com.linkedin.backend.entities.comment.CommentRepository;
 import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.PostNotFoundException;
 import org.springframework.stereotype.Service;
 

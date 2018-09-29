@@ -1,4 +1,7 @@
-package com.linkedin.backend.entities.user.dao;
+package com.linkedin.backend.entities.job;
+
+import com.linkedin.backend.entities.skill.Skill;
+import com.linkedin.backend.entities.user.AppUser;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -6,7 +6,7 @@ import com.linkedin.backend.handlers.exception.ConnectionNotFoundException;
 import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.handlers.exception.DuplicateConnectionException;
 import com.linkedin.backend.entities.user.AppUserService;
-import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
