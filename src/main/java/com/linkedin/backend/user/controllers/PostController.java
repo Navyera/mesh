@@ -6,6 +6,7 @@ import com.linkedin.backend.content.FileStorageException;
 import com.linkedin.backend.content.FileStorageService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
+import com.linkedin.backend.knn.KNNService;
 import com.linkedin.backend.post.Like;
 import com.linkedin.backend.post.Post;
 import com.linkedin.backend.user.handlers.PostNotFoundException;
@@ -31,15 +32,17 @@ public class PostController {
     private final FileStorageService fileStorageService;
     private final PostService postService;
     private final ContentService contentService;
+    private final KNNService knnService;
 
-    public PostController(AppUserService appUserService, FileStorageService fileStorageService, PostService postService, ContentService contentService) {
+    public PostController(AppUserService appUserService, FileStorageService fileStorageService, PostService postService, ContentService contentService, KNNService knnService) {
         this.appUserService = appUserService;
         this.fileStorageService = fileStorageService;
         this.postService = postService;
         this.contentService = contentService;
+        this.knnService = knnService;
     }
 
-    @GetMapping("/feed")
+    @GetMapping("/feed/test")
     public List<Integer> getUserFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
@@ -136,5 +139,13 @@ public class PostController {
         appUserService.addUser(user);
 
         return new JSONReturn<>(user.getId());
+    }
+
+    @GetMapping("/feed")
+    public List<Integer> test(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+        JWTUtils token = new JWTUtils(auth);
+        AppUser user = appUserService.findUserById(token.getUserID());
+
+        return knnService.generateUserKNN(user).stream().map(Post::getId).collect(Collectors.toList());
     }
 }

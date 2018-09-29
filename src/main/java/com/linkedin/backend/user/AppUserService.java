@@ -87,6 +87,10 @@ public class AppUserService implements UserDetailsService {
         return scoreA > scoreB ? scoreB : scoreA;
     }
 
+    public Iterable<AppUser> findAll() {
+        return userRepository.findAll();
+    }
+
     public List<AppUser> getSearchResults(String firstTerm, String lastTerm) {
         List<AppUser> listA = userRepository.findDistinctByFirstNameContainingOrLastNameContainingAllIgnoreCase(firstTerm, lastTerm);
         List<AppUser> listB = userRepository.findDistinctByFirstNameContainingOrLastNameContainingAllIgnoreCase(lastTerm, firstTerm);
