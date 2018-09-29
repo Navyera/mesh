@@ -11,9 +11,9 @@ import com.linkedin.backend.user.SkillService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Job;
 import com.linkedin.backend.user.dao.Skill;
-import com.linkedin.backend.handlers.JobNotFoundException;
-import com.linkedin.backend.handlers.SelfApplyException;
-import com.linkedin.backend.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.exception.JobNotFoundException;
+import com.linkedin.backend.handlers.exception.SelfApplyException;
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 

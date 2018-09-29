@@ -1,14 +1,14 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.connection.NotFriendsException;
+import com.linkedin.backend.handlers.exception.NotFriendsException;
 import com.linkedin.backend.conversation.Conversation;
-import com.linkedin.backend.conversation.ConversationNotFound;
+import com.linkedin.backend.handlers.exception.ConversationNotFoundException;
 import com.linkedin.backend.conversation.ConversationService;
 import com.linkedin.backend.dto.ActiveConversationDTO;
 import com.linkedin.backend.dto.MessageDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
@@ -31,21 +31,21 @@ public class MessageController {
     }
 
     @GetMapping("/{id}")
-    public List<MessageDTO> getConversation(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id) throws ConversationNotFound {
+    public List<MessageDTO> getConversation(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id) throws ConversationNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         Integer myId = token.getUserID();
 
         Conversation conversation = conversationService.findConversationById(id);
 
         if (!conversation.getSmallerUser().getId().equals(myId) && !conversation.getLargerUser().getId().equals(myId))
-            throw new ConversationNotFound(id);
+            throw new ConversationNotFoundException(id);
 
         return conversation.getMessages().stream().map(m -> new MessageDTO(m, myId)).collect(Collectors.toList());
     }
 
     @PostMapping("/{id}")
     public JSONStatus postMessage(@RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer id, @Valid @RequestBody MessageDTO message)
-                                                                                     throws ConversationNotFound, UserNotFoundException {
+                                                                                     throws ConversationNotFoundException, UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         Integer myId = token.getUserID();
 

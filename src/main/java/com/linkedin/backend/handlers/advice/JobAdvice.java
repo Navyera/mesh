@@ -1,5 +1,7 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.advice;
 
+import com.linkedin.backend.handlers.exception.JobNotFoundException;
+import com.linkedin.backend.handlers.exception.SelfApplyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

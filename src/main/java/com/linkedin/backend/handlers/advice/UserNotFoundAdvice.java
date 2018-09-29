@@ -1,5 +1,6 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.advice;
 
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,10 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.advice;
 
 
 
-import com.linkedin.backend.connection.NotFriendsException;
+import com.linkedin.backend.handlers.exception.NotFriendsException;
+import com.linkedin.backend.handlers.exception.ConnectionNotFoundException;
+import com.linkedin.backend.handlers.exception.DuplicateConnectionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

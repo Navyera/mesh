@@ -1,6 +1,6 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.advice;
 
-
+import com.linkedin.backend.handlers.exception.PasswordMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class PostNotFoundAdvice {
-
+public class PasswordMismatchAdvice {
     @ResponseBody
-    @ExceptionHandler(PostNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String postNotFoundHandler(PostNotFoundException ex) {
+    @ExceptionHandler(PasswordMismatchException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    String passwordMismatch(PasswordMismatchException ex) {
         return ex.getMessage();
     }
 }
-

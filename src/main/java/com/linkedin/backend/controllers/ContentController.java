@@ -2,9 +2,11 @@ package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.content.*;
 import com.linkedin.backend.dto.ImageResourceDTO;
+import com.linkedin.backend.handlers.exception.FileNotFoundException;
+import com.linkedin.backend.handlers.exception.FileStorageException;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
 package com.linkedin.backend.content;
 
+import com.linkedin.backend.handlers.exception.FileNotFoundException;
+import com.linkedin.backend.handlers.exception.FileStorageException;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;

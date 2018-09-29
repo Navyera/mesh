@@ -1,4 +1,4 @@
-package com.linkedin.backend.connection;
+package com.linkedin.backend.handlers.exception;
 
 public class NotFriendsException extends Exception {
     private Integer idA;

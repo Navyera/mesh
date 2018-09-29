@@ -1,7 +1,7 @@
 package com.linkedin.backend.user;
 
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.springframework.beans.factory.annotation.Autowired;

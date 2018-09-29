@@ -1,11 +1,12 @@
 package com.linkedin.backend.conversation;
 
 import com.linkedin.backend.connection.ConnectionService;
-import com.linkedin.backend.connection.NotFriendsException;
+import com.linkedin.backend.handlers.exception.NotFriendsException;
+import com.linkedin.backend.handlers.exception.ConversationNotFoundException;
 import com.linkedin.backend.message.Message;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,16 +26,16 @@ public class ConversationService {
                                    conversationRepository.findBySmallerUser_IdAndLargerUser_Id(userIdB, userIdA);
     }
 
-    public Conversation findConversationById(Integer id) throws ConversationNotFound {
-        return conversationRepository.findById(id).orElseThrow(() -> new ConversationNotFound(id));
+    public Conversation findConversationById(Integer id) throws ConversationNotFoundException {
+        return conversationRepository.findById(id).orElseThrow(() -> new ConversationNotFoundException(id));
     }
 
-    public void addMessage(Integer conversationId, Integer userId, String body) throws ConversationNotFound, UserNotFoundException {
+    public void addMessage(Integer conversationId, Integer userId, String body) throws ConversationNotFoundException, UserNotFoundException {
         Conversation conversation = findConversationById(conversationId);
         AppUser sender = appUserService.findUserById(userId);
 
         if (!conversation.getSmallerUser().getId().equals(userId) && !conversation.getLargerUser().getId().equals(userId))
-            throw new ConversationNotFound(userId);
+            throw new ConversationNotFoundException(userId);
 
         Message message = new Message();
         message.setBody(body);

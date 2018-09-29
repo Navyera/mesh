@@ -1,9 +1,9 @@
-package com.linkedin.backend.conversation;
+package com.linkedin.backend.handlers.exception;
 
-public class ConversationNotFound extends Exception {
+public class ConversationNotFoundException extends Exception {
     private Integer id;
 
-    public ConversationNotFound(Integer id) {
+    public ConversationNotFoundException(Integer id) {
         this.id = id;
     }
 

@@ -1,7 +1,7 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.exception;
 
 public class UserNotFoundException extends Exception {
-    Integer id;
+    private Integer id;
 
     public UserNotFoundException(Integer id) {
         this.id = id;

@@ -1,4 +1,4 @@
-package com.linkedin.backend.content;
+package com.linkedin.backend.handlers.exception;
 
 import java.io.IOException;
 

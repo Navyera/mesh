@@ -1,5 +1,6 @@
 package com.linkedin.backend.content;
 
+import com.linkedin.backend.handlers.exception.FileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

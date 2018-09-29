@@ -1,4 +1,4 @@
-package com.linkedin.backend.handlers;
+package com.linkedin.backend.handlers.exception;
 
 public class DuplicateUserException extends Exception {
     @Override
