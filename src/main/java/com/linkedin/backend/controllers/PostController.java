@@ -1,20 +1,20 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.storage.ContentService;
-import com.linkedin.backend.storage.File;
-import com.linkedin.backend.handlers.exception.FileStorageException;
-import com.linkedin.backend.storage.FileStorageService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.dto.PostDTO;
-import com.linkedin.backend.knn.PostKNNService;
 import com.linkedin.backend.entities.like.Like;
 import com.linkedin.backend.entities.post.Post;
-import com.linkedin.backend.handlers.exception.PostNotFoundException;
 import com.linkedin.backend.entities.post.PostService;
 import com.linkedin.backend.entities.post.PostType;
-import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.handlers.exception.FileStorageException;
+import com.linkedin.backend.handlers.exception.PostNotFoundException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
+import com.linkedin.backend.knn.PostKNNService;
+import com.linkedin.backend.storage.ContentService;
+import com.linkedin.backend.storage.File;
+import com.linkedin.backend.storage.FileStorageService;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
@@ -48,8 +48,6 @@ public class PostController {
         AppUser user = appUserService.findUserById(token.getUserID());
 
         Post post = postService.findPostById(postId);
-
-        // TODO: Check if users are connected (or are the same person.
 
         return new PostDTO(post, user);
     }

@@ -2,8 +2,8 @@ package com.linkedin.backend.entities.job;
 
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.entities.skill.SkillService;
-import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.handlers.exception.JobNotFoundException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,6 @@ public class JobService {
         job.setJobTitle(jobDto.getJobTitle());
         job.setJobDescription(jobDto.getJobDescription());
 
-        // TODO: Set applicants? YES
         job.setApplicants(Collections.emptyList());
 
         job.setRequiredSkills(skillService.generateSkills(jobDto.getRequiredSkills()));

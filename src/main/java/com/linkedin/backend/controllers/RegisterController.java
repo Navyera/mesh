@@ -1,20 +1,17 @@
 package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.dto.RegisterDTO;
-import com.linkedin.backend.entities.like.Like;
-import com.linkedin.backend.entities.user.*;
-import com.linkedin.backend.entities.user.AppUser;
-import com.linkedin.backend.entities.skill.Skill;
+import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.handlers.exception.DuplicateUserException;
-import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
-import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -40,37 +37,5 @@ public class RegisterController {
         }
 
         return new JSONStatus("Registration successful");
-    }
-
-
-
-
-
-
-    // TODO: This is a test controller
-    @PostMapping("/test")
-    public void test(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
-        JWTUtils token = new JWTUtils(auth);
-        AppUser user = appUserService.findUserById(token.getUserID());
-
-        AppUser user2 = appUserService.findUserById(9);
-
-        user.addConnection(user2);
-
-        appUserService.addUser(user);
-    }
-
-
-
-
-    // TODO: This is a test controller
-    @GetMapping("/{id}")
-    public List<Like> getUser(@Valid @PathVariable int id) throws UserNotFoundException {
-        AppUser user = appUserService.findUserById(id);
-
-        Skill skill = new Skill();
-
-        skill.setSkillDescription("sdafasdfas");
-        return user.getLikes();
     }
 }
