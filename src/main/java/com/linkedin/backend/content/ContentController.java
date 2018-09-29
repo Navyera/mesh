@@ -7,11 +7,17 @@ import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 import java.util.Base64;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 public class ContentController {
@@ -88,6 +94,15 @@ public class ContentController {
         byte[] fileContent = fileStorageService.loadFileAsByteArray(file.getContentId());
 
         return new ImageResourceDTO(file.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
+    }
+
+    @GetMapping("/api/content/test/{id}")
+    public ResponseEntity<Resource> test(@Valid @PathVariable Integer id) throws FileNotFoundException {
+        File file = contentService.findFileById(id);
+
+        Resource fileContent = fileStorageService.loadFileAsResource(file.getContentId());
+
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(file.getMimeType())).body(fileContent);
     }
 
     @GetMapping("/api/content/profile_picture")
