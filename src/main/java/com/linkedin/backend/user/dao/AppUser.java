@@ -362,8 +362,7 @@ public class AppUser implements Serializable{
 
         AppUser that = (AppUser) obj;
 
-        return Objects.equals(getId(), that.getId()) &&
-                Objects.equals(getId(), that.getId());
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override

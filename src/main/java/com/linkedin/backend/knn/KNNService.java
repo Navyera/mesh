@@ -94,8 +94,8 @@ public class KNNService {
             this.score = (1.0 - a) * (maxTime - post.getDate().getTime()/1000)/normalizer;
 
             for (KNNResult knnResult : knn) {
-                if (knnResult.getUser().equals(post.getUser())) {
-                    this.score += a * knnResult.getDistance();
+                if (knnResult.getUser().getId().equals(post.getUser().getId())) {
+                    this.score -= a * knnResult.getDistance();
 
                     break;
                 }
@@ -144,7 +144,7 @@ public class KNNService {
 
         for (Post post : user.getComments().stream().map(Comment::getPost).collect(Collectors.toList())) {
             Integer idx = index.get(post);
-            myVector.set(idx, myVector.get(idx) + 1.0);
+            myVector.set(idx, myVector.get(idx) + 1.0); //TODO GET +1 for any amount of comments.
         }
 
         return myVector;
@@ -211,7 +211,7 @@ public class KNNService {
         Date maxDate = allPosts.stream().max(Comparator.comparing(Post::getDate)).map(Post::getDate).orElse(new Date());
 
         List<Post> userFeed = allPosts
-                .stream().map(p -> new PostScore(p, maxDate.getTime(), minDate.getTime(), knn, 0.2))
+                .stream().map(p -> new PostScore(p, maxDate.getTime()/1000, minDate.getTime()/1000, knn, 0.001))
                 .sorted(Comparator.comparing(PostScore::getScore))
                 .map(PostScore::getPost)
                 .collect(Collectors.toList());

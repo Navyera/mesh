@@ -42,18 +42,6 @@ public class PostController {
         this.knnService = knnService;
     }
 
-    @GetMapping("/feed/test")
-    public List<Integer> getUserFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
-        JWTUtils token = new JWTUtils(auth);
-        AppUser user = appUserService.findUserById(token.getUserID());
-
-        List<Post> userFeed = user.getUserFeed();
-
-        userFeed.sort((Comparator.comparing(Post::getDate)).reversed());
-
-        return userFeed.stream().map(Post::getId).collect(Collectors.toList());
-    }
-
     @GetMapping("/post/{postId}")
     public PostDTO getPost(@Valid @RequestHeader(value="Authorization") String auth, @Valid @PathVariable Integer postId)
                                                                                      throws UserNotFoundException, PostNotFoundException{
@@ -142,7 +130,7 @@ public class PostController {
     }
 
     @GetMapping("/feed")
-    public List<Integer> test(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
+    public List<Integer> getUserFeed(@Valid @RequestHeader(value="Authorization") String auth) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
