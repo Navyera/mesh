@@ -1,14 +1,11 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.dto.ProfileDTO;
-import com.linkedin.backend.dto.UserDetailsDTO;
 import com.linkedin.backend.models.RegisterModel;
 import com.linkedin.backend.post.Like;
 import com.linkedin.backend.user.*;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Skill;
 import com.linkedin.backend.user.handlers.DuplicateUserException;
-import com.linkedin.backend.user.handlers.PasswordMismatchException;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;

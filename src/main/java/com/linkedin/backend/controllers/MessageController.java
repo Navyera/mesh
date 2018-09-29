@@ -1,4 +1,4 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.connection.NotFriendsException;
 import com.linkedin.backend.conversation.Conversation;
@@ -14,11 +14,9 @@ import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @RestController

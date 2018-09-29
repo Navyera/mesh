@@ -1,13 +1,11 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.SearchResultDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.utils.JSONReturn;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

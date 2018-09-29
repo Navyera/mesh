@@ -1,7 +1,6 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.dto.NotificationDTO;
-import com.linkedin.backend.post.Post;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.handlers.UserNotFoundException;

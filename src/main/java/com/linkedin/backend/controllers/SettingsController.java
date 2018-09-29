@@ -1,4 +1,4 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
 
 import com.linkedin.backend.dto.UserDetailsDTO;

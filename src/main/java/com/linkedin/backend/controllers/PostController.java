@@ -1,4 +1,4 @@
-package com.linkedin.backend.user.controllers;
+package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.content.ContentService;
 import com.linkedin.backend.content.File;
@@ -69,7 +69,7 @@ public class PostController {
 
         newPost = postService.savePost(newPost);
 
-        return new JSONReturn<Integer>(newPost.getId());
+        return new JSONReturn<>(newPost.getId());
     }
 
     @PostMapping("/post/media")
@@ -101,7 +101,7 @@ public class PostController {
         newPost.setUser(user);
         newPost = postService.savePost(newPost);
 
-        return new JSONReturn<Integer>(newPost.getId());
+        return new JSONReturn<>(newPost.getId());
     }
 
     @PostMapping("/post/comment/{postId}")
