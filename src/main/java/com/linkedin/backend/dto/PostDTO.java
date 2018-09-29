@@ -32,12 +32,17 @@ public class PostDTO {
     public PostDTO(Post post, AppUser user) {
         postID = post.getId();
         userID = post.getUser().getId();
-        type   = post.getType().name().toLowerCase();
         body   = post.getBody();
+
         date   = post.getDate();
         userLikes = post.getUsers().stream().map(AppUser::getId).collect(Collectors.toList());
         comments = post.getComments().stream().map(CommentDTO::new).collect(Collectors.toList());
         liked = userLikes.contains(user.getId());
+
+        if (post.getFile() != null) {
+            fileID = post.getId();
+            type   = post.getFile().getMimeType();
+        }
     }
 
     public PostDTO(Post post) {
@@ -48,6 +53,11 @@ public class PostDTO {
         date   = post.getDate();
         userLikes = post.getUsers().stream().map(AppUser::getId).collect(Collectors.toList());
         comments = post.getComments().stream().map(CommentDTO::new).collect(Collectors.toList());
+
+        if (post.getFile() != null) {
+            fileID = post.getId();
+            type   = post.getFile().getMimeType();
+        }
     }
 
     public Integer getUserID() {

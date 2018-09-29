@@ -36,7 +36,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 .antMatchers(HttpMethod.GET, "/assets/**", "/*.txt", "/*.js", "/index.html", "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/content/*").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/content/*").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/content/*").permitAll()
                 .antMatchers("/api/users/**").hasRole("USER")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .antMatchers("/{[path:[^\\.]*}").permitAll()
