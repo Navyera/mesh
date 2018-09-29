@@ -1,6 +1,4 @@
-package com.linkedin.backend.admin.xml;
-
-import java.util.Date;
+package com.linkedin.backend.xml;
 
 public class ConnectionXML {
     private Integer userId;

@@ -4,12 +4,8 @@ import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.dto.CommentDTO;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.handlers.PostNotFoundException;
+import com.linkedin.backend.handlers.PostNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class PostService {

@@ -1,4 +1,4 @@
-package com.linkedin.backend.admin.xml;
+package com.linkedin.backend.xml;
 
 import com.linkedin.backend.post.Like;
 

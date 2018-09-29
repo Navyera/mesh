@@ -3,10 +3,8 @@ package com.linkedin.backend.user;
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.dao.Job;
-import com.linkedin.backend.user.dao.Skill;
-import com.linkedin.backend.user.handlers.JobNotFoundException;
-import com.linkedin.backend.user.handlers.PostNotFoundException;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.JobNotFoundException;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.linkedin.backend.admin.xml;
+package com.linkedin.backend.xml;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.linkedin.backend.post.Post;

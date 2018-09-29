@@ -1,17 +1,13 @@
-package com.linkedin.backend.admin;
+package com.linkedin.backend.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.linkedin.backend.admin.xml.AdminXML;
-import com.linkedin.backend.admin.xml.AppUserXML;
+import com.linkedin.backend.xml.AdminXML;
+import com.linkedin.backend.xml.AppUserXML;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserListItem;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
-import com.linkedin.backend.utils.JWTUtils;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

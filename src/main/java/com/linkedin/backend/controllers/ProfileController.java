@@ -7,7 +7,7 @@ import com.linkedin.backend.dto.ProfileViewDTO;
 import com.linkedin.backend.user.SkillService;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

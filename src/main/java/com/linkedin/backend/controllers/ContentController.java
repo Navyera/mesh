@@ -1,9 +1,10 @@
-package com.linkedin.backend.content;
+package com.linkedin.backend.controllers;
 
+import com.linkedin.backend.content.*;
 import com.linkedin.backend.dto.ImageResourceDTO;
 import com.linkedin.backend.user.dao.AppUser;
 import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.util.Base64;
 
 import static org.springframework.http.ResponseEntity.ok;

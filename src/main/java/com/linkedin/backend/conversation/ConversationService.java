@@ -1,13 +1,11 @@
 package com.linkedin.backend.conversation;
 
-import com.linkedin.backend.connection.Connection;
-import com.linkedin.backend.connection.ConnectionRepository;
 import com.linkedin.backend.connection.ConnectionService;
 import com.linkedin.backend.connection.NotFriendsException;
 import com.linkedin.backend.message.Message;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

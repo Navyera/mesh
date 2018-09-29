@@ -1,9 +1,9 @@
-package com.linkedin.backend.user.handlers;
+package com.linkedin.backend.handlers;
 
-public class PostNotFoundException extends Exception {
+public class JobNotFoundException extends Exception {
     private Integer postId;
 
-    public PostNotFoundException(Integer postId) {
+    public JobNotFoundException(Integer postId) {
         this.postId = postId;
     }
 

@@ -1,4 +1,4 @@
-package com.linkedin.backend.user.handlers;
+package com.linkedin.backend.handlers;
 
 public class PasswordMismatchException extends Exception{
     private Integer id;

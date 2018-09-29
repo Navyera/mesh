@@ -2,12 +2,12 @@ package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.connection.Connection;
 import com.linkedin.backend.connection.NotFriendsException;
-import com.linkedin.backend.user.handlers.ConnectionNotFoundException;
+import com.linkedin.backend.handlers.ConnectionNotFoundException;
 import com.linkedin.backend.connection.ConnectionService;
-import com.linkedin.backend.user.handlers.DuplicateConnectionException;
+import com.linkedin.backend.handlers.DuplicateConnectionException;
 import com.linkedin.backend.user.AppUserService;
 import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.handlers.UserNotFoundException;
+import com.linkedin.backend.handlers.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
