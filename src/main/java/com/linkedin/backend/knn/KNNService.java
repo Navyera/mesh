@@ -183,7 +183,12 @@ public class KNNService {
 
         final double normalizer = maxDistance;
 
-        return pqueue.stream().sorted(Comparator.comparing(KNNResult::getDistance)).map(e -> new KNNResult(e.user, e.distance/normalizer)).limit(k).collect(Collectors.toList());
+        return pqueue
+                .stream()
+                .sorted(Comparator.comparing(KNNResult::getDistance))
+                .map(e -> new KNNResult(e.user, e.distance/normalizer))
+                .limit(k)
+                .collect(Collectors.toList());
     }
 
     public List<Post> generateUserKNN(AppUser user) {
@@ -202,7 +207,7 @@ public class KNNService {
         allPosts.addAll(normalFeed);
         allPosts.addAll(outer);
 
-        Date minDate = allPosts.stream().max(Comparator.comparing(Post::getDate)).map(Post::getDate).orElse(new Date(0L));
+        Date minDate = allPosts.stream().min(Comparator.comparing(Post::getDate)).map(Post::getDate).orElse(new Date(0L));
         Date maxDate = allPosts.stream().max(Comparator.comparing(Post::getDate)).map(Post::getDate).orElse(new Date());
 
         List<Post> userFeed = allPosts
@@ -212,5 +217,5 @@ public class KNNService {
                 .collect(Collectors.toList());
 
         return userFeed;
-    }
+}
 }

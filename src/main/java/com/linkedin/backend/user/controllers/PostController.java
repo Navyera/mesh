@@ -85,7 +85,7 @@ public class PostController {
         return new JSONReturn<Integer>(newPost.getId());
     }
 
-    @PostMapping("/post/image")
+    @PostMapping("/post/media")
     public JSONReturn<Integer> createImagePost(@Valid @RequestHeader(value="Authorization") String auth,
                                                @RequestParam("file") MultipartFile file,
                                                @RequestParam PostDTO post) throws UserNotFoundException, FileStorageException {
