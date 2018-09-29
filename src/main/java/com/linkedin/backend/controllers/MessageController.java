@@ -1,13 +1,13 @@
 package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.handlers.exception.NotFriendsException;
-import com.linkedin.backend.conversation.Conversation;
+import com.linkedin.backend.entities.conversation.Conversation;
 import com.linkedin.backend.handlers.exception.ConversationNotFoundException;
-import com.linkedin.backend.conversation.ConversationService;
+import com.linkedin.backend.entities.conversation.ConversationService;
 import com.linkedin.backend.dto.ActiveConversationDTO;
 import com.linkedin.backend.dto.MessageDTO;
-import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.dao.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONReturn;
 import com.linkedin.backend.utils.JSONStatus;

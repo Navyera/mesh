@@ -1,8 +1,8 @@
 package com.linkedin.backend.xml;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.linkedin.backend.post.Post;
-import com.linkedin.backend.post.PostType;
+import com.linkedin.backend.entities.post.Post;
+import com.linkedin.backend.entities.post.PostType;
 
 import java.util.Date;
 

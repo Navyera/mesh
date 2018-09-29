@@ -1,6 +1,6 @@
 package com.linkedin.backend.xml;
 
-import com.linkedin.backend.user.dao.Skill;
+import com.linkedin.backend.entities.user.dao.Skill;
 
 public class SkillXML {
     private Integer id;

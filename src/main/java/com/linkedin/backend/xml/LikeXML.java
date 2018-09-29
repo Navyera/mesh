@@ -1,6 +1,6 @@
 package com.linkedin.backend.xml;
 
-import com.linkedin.backend.post.Like;
+import com.linkedin.backend.entities.post.Like;
 
 import java.util.Date;
 

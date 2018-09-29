@@ -1,7 +1,7 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.conversation.Conversation;
-import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.entities.conversation.Conversation;
+import com.linkedin.backend.entities.user.dao.AppUser;
 
 import java.util.Date;
 

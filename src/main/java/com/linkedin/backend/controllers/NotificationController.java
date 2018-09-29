@@ -1,8 +1,8 @@
 package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.dto.NotificationDTO;
-import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.dao.AppUser;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.web.bind.annotation.*;

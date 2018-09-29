@@ -6,7 +6,7 @@ import com.linkedin.backend.xml.AdminXML;
 import com.linkedin.backend.xml.AppUserXML;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.UserListItem;
-import com.linkedin.backend.user.AppUserService;
+import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

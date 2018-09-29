@@ -1,10 +1,10 @@
 package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.models.RegisterModel;
-import com.linkedin.backend.post.Like;
-import com.linkedin.backend.user.*;
-import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.dao.Skill;
+import com.linkedin.backend.entities.post.Like;
+import com.linkedin.backend.entities.user.*;
+import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.dao.Skill;
 import com.linkedin.backend.handlers.exception.DuplicateUserException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
 import com.linkedin.backend.utils.JSONStatus;

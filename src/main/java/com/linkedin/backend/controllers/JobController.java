@@ -1,16 +1,16 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.connection.ConnectionService;
+import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.dto.JobDTO;
 import com.linkedin.backend.dto.JobStatsDTO;
 import com.linkedin.backend.dto.UserListItem;
 import com.linkedin.backend.knn.JobKNNService;
-import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.JobService;
-import com.linkedin.backend.user.SkillService;
-import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.dao.Job;
-import com.linkedin.backend.user.dao.Skill;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.JobService;
+import com.linkedin.backend.entities.user.SkillService;
+import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.dao.Job;
+import com.linkedin.backend.entities.user.dao.Skill;
 import com.linkedin.backend.handlers.exception.JobNotFoundException;
 import com.linkedin.backend.handlers.exception.SelfApplyException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;

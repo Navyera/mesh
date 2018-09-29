@@ -1,8 +1,7 @@
 package com.linkedin.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.linkedin.backend.post.Comment;
-import com.linkedin.backend.post.Like;
+import com.linkedin.backend.entities.post.Comment;
+import com.linkedin.backend.entities.post.Like;
 
 import java.util.Date;
 

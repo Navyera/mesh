@@ -1,7 +1,6 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.user.dao.AppUser;
-import org.springframework.security.core.userdetails.User;
+import com.linkedin.backend.entities.user.dao.AppUser;
 
 public class UserListItem {
     final private static UserListItem dummy = new UserListItem();

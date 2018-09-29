@@ -1,6 +1,6 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.entities.user.dao.AppUser;
 
 public class SearchResultDTO {
     private Integer userID;

@@ -1,6 +1,6 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.message.Message;
+import com.linkedin.backend.entities.message.Message;
 
 import java.util.Date;
 

@@ -1,10 +1,10 @@
 package com.linkedin.backend.knn;
 
-import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.SkillsRepository;
-import com.linkedin.backend.user.dao.AppUser;
-import com.linkedin.backend.user.dao.Job;
-import com.linkedin.backend.user.dao.Skill;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.SkillsRepository;
+import com.linkedin.backend.entities.user.dao.AppUser;
+import com.linkedin.backend.entities.user.dao.Job;
+import com.linkedin.backend.entities.user.dao.Skill;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -1,6 +1,6 @@
 package com.linkedin.backend.dto;
 
-import com.linkedin.backend.post.Comment;
+import com.linkedin.backend.entities.post.Comment;
 
 import java.util.Date;
 

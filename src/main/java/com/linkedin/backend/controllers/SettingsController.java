@@ -2,8 +2,8 @@ package com.linkedin.backend.controllers;
 
 
 import com.linkedin.backend.dto.UserDetailsDTO;
-import com.linkedin.backend.user.AppUserService;
-import com.linkedin.backend.user.dao.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.entities.user.dao.AppUser;
 import com.linkedin.backend.handlers.exception.DuplicateUserException;
 import com.linkedin.backend.handlers.exception.PasswordMismatchException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;

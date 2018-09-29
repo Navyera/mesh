@@ -1,7 +1,7 @@
 package com.linkedin.backend.controllers;
 
 import com.linkedin.backend.dto.SearchResultDTO;
-import com.linkedin.backend.user.AppUserService;
+import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.utils.JSONReturn;
 import org.springframework.web.bind.annotation.*;
 
