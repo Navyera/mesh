@@ -75,8 +75,8 @@ public class PostController {
 
     @PostMapping("/post/media")
     public JSONReturn<Integer> createImagePost(@Valid @RequestHeader(value="Authorization") String auth,
-                                               @RequestParam("file") MultipartFile file,
-                                               @RequestParam PostDTO post) throws UserNotFoundException, FileStorageException {
+                                               @RequestPart("file") MultipartFile file,
+                                               @RequestPart("post") PostDTO post) throws UserNotFoundException, FileStorageException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
 
@@ -94,12 +94,13 @@ public class PostController {
 
         Post newPost = new Post();
 
-        newPost.setType(PostType.IMAGE);
+        newPost.setType(PostType.MEDIA);
         newPost.setBody(post.getBody());
         newPost.setUser(user);
         newPost.setFile(fileMetadata);
 
         newPost.setUser(user);
+        newPost = postService.savePost(newPost);
 
         return new JSONReturn<Integer>(newPost.getId());
     }

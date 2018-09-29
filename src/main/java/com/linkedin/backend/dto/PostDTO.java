@@ -40,7 +40,7 @@ public class PostDTO {
         liked = userLikes.contains(user.getId());
 
         if (post.getFile() != null) {
-            fileID = post.getId();
+            fileID = post.getFile().getId();
             type   = post.getFile().getMimeType();
         }
     }
@@ -55,7 +55,7 @@ public class PostDTO {
         comments = post.getComments().stream().map(CommentDTO::new).collect(Collectors.toList());
 
         if (post.getFile() != null) {
-            fileID = post.getId();
+            fileID = post.getFile().getId();
             type   = post.getFile().getMimeType();
         }
     }
