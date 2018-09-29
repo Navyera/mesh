@@ -90,7 +90,10 @@ public class JobController {
 
         job = jobService.addJob(job);
 
-        return job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+        if (user.equals(job.getOwner()))
+            return job.getApplicants().stream().map(UserListItem::new).collect(Collectors.toList());
+        else
+            return job.getApplicants().stream().map(c -> UserListItem.getDummy()).collect(Collectors.toList());
     }
 
     @GetMapping("/stats")

@@ -9,6 +9,8 @@ import com.linkedin.backend.user.handlers.PostNotFoundException;
 import com.linkedin.backend.user.handlers.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 @Service
 public class JobService {
     private final JobRepository jobRepository;
@@ -30,7 +32,8 @@ public class JobService {
         job.setJobTitle(jobDto.getJobTitle());
         job.setJobDescription(jobDto.getJobDescription());
 
-        // TODO: Set applicants?
+        // TODO: Set applicants? YES
+        job.setApplicants(Collections.emptyList());
 
         job.setRequiredSkills(skillService.generateSkills(jobDto.getRequiredSkills()));
 
