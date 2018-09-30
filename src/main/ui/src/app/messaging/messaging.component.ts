@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MessagingService } from '../services/messaging.service';
-import { Conversation } from '../models/models.conversation';
-import { Message } from '../models/models.message';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {MessagingService} from '../services/messaging.service';
+import {Conversation} from '../models/models.conversation';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-messaging',

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FriendService } from '../services/friend.service';
-import { AlertService } from '../services/alert.service';
-import { NotificationService } from '../services/notification.service';
-import { Notification } from '../models/models.notification';
+import {Component, OnInit} from '@angular/core';
+import {FriendService} from '../services/friend.service';
+import {AlertService} from '../services/alert.service';
+import {NotificationService} from '../services/notification.service';
+import {Notification} from '../models/models.notification';
 
 @Component({
   selector: 'app-notifications',

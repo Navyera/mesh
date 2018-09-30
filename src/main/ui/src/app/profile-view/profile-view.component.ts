@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Profile } from '../models/models.profile';
-import { SafeUrl } from '@angular/platform-browser';
-import { FriendService } from '../services/friend.service';
-import { AlertService } from '../services/alert.service';
-import { MessagingService } from '../services/messaging.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Profile} from '../models/models.profile';
+import {SafeUrl} from '@angular/platform-browser';
+import {FriendService} from '../services/friend.service';
+import {AlertService} from '../services/alert.service';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
   selector: 'app-profile-view',

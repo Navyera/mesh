@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Settings } from '../models/models.settings';
-import { Profile } from '../models/models.profile';
-import { ProfileView } from '../models/models.profile-view';
-import { ProfileStats } from '../models/models.profile-stats';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Settings} from '../models/models.settings';
+import {ProfileView} from '../models/models.profile-view';
+import {ProfileStats} from '../models/models.profile-stats';
 
 @Injectable({
   providedIn: 'root'

@@ -3,7 +3,7 @@
   }
   
   .ng-pristine:not(form) {
-    border-left: 5px solid #0c5eda;
+    border-left: 5px solid #0c5eda; /* blue */
   }
 
   .ng-invalid.ng-dirty:not(form)  {

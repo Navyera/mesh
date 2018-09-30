@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FriendService } from '../services/friend.service';
-import {UserListItem } from '../models/models.user-list-item';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserListModalComponent } from '../user-list-modal/user-list-modal.component';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FriendService} from '../services/friend.service';
+import {UserListItem} from '../models/models.user-list-item';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserListModalComponent} from '../user-list-modal/user-list-modal.component';
 
 @Component({
   selector: 'app-network',

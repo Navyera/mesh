@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FriendService } from '../services/friend.service';
-import { SafeUrl } from '@angular/platform-browser';
-import { Profile } from '../models/models.profile';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {FriendService} from '../services/friend.service';
+import {SafeUrl} from '@angular/platform-browser';
+import {Profile} from '../models/models.profile';
+import {Router} from '@angular/router';
 
 
 @Component({

@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { HostListener } from '@angular/core';
+import {Component} from '@angular/core';
 
 
 @Component({
@@ -8,11 +7,6 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'signup-login-test';
-
-// @HostListener('window:beforeunload', ['$event'])
-// beforeunloadHandler(event) {
-//     localStorage.clear();
-// }
+  title = 'Mesh';
 
 }

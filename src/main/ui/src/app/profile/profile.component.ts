@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { AlertService } from '../services/alert.service';
-import { SafeUrl } from '@angular/platform-browser';
-import { Profile } from '../models/models.profile';
-import { copyAnimationEvent } from '@angular/animations/browser/src/render/shared';
-import { ProfileView } from '../models/models.profile-view';
-import { Permissions, PermissionsManager } from '../models/models.permissions';
-
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../services/user.service';
+import {AlertService} from '../services/alert.service';
+import {SafeUrl} from '@angular/platform-browser';
+import {Profile} from '../models/models.profile';
+import {ProfileView} from '../models/models.profile-view';
+import {Permissions, PermissionsManager} from '../models/models.permissions';
 
 
 @Component({
@@ -105,7 +103,4 @@ export class ProfileComponent implements OnInit {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  onSelectionChange(event: any) {
-    console.log(event.target.value);
-  }
 }

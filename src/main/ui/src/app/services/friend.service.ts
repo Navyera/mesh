@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Profile } from '../models/models.profile';
-import { ProfileView } from '../models/models.profile-view';
-import { UserListItem } from '../models/models.user-list-item';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Profile} from '../models/models.profile';
+import {ProfileView} from '../models/models.profile-view';
+import {UserListItem} from '../models/models.user-list-item';
 
 @Injectable({
   providedIn: 'root'

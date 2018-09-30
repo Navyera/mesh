@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { AlertService } from '../services/alert.service';
-import { RegisterInfo } from '../models/models.register';
-import { Location } from '@angular/common';
-import { Settings } from '../models/models.settings';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../services/user.service';
+import {AlertService} from '../services/alert.service';
+import {Location} from '@angular/common';
+import {Settings} from '../models/models.settings';
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +24,6 @@ export class SettingsComponent implements OnInit {
     this.userService.getSettings().subscribe(
       response => {
         this.model = response.body;
-        console.log(this.model);
       },
       error => {
         this.alertService.error('Could not load your settings');

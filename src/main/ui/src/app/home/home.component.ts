@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { PostService } from '../services/post.service';
-import { UserService } from '../services/user.service';
-import { ProfileStats } from '../models/models.profile-stats';
-import { SafeUrl } from '@angular/platform-browser';
-import { Post } from '../models/models.post';
-import { AlertService } from '../services/alert.service';
+import {Component, OnInit} from '@angular/core';
+import {PostService} from '../services/post.service';
+import {UserService} from '../services/user.service';
+import {ProfileStats} from '../models/models.profile-stats';
+import {SafeUrl} from '@angular/platform-browser';
+import {Post} from '../models/models.post';
+import {AlertService} from '../services/alert.service';
 
 @Component({
   selector: 'app-home',

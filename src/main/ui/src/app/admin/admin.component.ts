@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../services/admin.service';
-import { User } from '../models/models.user';
-import { AuthenticationService } from '../services/authentication.service';
-import { saveAs } from 'file-saver';
+import {Component, OnInit} from '@angular/core';
+import {AdminService} from '../services/admin.service';
+import {User} from '../models/models.user';
+import {AuthenticationService} from '../services/authentication.service';
+import {saveAs} from 'file-saver';
 
 @Component({
   selector: 'app-admin',

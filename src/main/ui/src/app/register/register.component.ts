@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { RegisterInfo } from '../models/models.register';
-import { RegisterService } from '../services/register.service';
-import { AlertService } from '../services/alert.service';
-import { AlertType } from '../models/models.alert';
+import {Router} from '@angular/router';
+import {first} from 'rxjs/operators';
+import {RegisterInfo} from '../models/models.register';
+import {RegisterService} from '../services/register.service';
+import {AlertService} from '../services/alert.service';
 
 
 @Component({
@@ -30,7 +29,6 @@ export class RegisterComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            console.log(data);
             this.alertService.success('Registration successful', true);
             this.router.navigate(['/login']);
           },

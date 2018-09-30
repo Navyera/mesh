@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { JobService } from '../services/job.service';
-import { Job } from '../models/models.job';
-import { JobStats } from '../models/models.job-stats';
-import { SafeUrl } from '@angular/platform-browser';
-import { UserService } from '../services/user.service';
-import { AlertService } from '../services/alert.service';
+import {Component, OnInit} from '@angular/core';
+import {JobService} from '../services/job.service';
+import {Job} from '../models/models.job';
+import {JobStats} from '../models/models.job-stats';
+import {SafeUrl} from '@angular/platform-browser';
+import {UserService} from '../services/user.service';
+import {AlertService} from '../services/alert.service';
 
 @Component({
   selector: 'app-jobs',

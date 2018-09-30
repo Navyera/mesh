@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginInfo } from '../models/models.login';
-import { AuthenticationService } from '../services/authentication.service';
-import { AlertService } from '../services/alert.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SelectMultipleControlValueAccessor } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {LoginInfo} from '../models/models.login';
+import {AuthenticationService} from '../services/authentication.service';
+import {AlertService} from '../services/alert.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
