@@ -1,11 +1,11 @@
 package com.linkedin.backend.knn;
 
-import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.entities.comment.Comment;
+import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.entities.post.Post;
 import com.linkedin.backend.entities.post.PostRepository;
-import com.linkedin.backend.entities.user.AppUserService;
 import com.linkedin.backend.entities.user.AppUser;
+import com.linkedin.backend.entities.user.AppUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -105,10 +105,8 @@ public class PostKNNService {
         for (Post post : user.getLikedPosts())
             myVector.set(index.get(post), 1.0);
 
-        for (Post post : user.getComments().stream().map(Comment::getPost).collect(Collectors.toList())) {
-            Integer idx = index.get(post);
-            myVector.set(idx, myVector.get(idx) + 1.0); //TODO GET +1 for any amount of comments.
-        }
+        for (Post post : user.getComments().stream().map(Comment::getPost).collect(Collectors.toList()))
+            myVector.set(index.get(post), 1.0);
 
         return myVector;
     }
