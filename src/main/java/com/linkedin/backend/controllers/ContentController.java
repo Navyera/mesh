@@ -1,12 +1,14 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.storage.*;
 import com.linkedin.backend.dto.ImageResourceDTO;
-import com.linkedin.backend.handlers.exception.FileNotFoundException;
-import com.linkedin.backend.handlers.exception.FileStorageException;
 import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.entities.user.AppUserService;
+import com.linkedin.backend.handlers.exception.FileNotFoundException;
+import com.linkedin.backend.handlers.exception.FileStorageException;
 import com.linkedin.backend.handlers.exception.UserNotFoundException;
+import com.linkedin.backend.storage.ContentService;
+import com.linkedin.backend.storage.File;
+import com.linkedin.backend.storage.FileStorageService;
 import com.linkedin.backend.utils.JSONStatus;
 import com.linkedin.backend.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Base64;
-
-import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 public class ContentController {
@@ -90,15 +90,6 @@ public class ContentController {
     }
 
     @GetMapping("/api/content/{id}")
-    public ImageResourceDTO getContent(@Valid @PathVariable Integer id) throws FileNotFoundException {
-        File file = contentService.findFileById(id);
-
-        byte[] fileContent = fileStorageService.loadFileAsByteArray(file.getContentId());
-
-        return new ImageResourceDTO(file.getMimeType(), Base64.getEncoder().encodeToString(fileContent));
-    }
-
-    @GetMapping("/api/content/test/{id}")
     public ResponseEntity<Resource> test(@Valid @PathVariable Integer id) throws FileNotFoundException {
         File file = contentService.findFileById(id);
 
