@@ -1,9 +1,9 @@
 package com.linkedin.backend.controllers;
 
-import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.dto.ProfileDTO;
 import com.linkedin.backend.dto.ProfileStatsDTO;
 import com.linkedin.backend.dto.ProfileViewDTO;
+import com.linkedin.backend.entities.connection.ConnectionService;
 import com.linkedin.backend.entities.skill.SkillService;
 import com.linkedin.backend.entities.user.AppUser;
 import com.linkedin.backend.entities.user.AppUserService;
@@ -41,8 +41,6 @@ public class ProfileController {
     public void updateMyProfile(@Valid @RequestHeader(value="Authorization") String auth, @Valid @RequestBody ProfileViewDTO profileViewDTO) throws UserNotFoundException {
         JWTUtils token = new JWTUtils(auth);
         AppUser user = appUserService.findUserById(token.getUserID());
-
-        //appUserService.clearUserSkills(user);
 
         ProfileDTO profileDTO = profileViewDTO.getProfileDTO();
 
